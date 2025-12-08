@@ -1,0 +1,117 @@
+/* ============================================
+   HEADER STYLING — BEM BASED
+   Matches modern soft UI from screenshot
+=============================================== */
+
+.header {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e5e5e5;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header__container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* --------------------------------------------
+   Branding Section
+--------------------------------------------- */
+
+.header__branding {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.header__logo {
+  width: 44px;
+  height: 44px;
+  background: #8b0016; /* deep Christmas red */
+  color: white;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.header__logo:hover {
+  background: #a4001a;
+}
+
+.header__logo-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.header__title-group {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.header__title {
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: -0.3px;
+}
+
+.header__subtitle {
+  margin-top: 1px;
+  font-size: 0.8rem;
+  color: #6d6d6d;
+}
+
+/* --------------------------------------------
+   User Section
+--------------------------------------------- */
+
+.header__user {
+  display: flex;
+  align-items: center;
+}
+
+.header__user-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  background: #f7f7f7;
+  border: 1px solid #dedede;
+  padding: 6px 14px;
+  border-radius: 999px;
+
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.header__user-info:hover {
+  background: #ffffff;
+  border-color: #bbbbbb;
+}
+
+.header__user-icon {
+  width: 18px;
+  height: 18px;
+  stroke: #555;
+}
+
+.header__username {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+}

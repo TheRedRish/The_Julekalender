@@ -3,6 +3,7 @@
 
   let email = "";
   let password = "";
+  let password2 = "";
   let error = "";
   let success = "";
 
@@ -26,11 +27,14 @@
   {#if error}<p class="error">{error}</p>{/if}
   {#if success}<p class="success">{success}</p>{/if}
 
-  <label>Email</label>
-  <input type="email" bind:value={email} required />
+  <label for="email">Email</label>
+  <input type="email" id="email" bind:value={email} required />
 
-  <label>Password</label>
-  <input type="password" bind:value={password} required minlength="6" />
+  <label for="password1">Password</label>
+  <input type="password" id="password1" bind:value={password} required minlength="6" />
+
+  <label for="password2">Password Confirmation</label>
+  <input type="password" id="password2" bind:value={password2} required minlength="6" />
 
   <button type="submit">Create User</button>
 </form>

@@ -1,4 +1,4 @@
-import { fetchJson } from '../../util/apiUtil.js';
+import { fetchJson } from '../util/apiUtil.js';
 
 export function registerUser(email, password) {
   return fetchJson('/api/auth/register', {
