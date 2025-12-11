@@ -1,7 +1,10 @@
 <script>
-  import { registerUser } from "../../api/authApi.js";
+  import { registerUser } from "../../../api/authApi.js";
+  import { user } from "../../../stores/userStore.js";
+  import { navigate } from "svelte-routing";
 
   let email = "";
+  let username = "";
   let password = "";
   let password2 = "";
   let error = "";
@@ -13,8 +16,9 @@
     success = "";
 
     try {
-      await registerUser(email, password);
+      user.set(await registerUser(email, username, password));
       success = "User registered successfully!";
+      navigate("/");
     } catch (err) {
       error = err.message || "Registration failed.";
     }
@@ -30,11 +34,26 @@
   <label for="email">Email</label>
   <input type="email" id="email" bind:value={email} required />
 
+  <label for="username">Username</label>
+  <input type="text" id="username" bind:value={username} required />
+
   <label for="password1">Password</label>
-  <input type="password" id="password1" bind:value={password} required minlength="6" />
+  <input
+    type="password"
+    id="password1"
+    bind:value={password}
+    required
+    minlength="6"
+  />
 
   <label for="password2">Password Confirmation</label>
-  <input type="password" id="password2" bind:value={password2} required minlength="6" />
+  <input
+    type="password"
+    id="password2"
+    bind:value={password2}
+    required
+    minlength="6"
+  />
 
   <button type="submit">Create User</button>
 </form>

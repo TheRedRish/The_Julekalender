@@ -3,30 +3,35 @@ import { sendWelcomeEmail, sendPasswordResetEmail } from '../util/mailer.js';
 import { authGuard } from '../util/authGuard.js';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-import { getUserByEmail, getUserById, createUser, updateUserPassword } from '../database/user/user.js';
+import { getUserByEmail, getUserByUsername, getUserById, createUser, updateUserPassword } from '../database/user/user.js';
 import { recordLoginEvent } from '../database/login/login.js';
 
 const router = Router();
 
 router.post('/api/auth/register', async (req, res) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
-        return res.status(400).send({ error: 'Email and password are required' });
+    const { email, username, password } = req.body;
+    if (!email || !password || !username) {
+        return res.status(400).send({ error: 'Email, username and password are required' });
     }
 
     try {
-        const existingUser = await getUserByEmail(email);
+        const existingUserEmail = await getUserByEmail(email);
+        if (existingUserEmail) {
+            return res.status(409).send({ error: 'Email already exists' });
+        }
+
+        const existingUser = await getUserByUsername(username);
         if (existingUser) {
-            return res.status(409).send({ error: 'User already exists' });
+            return res.status(409).send({ error: 'Username already exists' });
         }
 
         const passwordHash = await bcrypt.hash(password, 12);
-        const user = await createUser(email, passwordHash);
+        const user = await createUser(email, username, passwordHash);
         recordLoginEvent(user.id, 'signup');
         sendWelcomeEmail(email);
-        req.session.userId = user.id;
+        req.session.user = { id: user.id, email: user.email, username: user.username };
 
-        res.status(201).send({ user });
+        res.status(201).send(req.session.user);
     } catch (error) {
         console.error('Registration failed', error);
         res.status(500).send({ error: 'Failed to register' });
@@ -51,9 +56,9 @@ router.post('/api/auth/login', async (req, res) => {
             return res.status(401).send({ error: 'Invalid credentials' });
         }
 
-        req.session.userId = user.id;
+        req.session.user = { id: user.id, email: user.email, username: user.username };
         recordLoginEvent(user.id, 'login');
-        res.send({ user: { id: user.id, email: user.email, created_at: user.created_at } });
+        res.send(req.session.user);
     } catch (error) {
         console.error('Login failed', error);
         res.status(500).send({ error: 'Failed to login' });
@@ -87,7 +92,7 @@ router.post('/api/auth/forgot', async (req, res) => {
 
 router.post('/api/auth/logout', (req, res) => {
     req.session.destroy(() => {
-        res.send({ message: 'Logged out' });
+        res.send({ message: 'Logout successful' });
     });
 });
 

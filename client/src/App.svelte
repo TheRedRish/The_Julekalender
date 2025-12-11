@@ -1,18 +1,15 @@
 <script>
   import { Route, Router, Link } from "svelte-routing";
-  import LoginForm from "./components/LoginForm/LoginForm.svelte";
-  import RegisterForm from "./components/RegisterForm/RegisterForm.svelte";
-  import ForgotPasswordForm from "./components/ForgotPasswordForm/ForgotPasswordForm.svelte";
+  import LoginForm from "./components/auth/LoginForm/LoginForm.svelte";
+  import RegisterForm from "./components/auth/RegisterForm/RegisterForm.svelte";
+  import ForgotPasswordForm from "./components/auth/ForgotPasswordForm/ForgotPasswordForm.svelte";
   import Header from "./components/Header/Header.svelte";
-
-
 </script>
 
 <Router>
   <Header
     title="The Julekalender"
     subtitle="The Christmas Calendar"
-    username="Username"
   />
   <div>
     <Route path="/login">

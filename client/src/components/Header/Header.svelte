@@ -1,6 +1,22 @@
 <script>
   import { Link } from "svelte-routing";
-  const { title, subtitle, user } = $props();
+  import { user } from "../../stores/userStore.js";
+  import { navigate } from "svelte-routing";
+  import { logoutUser } from "../../api/authApi.js";
+
+  const { title, subtitle } = $props();
+
+  async function handleLogout(event) {
+    event.preventDefault();
+
+    try {
+      await logoutUser();
+      user.set(null);
+      navigate("/");
+    } catch (err) {
+      // TODO show error with toast
+    }
+  }
 </script>
 
 <header class="header">
@@ -29,7 +45,7 @@
       </div>
     </div>
 
-    {#if user}
+    {#if $user}
       <div class="header__user">
         <Link to="/profile" class="header__user-info">
           <svg
@@ -46,8 +62,11 @@
               d="M5.121 17.804A8 8 0 1118.878 6.196 8 8 0 015.12 17.804z"
             />
           </svg>
-          <span class="header__username">{user.username}</span>
+          <span class="header__username">{$user.username}</span>
         </Link>
+        <form onsubmit={handleLogout}>
+          <button type="submit" class="header__logout">Logout</button>
+        </form>
       </div>
     {:else}
       <div class="header__links">

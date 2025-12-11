@@ -1,9 +1,9 @@
 import { fetchJson } from '../util/apiUtil.js';
 
-export function registerUser(email, password) {
+export function registerUser(email, username, password) {
   return fetchJson('/api/auth/register', {
     method: 'POST',
-    body: JSON.stringify({ email, password })
+    body: JSON.stringify({ email, username, password })
   });
 }
 

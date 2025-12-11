@@ -74,6 +74,25 @@
   color: #6d6d6d;
 }
 
+.header__logout-form {
+  margin-left: 10px;
+}
+
+.header__logout {
+  background: #b30000;
+  color: white;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+
+.header__logout:hover {
+  background: #cc0000;
+}
+
 /* --------------------------------------------
    User Section
 --------------------------------------------- */

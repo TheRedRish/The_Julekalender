@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon src/app.ts",
     "start": "node src/app.js",
-    "createDatabase": "node ./src/database/createDatabase.js"
+    "createDatabase": "node ./src/database/createDatabase.js",
+    "updateDatabase": "node ./src/database/createDatabase.js --delete"
   },
   "keywords": [],
   "author": "",

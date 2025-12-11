@@ -1,8 +1,10 @@
 <script>
-  import { loginUser } from "../../api/authApi.js";
+  import { loginUser } from "../../../api/authApi.js";
+  import { user } from "../../../stores/userStore.js";
+  import { navigate } from "svelte-routing";
 
-  let email = "";
-  let password = "";
+  let email = "rune@roeddik.net";
+  let password = "123456";
   let error = "";
   let success = "";
 
@@ -12,8 +14,9 @@
     success = "";
 
     try {
-      await loginUser(email, password);
+      user.set(await loginUser(email, password));
       success = "Login successful!";
+      navigate("/");
     } catch (err) {
       error = err.message || "Login failed.";
     }
