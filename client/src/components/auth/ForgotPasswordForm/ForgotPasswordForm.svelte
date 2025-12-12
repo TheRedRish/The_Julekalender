@@ -25,8 +25,8 @@
   {#if error}<p class="error">{error}</p>{/if}
   {#if success}<p class="success">{success}</p>{/if}
 
-  <label>Email</label>
-  <input type="email" bind:value={email} required />
+  <label for="email">Email</label>
+  <input type="email" id="email" bind:value={email} required />
 
   <button type="submit">Send Reset Link</button>
 </form>

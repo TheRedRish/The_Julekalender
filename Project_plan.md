@@ -255,86 +255,86 @@ Alt foregår live via socket-lobbies med timers, achievements, inventory og roll
 
 # 📁 Projektstruktur (komplet)
 
-project/
-│
-├── src/
-│ ├── app.js
-│ ├── server.js
-│ ├── config/
-│ │ ├── env.js
-│ │ └── database.js
-│ │
-│ ├── models/
-│ │ ├── User.js
-│ │ ├── Lobby.js
-│ │ ├── LobbyParticipant.js
-│ │ ├── LobbyState.js
-│ │ ├── Item.js
-│ │ ├── SnitteTimer.js
-│ │ ├── Achievement.js
-│ │ ├── UserAchievement.js
-│ │ └── ActionLog.js
-│ │
-│ ├── controllers/
-│ │ ├── authController.js
-│ │ ├── lobbyController.js
-│ │ ├── itemController.js
-│ │ ├── actionController.js
-│ │ ├── achievementController.js
-│ │ └── userController.js
-│ │
-│ ├── services/
-│ │ ├── authService.js
-│ │ ├── lobbyService.js
-│ │ ├── inventoryService.js
-│ │ ├── actionService.js
-│ │ ├── snitteService.js
-│ │ ├── bookService.js
-│ │ ├── achievementService.js
-│ │ └── timerService.js
-│ │
-│ ├── routes/
-│ │ ├── authRoutes.js
-│ │ ├── lobbyRoutes.js
-│ │ ├── itemRoutes.js
-│ │ ├── actionRoutes.js
-│ │ ├── achievementRoutes.js
-│ │ └── userRoutes.js
-│ │
-│ ├── sockets/
-│ │ ├── lobbySocket.js
-│ │ ├── snitteTimerSocket.js
-│ │ ├── eventTypes.js
-│ │ └── socketAuth.js
-│ │
-│ ├── middleware/
-│ │ ├── authMiddleware.js
-│ │ ├── roleMiddleware.js
-│ │ └── errorMiddleware.js
-│ │
-│ ├── utils/
-│ │ ├── logger.js
-│ │ ├── response.js
-│ │ ├── validation.js
-│ │ ├── missionPhases.js
-│ │ ├── itemTypes.js
-│ │ ├── achievementList.js
-│ │ └── randomEvents.js
-│ │
-│ └── db/
-│ ├── prisma.schema
-│ ├── migrations/
-│ └── seed.js
-│
-├── public/
-│ ├── css/
-│ ├── js/
-│ ├── images/
-│ └── index.html
-│
-├── package.json
-├── .env
-└── README.md
+project/  
+│  
+├── src/  
+│ ├── app.js  
+│ ├── server.js  
+│ ├── config/  
+│ │ ├── env.js  
+│ │ └── database.js  
+│ │  
+│ ├── models/  
+│ │ ├── User.js  
+│ │ ├── Lobby.js  
+│ │ ├── LobbyParticipant.js  
+│ │ ├── LobbyState.js  
+│ │ ├── Item.js  
+│ │ ├── SnitteTimer.js  
+│ │ ├── Achievement.js  
+│ │ ├── UserAchievement.js  
+│ │ └── ActionLog.js  
+│ │  
+│ ├── controllers/  
+│ │ ├── authController.js  
+│ │ ├── lobbyController.js  
+│ │ ├── itemController.js  
+│ │ ├── actionController.js  
+│ │ ├── achievementController.js  
+│ │ └── userController.js  
+│ │  
+│ ├── services/  
+│ │ ├── authService.js  
+│ │ ├── lobbyService.js  
+│ │ ├── inventoryService.js  
+│ │ ├── actionService.js  
+│ │ ├── snitteService.js  
+│ │ ├── bookService.js  
+│ │ ├── achievementService.js  
+│ │ └── timerService.js  
+│ │  
+│ ├── routes/  
+│ │ ├── authRoutes.js  
+│ │ ├── lobbyRoutes.js  
+│ │ ├── itemRoutes.js  
+│ │ ├── actionRoutes.js  
+│ │ ├── achievementRoutes.js  
+│ │ └── userRoutes.js  
+│ │  
+│ ├── sockets/  
+│ │ ├── lobbySocket.js  
+│ │ ├── snitteTimerSocket.js  
+│ │ ├── eventTypes.js  
+│ │ └── socketAuth.js  
+│ │  
+│ ├── middleware/  
+│ │ ├── authMiddleware.js  
+│ │ ├── roleMiddleware.js  
+│ │ └── errorMiddleware.js  
+│ │  
+│ ├── utils/  
+│ │ ├── logger.js  
+│ │ ├── response.js  
+│ │ ├── validation.js  
+│ │ ├── missionPhases.js  
+│ │ ├── itemTypes.js  
+│ │ ├── achievementList.js  
+│ │ └── randomEvents.js  
+│ │  
+│ └── db/  
+│ ├── prisma.schema  
+│ ├── migrations/  
+│ └── seed.js  
+│  
+├── public/  
+│ ├── css/  
+│ ├── js/  
+│ ├── images/  
+│ └── index.html  
+│  
+├── package.json  
+├── .env  
+└── README.md  
 
 ---
 
@@ -388,7 +388,7 @@ Live-opdatering af:
 - Achievements  
 - Events (fx “gynther_speaks_german”)  
 
-### 🧩 Middleware
+### 🧩 Middleware 
 - Token-validering  
 - Rolle-tjek (Fritz/Hansi/Gynther)  
 - Global fejl-håndtering  

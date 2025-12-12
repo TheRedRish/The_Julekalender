@@ -29,11 +29,11 @@
   {#if error}<p class="error">{error}</p>{/if}
   {#if success}<p class="success">{success}</p>{/if}
 
-  <label>Email</label>
-  <input type="email" bind:value={email} required />
+  <label for="email">Email</label>
+  <input type="email" id="email" bind:value={email} required />
 
-  <label>Password</label>
-  <input type="password" bind:value={password} required />
+  <label for="password">Password</label>
+  <input type="password" id="password" bind:value={password} required />
 
   <button type="submit">Login</button>
 </form>
