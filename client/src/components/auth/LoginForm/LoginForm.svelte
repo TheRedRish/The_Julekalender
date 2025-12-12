@@ -1,9 +1,9 @@
 <script>
-  import { loginUser } from "../../../api/authApi.js";
+  import { loginUser } from "../../../services/authService.js";
   import { user } from "../../../stores/userStore.js";
   import { navigate } from "svelte-routing";
 
-  let email = "rune@roeddik.net";
+  let email = "someRandom@email.com";
   let password = "123456";
   let error = "";
   let success = "";

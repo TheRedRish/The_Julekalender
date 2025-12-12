@@ -1,5 +1,5 @@
 <script>
-  import { registerUser } from "../../../api/authApi.js";
+  import { registerUser } from "../../../services/authService.js";
   import { user } from "../../../stores/userStore.js";
   import { navigate } from "svelte-routing";
 

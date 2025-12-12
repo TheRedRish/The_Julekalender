@@ -1,25 +1,18 @@
 <script>
   import { Route, Router, Link } from "svelte-routing";
-  import LoginForm from "./components/auth/LoginForm/LoginForm.svelte";
-  import RegisterForm from "./components/auth/RegisterForm/RegisterForm.svelte";
-  import ForgotPasswordForm from "./components/auth/ForgotPasswordForm/ForgotPasswordForm.svelte";
   import Header from "./components/Header/Header.svelte";
+  import { routes } from "./routes/routes.js";
+  import LobbyOverview from "./pages/LobbyOverview/LobbyOverview.svelte";
 </script>
 
 <Router>
   <Header
-    title="The Julekalender"
-    subtitle="The Christmas Calendar"
+    title="Nissemissionen"
+    subtitle="Christmas Game Lobby"
   />
-  <div>
-    <Route path="/login">
-      <LoginForm />
+    {#each routes as { path, component }}
+    <Route path={path}>
+      <svelte:component this={component} />
     </Route>
-    <Route path="/register">
-      <RegisterForm />
-    </Route>
-    <Route path="/forgot-password">
-      <ForgotPasswordForm />
-    </Route>
-  </div>
+  {/each}
 </Router>

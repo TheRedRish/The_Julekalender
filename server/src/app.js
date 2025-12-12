@@ -12,6 +12,7 @@ app.use(cors({
   origin: FRONTEND_ORIGIN,
   credentials: true
 }));
+
 app.use(express.json());
 
 app.use(
@@ -23,10 +24,6 @@ app.use(
 );
 
 app.use(authRouter);
-
-app.get("/", (req, res) => {
-  res.send("Server is running");
-});
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log("Server running on port ", PORT));

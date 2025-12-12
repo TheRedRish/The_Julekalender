@@ -1,19 +1,24 @@
 <script>
   import { Link } from "svelte-routing";
-  import { user } from "../../stores/userStore.js";
   import { navigate } from "svelte-routing";
-  import { logoutUser } from "../../api/authApi.js";
+  import { user } from "../../stores/userStore.js";
+  import { logoutUser } from "../../services/authService.js";
 
-  const { title, subtitle } = $props();
+  const {
+    title,
+    subtitle,
+    logoLink = "/",
+    profileLink = "/profile",
+  } = $props();
 
   async function handleLogout(event) {
     event.preventDefault();
-
     try {
       await logoutUser();
       user.set(null);
       navigate("/");
     } catch (err) {
+      console.log(err);
       // TODO show error with toast
     }
   }
@@ -22,7 +27,7 @@
 <header class="header">
   <div class="header__container">
     <div class="header__branding">
-      <Link to="/" class="header__logo">
+      <Link to={logoLink} class="header__logo">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="header__logo-icon"
@@ -46,28 +51,20 @@
     </div>
 
     {#if $user}
-      <div class="header__user">
-        <Link to="/profile" class="header__user-info">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="header__user-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M5.121 17.804A8 8 0 1118.878 6.196 8 8 0 015.12 17.804z"
-            />
-          </svg>
-          <span class="header__username">{$user.username}</span>
-        </Link>
-        <form onsubmit={handleLogout}>
-          <button type="submit" class="header__logout">Logout</button>
-        </form>
-      </div>
+    <div class="header__user">
+      <Link to={profileLink} class="header__user-pill ">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="header__user-icon"
+          ><path
+            fill="#000000"
+            d="M144 128a80 80 0 1 1 160 0 80 80 0 1 1 -160 0zm208 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0zM48 480c0-70.7 57.3-128 128-128l96 0c70.7 0 128 57.3 128 128l0 8c0 13.3 10.7 24 24 24s24-10.7 24-24l0-8c0-97.2-78.8-176-176-176l-96 0C78.8 304 0 382.8 0 480l0 8c0 13.3 10.7 24 24 24s24-10.7 24-24l0-8z"
+          /></svg
+        >
+        <span class="header__username">{$user.username}</span>
+      </Link>
+      <form onsubmit={handleLogout}>
+        <button type="submit" class="header__logout">Logout</button>
+      </form>
+    </div>
     {:else}
       <div class="header__links">
         <Link to="/login" class="header__link">Login</Link>
