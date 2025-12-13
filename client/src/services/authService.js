@@ -1,6 +1,6 @@
 import { fetchJson } from '../util/apiUtil.js';
 import { userStore } from '../stores/userStore.js';
-import { navigate } from 'svelte-routing';
+import { authLoadingStore } from '../stores/loadingStore.js';
 
 // TODO HANDLE ERRORS
 
@@ -39,15 +39,26 @@ export async function logoutUser() {
 }
 
 export async function checkSession() {
-  const response = await fetchJson('/api/auth/session', {}, true)
+  const minTimeout = 500;
+  const startTime = Date.now();
 
-  if (response.status === 200) {
-    const userStorage = localStorage.getItem("user");
-    const user = JSON.parse(userStorage);
-    userStore.set(user);
-  } else if (response.status === 401) {
-    localStorage.removeItem("user");
-    userStore.set(null);
+  authLoadingStore.set(true);
+
+  try {
+    const response = await fetchJson('/api/auth/session', {}, true);
+
+    if (response.ok) {
+      const user = await response.json();
+      handleUserLogin(user.user);
+    } else {
+      handleUserLogout();
+    }
+  } catch (error) {
+    handleUserLogout();
+  } finally {
+    const endTime = Date.now();
+    const timeout = Math.max(minTimeout - (endTime - startTime), 0);
+    setTimeout(() => authLoadingStore.set(false), timeout);
   }
 }
 

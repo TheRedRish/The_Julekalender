@@ -1,5 +1,4 @@
 <script>
-  import { onMount } from "svelte";
   import CreateLobbyCard from "../../components/lobby/CreateLobbyCard/CreateLobbyCard.svelte";
   import LobbyList from "../../components/lobby/LobbyCardList.svelte";
   import Button from "../../components/ui/Button.svelte";
@@ -10,10 +9,7 @@
   let showCreateLobby = false;
   let showLoginModal = false;
 
-  if (!$userStore) {
-    console.log("User not logged in");
-    showLoginModal = true;
-  }
+  $: showLoginModal = $userStore === null;
 </script>
 
 <section class="lobby-overview page">
