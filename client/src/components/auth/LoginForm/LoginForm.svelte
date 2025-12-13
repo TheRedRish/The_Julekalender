@@ -1,6 +1,5 @@
 <script>
   import { loginUser } from "../../../services/authService.js";
-  import { user } from "../../../stores/userStore.js";
   import { navigate } from "svelte-routing";
 
   let email = "someRandom@email.com";
@@ -14,7 +13,7 @@
     success = "";
 
     try {
-      user.set(await loginUser(email, password));
+      await loginUser(email, password);
       success = "Login successful!";
       navigate("/");
     } catch (err) {

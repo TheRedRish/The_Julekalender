@@ -1,6 +1,5 @@
 <script>
   import { registerUser } from "../../../services/authService.js";
-  import { user } from "../../../stores/userStore.js";
   import { navigate } from "svelte-routing";
 
   let email = "";
@@ -16,7 +15,7 @@
     success = "";
 
     try {
-      user.set(await registerUser(email, username, password));
+      await registerUser(email, username, password);
       success = "User registered successfully!";
       navigate("/");
     } catch (err) {

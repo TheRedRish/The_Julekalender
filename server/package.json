@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "dev": "nodemon src/app.ts",
+    "dev": "nodemon src/app.js",
     "start": "node src/app.js",
     "createDatabase": "node ./src/database/createDatabase.js",
     "updateDatabase": "node ./src/database/createDatabase.js --delete"
@@ -19,6 +19,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "express-session": "^1.18.2",
+    "socket.io": "^4.8.1",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
   }

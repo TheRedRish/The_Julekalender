@@ -1,6 +1,6 @@
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
 
-export async function fetchJson(path, options = {}) {
+export async function fetchJson(path, options = {}, getResponse = false) {
     const response = await fetch(`${API_BASE}${path}`, {
         credentials: 'include',
         headers: {
@@ -10,9 +10,14 @@ export async function fetchJson(path, options = {}) {
         ...options
     });
 
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) {
-        throw new Error(data.error || 'Request failed');
+    if (getResponse) {
+        return response;
     }
+
+    if (!response.ok) {
+        throw new Error(response.statusText || 'Request failed');
+    }
+
+    const data = await response.json();
     return data;
 }

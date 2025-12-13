@@ -1,14 +1,37 @@
 <script>
-  import LobbyList from "../../components/lobby/LobbyList.svelte";
+  import { onMount } from "svelte";
+  import CreateLobbyCard from "../../components/lobby/CreateLobbyCard/CreateLobbyCard.svelte";
+  import LobbyList from "../../components/lobby/LobbyCardList.svelte";
   import Button from "../../components/ui/Button.svelte";
+  import Modal from "../../components/ui/Modal/Modal.svelte";
+  import PleaseLoginContent from "../../components/PleaseLoginContent/PleaseLoginContent.svelte";
+  import { userStore } from "../../stores/userStore";
 
-  function createLobby() {}
+  let showCreateLobby = false;
+  let showLoginModal = false;
+
+  if (!$userStore) {
+    console.log("User not logged in");
+    showLoginModal = true;
+  }
 </script>
 
-<section class="lobby-overview">
+<section class="lobby-overview page">
   <div class="lobby-overview__cta">
-    <Button text="Create New Lobby" icon="+" onClick={createLobby} />
+    <Button
+      text="Create New Lobby"
+      icon="+"
+      onClick={() => (showCreateLobby = true)}
+    />
   </div>
+
+  <Modal open={showCreateLobby} onClose={() => (showCreateLobby = false)}>
+    <CreateLobbyCard />
+  </Modal>
+
+  <Modal open={showLoginModal} onClose={() => (showLoginModal = false)} closable={false}>
+    <PleaseLoginContent />
+  </Modal>
 
   <h2 class="lobby-overview__title">Available Lobbies</h2>
 

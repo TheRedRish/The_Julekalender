@@ -15,15 +15,48 @@ app.use(cors({
 
 app.use(express.json());
 
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET || "default-secret",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
+const sessionMiddleware = session({
+  secret: process.env.SESSION_SECRET || "default-secret",
+  resave: false,
+  saveUninitialized: false,
+});
+
+app.use(sessionMiddleware);
 
 app.use(authRouter);
 
+import http from "http";
+import { Server } from "socket.io";
+import { registerLobbySocket } from "./sockets/lobbysocket.js";
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: FRONTEND_ORIGIN,
+    credentials: true,
+  }
+});
+
+io.engine.use(sessionMiddleware);
+
+io.use((socket, next) => {
+  try {
+    const user = socket.request.session?.user;
+
+    if (!user) return next(new Error("Unauthorized"));
+
+    socket.user = user;
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
+io.on("connection", (socket) => {
+  console.log("Client connected ", socket.id);
+  // registerAuthSocket(io, socket);
+  registerLobbySocket(io, socket);
+});
+
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => console.log("Server running on port ", PORT));
+server.listen(PORT, () => console.log("Server running on port ", PORT));

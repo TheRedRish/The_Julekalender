@@ -1,7 +1,7 @@
 <script>
-  import Badge from "../ui/Badge.svelte";
-  import Button from "../ui/Button.svelte";
-  import Avatar from "../ui/Avatar.svelte";
+  import Badge from "../../ui/Badge.svelte";
+  import Button from "../../ui/Button.svelte";
+  import Avatar from "../../ui/Avatar.svelte";
   import { navigate } from "svelte-routing";
 
   let { lobby } = $props();

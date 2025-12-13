@@ -3,8 +3,8 @@ import { sendWelcomeEmail, sendPasswordResetEmail } from '../util/mailer.js';
 import { authGuard } from '../util/authGuard.js';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-import { getUserByEmail, getUserByUsername, getUserById, createUser, updateUserPassword } from '../database/user/user.js';
-import { recordLoginEvent } from '../database/login/login.js';
+import { getUserByEmail, getUserByUsername, getUserById, createUser, updateUserPassword } from '../database/queries/user/user.js';
+import { recordLoginEvent } from '../database/queries/login/login.js';
 
 const router = Router();
 
@@ -96,9 +96,9 @@ router.post('/api/auth/logout', (req, res) => {
     });
 });
 
-router.get('/api/auth/session', authGuard, async (req, res) => {
+router.get('/api/auth/session', authGuard, async (req, res) => { //TODO Do you still need this?
     try {
-        const user = await getUserById(req.session.userId);
+        const user = await getUserById(req.session.user.id);
         res.send({ user });
     } catch (error) {
         console.error('Fetching user failed', error);
