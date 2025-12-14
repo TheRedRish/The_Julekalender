@@ -45,7 +45,6 @@ io.use((socket, next) => {
 
     if (!user) return next(new Error("Unauthorized"));
 
-    socket.user = user;
     next();
   } catch (err) {
     next(err);

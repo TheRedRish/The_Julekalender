@@ -3,6 +3,8 @@
   import Button from "../../ui/Button.svelte";
   import Avatar from "../../ui/Avatar.svelte";
   import { navigate } from "svelte-routing";
+  import { get } from "svelte/store";
+  import { getInitials } from "../../../util/stringUtil";
 
   let { lobby } = $props();
 
@@ -27,7 +29,7 @@
   <div class="lobby-card__players">
     <div class="lobby-card__avatars">
       {#each lobby.players as player}
-        <Avatar label={player.name} />
+        <Avatar label={getInitials(player.username)} />
       {/each}
 
       {#each Array(3 - lobby.players.length) as _}

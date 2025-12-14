@@ -6,6 +6,7 @@
   import { checkSession } from "./services/authService.js";
   import LoadingPage from "./pages/LoadingPage/LoadingPage.svelte";
   import { authLoadingStore } from "./stores/loadingStore.js";
+  import { userStore } from "./stores/userStore";
 
   onMount(async () => {
     await checkSession();

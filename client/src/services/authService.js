@@ -1,6 +1,7 @@
 import { fetchJson } from '../util/apiUtil.js';
 import { userStore } from '../stores/userStore.js';
 import { authLoadingStore } from '../stores/loadingStore.js';
+import { connectSocket, disconnectSocket } from '../sockets/socket.js';
 
 // TODO HANDLE ERRORS
 
@@ -63,11 +64,13 @@ export async function checkSession() {
 }
 
 function handleUserLogin(user) {
+  connectSocket();
   userStore.set(user);
   localStorage.setItem('user', JSON.stringify(user));
 }
 
 function handleUserLogout() {
+  disconnectSocket();
   userStore.set(null);
   localStorage.removeItem('user');
 }

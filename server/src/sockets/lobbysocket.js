@@ -6,7 +6,22 @@ import {
     leaveLobby
 } from "../services/lobbyService.js";
 
+// Track pending disconnect cleanups per user so we can tell a quick reload
+// from actually leaving the site. A short grace period prevents accidental
+// lobby cleanup when the user refreshes.
+const disconnectTimers = new Map();
+const DISCONNECT_GRACE_MS = 5000;
+
 export function registerLobbySocket(io, socket) {
+    const userId = socket.request.session?.user.id;
+
+    console.log("Registering lobby socket for user", userId);
+    const pendingDisconnect = disconnectTimers.get(userId);
+    if (pendingDisconnect) {
+        console.log("Clearing pending disconnect for user", userId);
+        clearTimeout(pendingDisconnect);
+        disconnectTimers.delete(userId);
+    }
 
     (async () => {
         const lobbies = await getAllLobbies();
@@ -17,7 +32,7 @@ export function registerLobbySocket(io, socket) {
         const { name, minPlayers, maxPlayers, password } = data;
 
         const lobby = await createLobby(
-            socket.user,
+            socket.request.session?.user,
             name,
             minPlayers,
             maxPlayers,
@@ -33,7 +48,7 @@ export function registerLobbySocket(io, socket) {
     });
 
     socket.on("lobby:join", async (lobbyId) => {
-        const lobby = await joinLobby(lobbyId, socket.user);
+        const lobby = await joinLobby(lobbyId, socket.request.session?.user);
         if (!lobby) return;
 
         socket.join(lobbyId);
@@ -45,7 +60,7 @@ export function registerLobbySocket(io, socket) {
     });
 
     socket.on("lobby:leave", async (lobbyId) => {
-        await leaveLobby(lobbyId, socket.user.id);
+        await leaveLobby(lobbyId, socket.request.session?.user.id);
 
         socket.leave(lobbyId);
 
@@ -57,16 +72,30 @@ export function registerLobbySocket(io, socket) {
     });
 
     socket.on("disconnect", async () => {
-        const lobbies = await getAllLobbies();
+        const timer = setTimeout(async () => {
+            disconnectTimers.delete(userId);
 
-        for (const lobby of lobbies) {
-            await leaveLobby(lobby.id, socket.user.id);
+            // If any socket for this user is still connected, skip cleanup.
+            const hasActiveSocket = Array.from(io.sockets.sockets.values())
+                .some((s) => s.user?.id === userId);
+            if (hasActiveSocket) {
+                console.log("Skipping disconnect cleanup for user", userId);
+                return;
+            }
+            console.log("Cleaning up lobbies for user", userId);
+            const lobbies = await getAllLobbies();
 
-            const updatedLobby = await getLobby(lobby.id);
-            io.to(lobby.id).emit("lobby:update", updatedLobby);
-        }
+            for (const lobby of lobbies) {
+                await leaveLobby(lobby.id, userId);
 
-        const updatedLobbies = await getAllLobbies();
-        io.emit("lobby:list", updatedLobbies);
+                const updatedLobby = await getLobby(lobby.id);
+                io.to(lobby.id).emit("lobby:update", updatedLobby);
+            }
+
+            const updatedLobbies = await getAllLobbies();
+            io.emit("lobby:list", updatedLobbies);
+        }, DISCONNECT_GRACE_MS);
+
+        disconnectTimers.set(userId, timer);
     });
 }

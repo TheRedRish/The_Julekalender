@@ -1,15 +1,19 @@
 import { getSocket } from "./socket.js";
 
-const socket = getSocket();
-
 export function createLobby() {
+    const socket = getSocket();
+    if (!socket) return;
     socket.emit("lobby:create");
 }
 
 export function joinLobby(lobbyId) {
+    const socket = getSocket();
+    if (!socket) return;
     socket.emit("lobby:join", lobbyId);
 }
 
 export function leaveLobby(lobbyId) {
+    const socket = getSocket();
+    if (!socket) return;
     socket.emit("lobby:leave", lobbyId);
 }
