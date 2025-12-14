@@ -15,10 +15,8 @@ const DISCONNECT_GRACE_MS = 5000;
 export function registerLobbySocket(io, socket) {
     const userId = socket.request.session?.user.id;
 
-    console.log("Registering lobby socket for user", userId);
     const pendingDisconnect = disconnectTimers.get(userId);
     if (pendingDisconnect) {
-        console.log("Clearing pending disconnect for user", userId);
         clearTimeout(pendingDisconnect);
         disconnectTimers.delete(userId);
     }
@@ -79,10 +77,8 @@ export function registerLobbySocket(io, socket) {
             const hasActiveSocket = Array.from(io.sockets.sockets.values())
                 .some((s) => s.user?.id === userId);
             if (hasActiveSocket) {
-                console.log("Skipping disconnect cleanup for user", userId);
                 return;
             }
-            console.log("Cleaning up lobbies for user", userId);
             const lobbies = await getAllLobbies();
 
             for (const lobby of lobbies) {

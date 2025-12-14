@@ -4,6 +4,7 @@
   import { userStore } from "../../stores/userStore.js";
   import { logoutUser } from "../../services/authService.js";
   import { authLoadingStore } from "../../stores/loadingStore.js";
+  import { toastError } from "../../util/toast.js";
 
   const {
     title,
@@ -18,8 +19,7 @@
       await logoutUser();
       navigate("/");
     } catch (err) {
-      console.log(err);
-      // TODO show error with toast
+      toastError("Logout failed. Please try again.");
     }
   }
 </script>

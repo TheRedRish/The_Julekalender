@@ -52,8 +52,6 @@ io.use((socket, next) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("Client connected ", socket.id);
-  // registerAuthSocket(io, socket);
   registerLobbySocket(io, socket);
 });
 
