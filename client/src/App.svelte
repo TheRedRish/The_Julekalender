@@ -6,7 +6,6 @@
   import { checkSession } from "./services/authService.js";
   import LoadingPage from "./pages/LoadingPage/LoadingPage.svelte";
   import { authLoadingStore } from "./stores/loadingStore.js";
-  import { userStore } from "./stores/userStore";
 
   onMount(async () => {
     await checkSession();
@@ -18,9 +17,9 @@
 {:else}
   <Router>
     <Header title="Nissemissionen" subtitle="Christmas Game Lobby" />
-    {#each routes as { path, component }}
-      <Route {path}>
-        <svelte:component this={component} />
+    {#each routes as { path, Component }}
+      <Route {path} let:params>
+        <Component {params} />
       </Route>
     {/each}
   </Router>

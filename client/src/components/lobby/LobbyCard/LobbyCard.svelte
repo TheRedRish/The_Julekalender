@@ -6,7 +6,7 @@
   import { get } from "svelte/store";
   import { getInitials } from "../../../util/stringUtil";
 
-  let { lobby } = $props();
+  const { lobby } = $props();
 
   function viewLobby() {
     navigate(`/lobby/${lobby.id}`);
@@ -32,7 +32,7 @@
         <Avatar label={getInitials(player.username)} />
       {/each}
 
-      {#each Array(3 - lobby.players.length) as _}
+      {#each { length: 3 - lobby.players.length }}
         <Avatar label="?" empty />
       {/each}
     </div>

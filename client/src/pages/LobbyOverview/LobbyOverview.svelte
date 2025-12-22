@@ -6,7 +6,7 @@
   import PleaseLoginContent from "../../components/PleaseLoginContent/PleaseLoginContent.svelte";
   import { userStore } from "../../stores/userStore";
 
-  let showCreateLobby = false;
+  let showCreateLobbyModal = false;
   let showLoginModal = false;
 
   $: showLoginModal = $userStore === null;
@@ -17,15 +17,22 @@
     <Button
       text="Create New Lobby"
       icon="+"
-      onClick={() => (showCreateLobby = true)}
+      onClick={() => (showCreateLobbyModal = true)}
     />
   </div>
 
-  <Modal open={showCreateLobby} onClose={() => (showCreateLobby = false)}>
+  <Modal
+    open={showCreateLobbyModal}
+    onClose={() => (showCreateLobbyModal = false)}
+  >
     <CreateLobbyCard />
   </Modal>
 
-  <Modal open={showLoginModal} onClose={() => (showLoginModal = false)} closable={false}>
+  <Modal
+    open={showLoginModal}
+    onClose={() => (showLoginModal = false)}
+    closable={false}
+  >
     <PleaseLoginContent />
   </Modal>
 

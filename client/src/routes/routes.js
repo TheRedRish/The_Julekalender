@@ -3,22 +3,28 @@ import ForgotPasswordForm from "../components/auth/ForgotPasswordForm/ForgotPass
 import LoginForm from "../components/auth/LoginForm/LoginForm.svelte";
 import RegisterForm from "../components/auth/RegisterForm/RegisterForm.svelte";
 import LobbyOverview from "../pages/LobbyOverview/LobbyOverview.svelte";
+import LobbyPage from "../pages/LobbyPage/LobbyPage.svelte";
 
 export const routes = [
     {
         path: "/",
-        component: LobbyOverview
+        Component: LobbyOverview
     },
     {
         path: "/login",
-        component: LoginForm
+        Component: LoginForm
     },
     {
         path: "/register",
-        component: RegisterForm
+        Component: RegisterForm
     },
     {
         path: "/forgot-password",
-        component: ForgotPasswordForm
+        Component: ForgotPasswordForm
+    },
+    {
+        path: "/lobby/:id",
+        Component: LobbyPage,
+        withParams: true
     }
 ];

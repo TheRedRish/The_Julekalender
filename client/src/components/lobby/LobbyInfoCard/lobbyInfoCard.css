@@ -1,0 +1,42 @@
+.lobby-info {
+  background: #ffffff;
+  border: 1px solid #e1e1e1;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow-xs);
+}
+
+.lobby-info__title {
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+}
+
+.lobby-info__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.lobby-info__item {
+  padding: 12px;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lobby-info__label {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.lobby-info__value {
+  font-weight: 600;
+}
+
+.lobby-info__value--mono {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  letter-spacing: 0.02em;
+}

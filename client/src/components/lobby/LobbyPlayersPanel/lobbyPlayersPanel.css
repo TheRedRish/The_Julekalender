@@ -1,0 +1,64 @@
+.lobby-players {
+  background: #ffffff;
+  border: 1px solid #e1e1e1;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow-xs);
+}
+
+.lobby-players__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.lobby-players__title {
+  font-size: 1.25rem;
+}
+
+.lobby-players__count {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.lobby-players__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.lobby-players__card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.lobby-players__card--empty {
+  border-style: dashed;
+  color: #777;
+}
+
+.lobby-players__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lobby-players__name {
+  font-weight: 600;
+}
+
+.lobby-players__tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #f1f1f1;
+  color: #4a4a4a;
+  font-size: 0.8rem;
+}
