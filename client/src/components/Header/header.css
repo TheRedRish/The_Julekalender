@@ -68,9 +68,10 @@
 .header__user {
   display: flex;
   align-items: center;
+  position: relative;
 }
 
-.header__user :global(.header__user-pill) {
+.header__user-pill {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -82,6 +83,8 @@
   font-size: 0.85rem;
   color: #333;
   text-decoration: none;
+  border: none;
+  cursor: pointer;
 }
 
 .header__user-icon {
@@ -92,4 +95,41 @@
 
 .header__username {
   font-weight: 500;
+}
+
+.header__user-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background: #ffffff;
+  border: 1px solid #e5e1dd;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  padding: 8px 0;
+  min-width: 160px;
+  z-index: 10;
+}
+
+.header__user-menu :global(.header__user-menu-item),
+.header__user-menu .header__user-menu-item {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  color: #1e1e1e;
+  text-align: left;
+  text-decoration: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.header__user-menu :global(.header__user-menu-item):hover,
+.header__user-menu .header__user-menu-item:hover {
+  background: #f4f1ed;
+}
+
+.header__logout {
+  color: #8b0016;
+  font-weight: 600;
 }

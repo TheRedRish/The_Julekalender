@@ -3,8 +3,8 @@
   import Button from "../../ui/Button.svelte";
   import Avatar from "../../ui/Avatar.svelte";
   import { navigate } from "svelte-routing";
-  import { get } from "svelte/store";
   import { getInitials } from "../../../util/stringUtil";
+  import { copyLobbyLink } from "../../../services/lobbyService";
 
   const { lobby } = $props();
 
@@ -12,12 +12,6 @@
     navigate(`/lobby/${lobby.id}`);
   }
 
-  function copyLobbyLink() {
-    navigator.clipboard.writeText(
-      window.location.origin + `/lobby/${lobby.id}`
-    );
-    // alert("Copied lobby link to clipboard!"); TODO use toast
-  }
 </script>
 
 <div class="lobby-card">
@@ -47,7 +41,7 @@
     <Button
       text=""
       icon="🔗"
-      onClick={copyLobbyLink}
+      onClick={copyLobbyLink(lobby.id)}
       class="lobby-card__link"
     />
   </div>

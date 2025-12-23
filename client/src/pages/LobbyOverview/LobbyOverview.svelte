@@ -6,10 +6,8 @@
   import PleaseLoginContent from "../../components/PleaseLoginContent/PleaseLoginContent.svelte";
   import { userStore } from "../../stores/userStore";
 
-  let showCreateLobbyModal = false;
-  let showLoginModal = false;
-
-  $: showLoginModal = $userStore === null;
+  let showCreateLobbyModal = $state(false);
+  let showLoginModal = $derived($userStore === null);
 </script>
 
 <section class="lobby-overview page">

@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
   import { Route, Router } from "svelte-routing";
   import Header from "./components/Header/Header.svelte";
   import { routes } from "./routes/routes.js";

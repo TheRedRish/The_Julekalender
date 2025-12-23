@@ -6,6 +6,8 @@
   import { authLoadingStore } from "../../stores/loadingStore.js";
   import { toastError } from "../../util/toast.js";
 
+  let isMenuOpen = $state(false);
+
   const {
     title,
     subtitle,
@@ -13,9 +15,21 @@
     profileLink = "/profile",
   } = $props();
 
+  function toggleMenu() {
+    isMenuOpen = !isMenuOpen;
+  }
+
+  function handleFocusOut(event) {
+    const nextTarget = event.relatedTarget;
+    if (!event.currentTarget.contains(nextTarget)) {
+      isMenuOpen = false;
+    }
+  }
+
   async function handleLogout(event) {
-    event.preventDefault();
+    event?.preventDefault();
     try {
+      isMenuOpen = false;
       await logoutUser();
       navigate("/");
     } catch (err) {
@@ -52,8 +66,14 @@
 
     {#if !$authLoadingStore}
       {#if $userStore}
-        <div class="header__user">
-          <Link to={profileLink} class="header__user-pill ">
+        <div class="header__user" onfocusout={handleFocusOut}>
+          <button
+            type="button"
+            class="header__user-pill"
+            onclick={toggleMenu}
+            aria-haspopup="menu"
+            aria-expanded={isMenuOpen}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 448 512"
@@ -64,10 +84,28 @@
               /></svg
             >
             <span class="header__username">{$userStore.username}</span>
-          </Link>
-          <form onsubmit={handleLogout}>
-            <button type="submit" class="header__logout">Logout</button>
-          </form>
+          </button>
+
+          {#if isMenuOpen}
+            <div class="header__user-menu" role="menu">
+              <Link
+                to={profileLink}
+                class="header__user-menu-item"
+                role="menuitem"
+                onclick={() => (isMenuOpen = false)}
+              >
+                Profile
+              </Link>
+              <button
+                type="button"
+                class="header__user-menu-item header__logout"
+                role="menuitem"
+                onclick={handleLogout}
+              >
+                Logout
+              </button>
+            </div>
+          {/if}
         </div>
       {:else}
         <div class="header__links">

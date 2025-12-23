@@ -7,6 +7,7 @@
   import { lobbyStore, currentLobby } from "../../stores/lobbyStore.js";
   import { userStore } from "../../stores/userStore.js";
   import { joinLobby, leaveLobby } from "../../sockets/lobbySocket.js";
+  import { copyLobbyLink } from "../../services/lobbyService";
 
   const { params = {} } = $props();
   const lobbyId = $derived(params?.id);
@@ -41,13 +42,7 @@
   }
 
   async function handleCopyLink() {
-    try {
-      await navigator.clipboard.writeText(
-        `${window.location.origin}/lobby/${lobbyId}`
-      );
-    } catch (err) {
-      console.error("Failed to copy link", err);
-    }
+    copyLobbyLink(lobbyId);
   }
 </script>
 

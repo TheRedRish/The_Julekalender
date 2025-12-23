@@ -40,7 +40,7 @@ export async function logoutUser() {
 }
 
 export async function checkSession() {
-  const minTimeout = 500;
+  const minTimeoutMs = 500;
   const startTime = Date.now();
 
   authLoadingStore.set(true);
@@ -58,7 +58,7 @@ export async function checkSession() {
     handleUserLogout();
   } finally {
     const endTime = Date.now();
-    const timeout = Math.max(minTimeout - (endTime - startTime), 0);
+    const timeout = Math.max(minTimeoutMs - (endTime - startTime), 0);
     setTimeout(() => authLoadingStore.set(false), timeout);
   }
 }
