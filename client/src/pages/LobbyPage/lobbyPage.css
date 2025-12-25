@@ -12,11 +12,6 @@
   align-items: start;
 }
 
-.lobby-page__card {
-  margin: 0 auto;
-  max-width: 480px;
-}
-
 .lobby-page__empty {
   background: #ffffff;
   border: 1px solid #e1e1e1;
