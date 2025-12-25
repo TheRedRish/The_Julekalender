@@ -1,5 +1,8 @@
 ## Project Timeline
  - 25/12 Finish Profile page. Make lobby leader and edit lobby.
+    - Check bugs with leave lobby, and look at lobby again, some visual bug.
+    - Make password actually do something
+    - Move leader pill to somewhere visible all the time, and for all players. (On the player in the players section)
  - 26/12 Start adding game - make selectable when creating lobby. Make sure lobby has configurables ex. max player amount
  - 27/12 Create Game mechanics. Backend. Think about how the flow of the game should work frontend to backend.
  - 28/12 Play with graphics for the game, limit to the cave, forrest and maybe the farm.

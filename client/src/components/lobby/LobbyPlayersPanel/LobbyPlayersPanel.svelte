@@ -5,7 +5,10 @@
   const {
     players = [],
     maxPlayers = null,
-    currentUserId = null
+    currentUserId = null,
+    canKick = false,
+    leaderId = null,
+    onKick = () => {}
   } = $props();
 
   const totalSlots = $derived(maxPlayers || Math.max(players.length, 3));
@@ -29,8 +32,21 @@
           <span class="lobby-players__name">{player.username}</span>
           {#if player.id === currentUserId}
             <span class="lobby-players__tag">You</span>
+          {:else if player.id === leaderId}
+            <span class="lobby-players__tag lobby-players__tag--leader">
+              Leader
+            </span>
           {/if}
         </div>
+        {#if canKick && player.id !== leaderId}
+          <button
+            type="button"
+            class="lobby-players__kick"
+            onclick={() => onKick(player.id)}
+          >
+            Kick
+          </button>
+        {/if}
       </div>
     {/each}
 

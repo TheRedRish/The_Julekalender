@@ -45,5 +45,11 @@ export const lobbyQueries = {
     deleteLobby: `
     DELETE FROM lobbies
     WHERE id = ?
+  `,
+
+    updateLobbyByOwner: `
+    UPDATE lobbies
+    SET name = ?, min_players = ?, max_players = ?, password = ?
+    WHERE id = ? AND owner_id = ?
   `
 };

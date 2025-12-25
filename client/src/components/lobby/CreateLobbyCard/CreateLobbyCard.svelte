@@ -1,6 +1,7 @@
 <script>
   import { navigate } from "svelte-routing";
   import { getSocket } from "../../../sockets/socket.js";
+  import { createLobby } from "../../../sockets/lobbySocket.js";
 
   let lobbyName = "";
   let minPlayers = 1;
@@ -10,7 +11,7 @@
   const socket = getSocket();
 
   function submitCreateLobby() {
-    socket.emit("lobby:create", {
+    createLobby({
       name: lobbyName || null,
       minPlayers: Number(minPlayers),
       maxPlayers: maxPlayers ? Number(maxPlayers) : null,

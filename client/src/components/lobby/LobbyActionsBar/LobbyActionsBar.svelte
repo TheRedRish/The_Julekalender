@@ -9,7 +9,11 @@
     onJoin = () => {},
     onLeave = () => {},
     onCopyLink = () => {},
+    onEdit = null,
+    isLeader = false
   } = $props();
+
+  
 </script>
 
 <div class="lobby-actions">
@@ -32,6 +36,14 @@
       onClick={onCopyLink}
       class="lobby-actions__button lobby-actions__button--ghost"
     />
+
+    {#if isLeader && onEdit}
+      <Button
+        text="Edit lobby"
+        onClick={onEdit}
+        class="lobby-actions__button lobby-actions__button--ghost"
+      />
+    {/if}
 
     {#if isMember}
       <Button
