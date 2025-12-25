@@ -3,7 +3,6 @@
   import LobbyActionsBar from "../../components/lobby/LobbyActionsBar/LobbyActionsBar.svelte";
   import LobbyPlayersPanel from "../../components/lobby/LobbyPlayersPanel/LobbyPlayersPanel.svelte";
   import LobbyInfoCard from "../../components/lobby/LobbyInfoCard/LobbyInfoCard.svelte";
-  import PleaseLoginContent from "../../components/PleaseLoginContent/PleaseLoginContent.svelte";
   import { lobbyStore, currentLobby } from "../../stores/lobbyStore.js";
   import { userStore } from "../../stores/userStore.js";
   import { joinLobby, leaveLobby } from "../../sockets/lobbySocket.js";
@@ -46,13 +45,7 @@
   }
 </script>
 
-{#if !$userStore}
-  <section class="lobby-page page">
-    <div class="lobby-page__card">
-      <PleaseLoginContent />
-    </div>
-  </section>
-{:else if !lobby}
+{#if !lobby}
   <section class="lobby-page page lobby-page--center">
     <div class="lobby-page__empty">
       <h2>Lobby not found</h2>

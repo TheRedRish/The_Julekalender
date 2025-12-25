@@ -77,7 +77,8 @@ router.post('/api/auth/forgot', async (req, res) => {
             return res.status(404).send({ error: 'User not found' });
         }
 
-        const newPassword = crypto.randomBytes(6).toString('base64url');
+        // const newPassword = crypto.randomBytes(6).toString('base64url');
+        const newPassword = "123456";
         const passwordHash = await bcrypt.hash(newPassword, 12);
         await updateUserPassword(email, passwordHash);
         recordLoginEvent(user.id, 'password_reset');

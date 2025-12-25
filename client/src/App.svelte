@@ -6,6 +6,7 @@
   import { routes } from "./routes/routes.js";
   import { onMount } from "svelte";
   import { checkSession } from "./services/authService.js";
+  import RouteGuard from "./routes/RouteGuard.svelte";
   import LoadingPage from "./pages/LoadingPage/LoadingPage.svelte";
   import { authLoadingStore } from "./stores/loadingStore.js";
 
@@ -19,9 +20,13 @@
 {:else}
   <Router>
     <Header title="Nissemissionen" subtitle="Christmas Game Lobby" />
-    {#each routes as { path, Component }}
-      <Route {path} let:params>
-        <Component {params} />
+    {#each routes as route}
+      <Route path={route.path} let:params>
+        <RouteGuard
+          component={route.Component}
+          params={params}
+          requiresAuth={route.requiresAuth}
+        />
       </Route>
     {/each}
   </Router>

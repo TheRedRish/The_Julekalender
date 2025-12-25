@@ -4,6 +4,7 @@ import LoginForm from "../components/auth/LoginForm/LoginForm.svelte";
 import RegisterForm from "../components/auth/RegisterForm/RegisterForm.svelte";
 import LobbyOverview from "../pages/LobbyOverview/LobbyOverview.svelte";
 import LobbyPage from "../pages/LobbyPage/LobbyPage.svelte";
+import ProfilePage from "../pages/ProfilePage/ProfilePage.svelte";
 
 export const routes = [
     {
@@ -23,8 +24,14 @@ export const routes = [
         Component: ForgotPasswordForm
     },
     {
+        path: "/profile",
+        Component: ProfilePage,
+        requiresAuth: true
+    },
+    {
         path: "/lobby/:id",
         Component: LobbyPage,
-        withParams: true
+        withParams: true,
+        requiresAuth: true
     }
 ];
