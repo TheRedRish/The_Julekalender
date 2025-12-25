@@ -1,0 +1,8 @@
+## Project Timeline
+ - 25/12 Finish Profile page. Make lobby leader and edit lobby.
+ - 26/12 Start adding game - make selectable when creating lobby. Make sure lobby has configurables ex. max player amount
+ - 27/12 Create Game mechanics. Backend. Think about how the flow of the game should work frontend to backend.
+ - 28/12 Play with graphics for the game, limit to the cave, forrest and maybe the farm.
+ - 29/12 Continue with the game.
+ - 30/12 Bug fixes. Lobby and game test. (Do some DevOps aswell)
+ - 31/12 Input from Henrik game design
