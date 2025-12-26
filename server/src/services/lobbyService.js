@@ -2,6 +2,27 @@ import db from "../database/connection.js";
 import { lobbyQueries } from "../database/queries/lobbyQueries.js";
 import { randomString, randomThreeWordName } from "../util/stringUtil.js";
 
+function computeLobbyStatus(lobby) {
+    const playerCount = lobby.players?.length ?? 0;
+    if (lobby.max_players && playerCount >= lobby.max_players) {
+        return "Full";
+    }
+
+    return "Waiting";
+}
+
+async function ensureLobbyStatus(lobby) {
+    if (!lobby) return null;
+
+    const nextStatus = computeLobbyStatus(lobby);
+    if (lobby.status === nextStatus) {
+        return lobby;
+    }
+
+    await db.run(lobbyQueries.updateLobbyStatus, [nextStatus, lobby.id]);
+    return { ...lobby, status: nextStatus };
+}
+
 export async function createLobby(
     owner,
     name,
@@ -19,7 +40,7 @@ export async function createLobby(
             id,
             owner.id,
             lobbyName,
-            "waiting",
+            "Waiting",
             minPlayers,
             maxPlayers,
             password,
@@ -48,7 +69,7 @@ export async function getLobby(id) {
         [id]
     );
 
-    return { ...lobby, players };
+    return ensureLobbyStatus({ ...lobby, players });
 }
 
 export async function getAllLobbies() {
@@ -64,7 +85,8 @@ export async function getAllLobbies() {
             [lobby.id]
         );
 
-        result.push({ ...lobby, players });
+        const lobbyWithStatus = await ensureLobbyStatus({ ...lobby, players });
+        result.push(lobbyWithStatus);
     }
 
     return result;
@@ -105,7 +127,11 @@ export async function leaveLobby(id, userId) {
             lobbyQueries.deleteLobby,
             [id]
         );
+
+        return null;
     }
+
+    return getLobby(id);
 }
 
 export async function updateLobbySettings(
@@ -156,7 +182,5 @@ export async function kickPlayer(lobbyId, ownerId, targetUserId) {
     if (!lobby || lobby.owner_id !== ownerId) return null;
     if (targetUserId === ownerId) return lobby;
 
-    await leaveLobby(lobbyId, targetUserId);
-
-    return getLobby(lobbyId);
+    return leaveLobby(lobbyId, targetUserId);
 }

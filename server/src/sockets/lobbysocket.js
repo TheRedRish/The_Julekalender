@@ -60,11 +60,10 @@ export function registerLobbySocket(io, socket) {
     });
 
     socket.on("lobby:leave", async (lobbyId) => {
-        await leaveLobby(lobbyId, socket.request.session?.user.id);
+        const lobby = await leaveLobby(lobbyId, socket.request.session?.user.id);
 
         socket.leave(lobbyId);
 
-        const lobby = await getLobby(lobbyId);
         io.to(lobbyId).emit("lobby:update", lobby);
 
         const lobbies = await getAllLobbies();
@@ -113,9 +112,7 @@ export function registerLobbySocket(io, socket) {
             const lobbies = await getAllLobbies();
 
             for (const lobby of lobbies) {
-                await leaveLobby(lobby.id, userId);
-
-                const updatedLobby = await getLobby(lobby.id);
+                const updatedLobby = await leaveLobby(lobby.id, userId);
                 io.to(lobby.id).emit("lobby:update", updatedLobby);
             }
 

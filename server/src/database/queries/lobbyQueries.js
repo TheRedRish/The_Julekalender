@@ -47,6 +47,12 @@ export const lobbyQueries = {
     WHERE id = ?
   `,
 
+    updateLobbyStatus: `
+    UPDATE lobbies
+    SET status = ?
+    WHERE id = ?
+  `,
+
     updateLobbyByOwner: `
     UPDATE lobbies
     SET name = ?, min_players = ?, max_players = ?, password = ?
