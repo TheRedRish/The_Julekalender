@@ -13,6 +13,17 @@
 
   const totalSlots = $derived(maxPlayers || Math.max(players.length, 3));
   const openSlots = $derived(Math.max(totalSlots - players.length, 0));
+
+  function getPlayerTags(player) {
+    const tags = [];
+    if (player.id === currentUserId) {
+      tags.push({ label: "You", className: "lobby-players__tag--self" });
+    }
+    if (player.id === leaderId) {
+      tags.push({ label: "Leader", className: "lobby-players__tag--leader" });
+    }
+    return tags;
+  }
 </script>
 
 <div class="lobby-players">
@@ -33,16 +44,13 @@
         <Avatar label={getInitials(player.username)} />
         <div class="lobby-players__info">
           <span class="lobby-players__name">{player.username}</span>
-          {#if player.id === currentUserId || player.id === leaderId}
+          {#if getPlayerTags(player).length > 0}
             <div class="lobby-players__tags">
-              {#if player.id === currentUserId}
-                <span class="lobby-players__tag lobby-players__tag--self">You</span>
-              {/if}
-              {#if player.id === leaderId}
-                <span class="lobby-players__tag lobby-players__tag--leader">
-                  Leader
+              {#each getPlayerTags(player) as tag}
+                <span class={`lobby-players__tag ${tag.className}`}>
+                  {tag.label}
                 </span>
-              {/if}
+              {/each}
             </div>
           {/if}
         </div>
