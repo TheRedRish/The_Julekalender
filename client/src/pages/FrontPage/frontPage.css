@@ -1,6 +1,11 @@
-.frontpage {
+﻿.frontpage {
   padding: 48px 24px 64px;
-  background: linear-gradient(135deg, #fff5f7 0%, #f6f8fb 50%, #ffffff 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-soft) 0%,
+    var(--color-surface-muted) 50%,
+    var(--color-surface) 100%
+  );
 }
 
 .frontpage__hero {
@@ -15,8 +20,8 @@
   gap: 8px;
   padding: 8px 14px;
   border-radius: 999px;
-  background: #ffe8ed;
-  color: #7c0f24;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
   font-weight: 700;
   font-size: 0.9rem;
   letter-spacing: 0.02em;
@@ -31,7 +36,7 @@
 .frontpage__subtitle {
   max-width: 720px;
   margin: 0 auto 20px;
-  color: var(--color-text-light);
+  color: var(--color-text-muted);
   font-size: 1.05rem;
 }
 
@@ -43,8 +48,8 @@
 }
 
 .frontpage__ghost {
-  border: 1px solid #d9d9d9;
-  background: white;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
   color: var(--color-text);
   border-radius: 12px;
   padding: 10px 18px;
@@ -53,15 +58,15 @@
 }
 
 .frontpage__ghost:hover {
-  border-color: #7c0f24;
-  color: #7c0f24;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .frontpage__meta {
   display: flex;
   justify-content: center;
   gap: 14px;
-  color: var(--color-text-light);
+  color: var(--color-text-muted);
   font-size: 0.95rem;
 }
 
@@ -74,16 +79,16 @@
 }
 
 .frontpage__panel {
-  background: #ffffff;
-  border: 1px solid #e7e7e7;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   padding: 28px;
   box-shadow: var(--shadow-sm);
 }
 
 .frontpage__panel--accent {
-  background: #0f172a;
-  color: #f8fafc;
+  background: var(--color-surface-contrast);
+  color: var(--color-text-contrast);
   border: none;
 }
 
@@ -101,8 +106,8 @@
 .frontpage__feature {
   padding: 16px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--overlay-contrast-weak);
+  border: 1px solid var(--overlay-contrast-border);
 }
 
 .frontpage__feature h3 {
@@ -111,7 +116,7 @@
 }
 
 .frontpage__feature p {
-  color: rgba(248, 250, 252, 0.85);
+  color: var(--color-text-contrast-muted);
 }
 
 .frontpage__steps {
@@ -122,7 +127,7 @@
 }
 
 .frontpage__eyebrow {
-  color: var(--color-text-light);
+  color: var(--color-text-muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 700;
@@ -152,8 +157,8 @@
 }
 
 .frontpage__steps li::before {
-  content: "✓";
-  color: #7c0f24;
+  content: "*";
+  color: var(--color-primary);
   font-weight: 700;
 }
 
@@ -165,7 +170,7 @@
 }
 
 .frontpage__link {
-  color: #7c0f24;
+  color: var(--color-primary);
   font-weight: 700;
   text-decoration: none;
 }
@@ -175,12 +180,12 @@
 }
 
 .frontpage__dot {
-  color: var(--color-text-light);
+  color: var(--color-text-muted);
 }
 
 .frontpage__card {
-  background: linear-gradient(160deg, #fff7fa 0%, #ffffff 100%);
-  border: 1px solid #ffd8e2;
+  background: linear-gradient(160deg, var(--color-surface-muted) 0%, var(--color-surface) 100%);
+  border: 1px solid var(--color-border);
   border-radius: 14px;
   padding: 18px;
   box-shadow: var(--shadow-xs);
@@ -197,7 +202,7 @@
 }
 
 .frontpage__card-text {
-  color: var(--color-text-light);
+  color: var(--color-text-muted);
 }
 
 @media (max-width: 640px) {

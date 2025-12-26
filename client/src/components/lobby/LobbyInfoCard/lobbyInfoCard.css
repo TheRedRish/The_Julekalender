@@ -1,6 +1,6 @@
 .lobby-info {
-  background: #ffffff;
-  border: 1px solid #e1e1e1;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   padding: 20px;
   box-shadow: var(--shadow-xs);
@@ -19,16 +19,16 @@
 
 .lobby-info__item {
   padding: 12px;
-  border: 1px solid #ececec;
+  border: 1px solid var(--color-border);
   border-radius: 12px;
-  background: #fafafa;
+  background: var(--color-surface-muted);
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
 .lobby-info__label {
-  color: #555;
+  color: var(--color-text-muted);
   font-size: 0.9rem;
 }
 

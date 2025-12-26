@@ -4,19 +4,39 @@
 
 /* Color system */
 :root {
-  --color-primary: #7c0f24;
+  /* Brand */
+  --color-primary: #8b0016;
+  --color-primary-hover: #a1001a;
+  --color-primary-soft: #fff3f6;
 
+  /* Text */
   --color-text: #1f1f1f;
-  --color-text-light: #6b6b6b;
+  --color-text-muted: #6b6b6b;
+  --color-text-inverse: #ffffff;
+  --color-text-contrast: #f5f5f5;
+  --color-text-contrast-muted: rgba(255, 255, 255, 0.78);
 
-  --color-chip-bg: #f3f3f3;
+  /* Surfaces */
+  --color-surface: #ffffff;
+  --color-surface-muted: #f5f5f5;
+  --color-surface-alt: #f0f0f0;
+  --color-surface-contrast: #111111;
 
+  /* Borders */
   --color-border: #d9d9d9;
+  --color-border-strong: #bfbfbf;
 
+  /* Utility */
+  --color-chip-bg: #ededed;
   --color-icon: #555;
+  --overlay-scrim: rgba(0, 0, 0, 0.45);
+  --overlay-contrast-weak: rgba(255, 255, 255, 0.08);
+  --overlay-contrast-border: rgba(255, 255, 255, 0.14);
 
   --shadow-xs: 0 1px 2px rgba(0,0,0,0.08);
   --shadow-sm: 0 2px 6px rgba(0,0,0,0.1);
+  --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.25);
 }
 
 /* Reset */
@@ -34,7 +54,7 @@ body {
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
-  background: #fafafa;
+  background: var(--color-surface-muted);
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
 }

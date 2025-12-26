@@ -3,8 +3,8 @@
   grid-template-columns: 1fr auto;
   gap: 16px;
   padding: 24px;
-  background: #ffffff;
-  border: 1px solid #e1e1e1;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   box-shadow: var(--shadow-sm);
   align-items: center;
@@ -20,7 +20,7 @@
   font-size: 0.85rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #6b6b6b;
+  color: var(--color-text-muted);
 }
 
 .lobby-actions__title-row {
@@ -35,7 +35,7 @@
 }
 
 .lobby-actions__subtitle {
-  color: #4a4a4a;
+  color: var(--color-text-muted);
 }
 
 .lobby-actions__buttons {
@@ -50,9 +50,9 @@
 }
 
 :global(.lobby-actions__button--ghost.ui-button) {
-  background: #f4f4f4;
-  color: #1e1e1e;
-  border: 1px solid #d8d8d8;
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+  border: 1px solid var(--color-border-strong);
 }
 
 @media (max-width: 840px) {

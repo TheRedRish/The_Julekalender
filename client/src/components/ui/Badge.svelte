@@ -6,7 +6,7 @@
 
 <style>
   .ui-badge {
-    background: #e5e5e5;
+    background: var(--color-chip-bg);
     border-radius: 999px;
     padding: 4px 10px;
     font-size: 0.75rem;

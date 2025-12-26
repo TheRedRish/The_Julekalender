@@ -13,13 +13,13 @@
 .create-lobby__title {
   font-size: 1.6rem;
   font-weight: 600;
-  color: #1f1f1f;
+  color: var(--color-text);
   text-align: center;
 }
 
 .create-lobby__subtitle {
   font-size: 0.95rem;
-  color: #6e6e6e;
+  color: var(--color-text-muted);
   text-align: center;
   margin-top: -6px;
 }
@@ -33,7 +33,7 @@
 .create-lobby__label {
   font-size: 0.9rem;
   font-weight: 500;
-  color: #333;
+  color: var(--color-text-muted);
 }
 
 .create-lobby__input-group {
@@ -46,29 +46,29 @@
   padding: 12px 14px;
 
   border-radius: 12px;
-  border: 1px solid #d7d3ce;
-  background: #f1f1f1;
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface-muted);
 
   font-size: 0.9rem;
 }
 
 .create-lobby__input:focus {
   outline: none;
-  background: #ffffff;
-  border-color: #b7b7b7;
+  background: var(--color-surface);
+  border-color: var(--color-border);
 }
 
 .create-lobby__hint {
   font-size: 0.75rem;
-  color: #7a7a7a;
+  color: var(--color-text-muted);
 }
 
 .create-lobby__submit {
   margin-top: 8px;
   padding: 14px;
 
-  background: #8b0016;
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
 
   border: none;
   border-radius: 14px;
@@ -79,5 +79,5 @@
 }
 
 .create-lobby__submit:hover {
-  background: #a1001a;
+  background: var(--color-primary-hover);
 }

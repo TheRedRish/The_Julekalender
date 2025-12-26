@@ -39,8 +39,8 @@
   }
 
   .route-guard__card {
-    background: #ffffff;
-    border: 1px solid #e1e1e1;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 14px;
     padding: 22px;
     box-shadow: var(--shadow-xs);

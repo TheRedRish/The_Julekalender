@@ -11,8 +11,8 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: #8b0016;
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-text-inverse);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,7 +20,7 @@
   }
 
   .ui-avatar--empty {
-    background: #ddd;
-    color: #777;
+    background: var(--color-border-strong);
+    color: var(--color-text-muted);
   }
 </style>

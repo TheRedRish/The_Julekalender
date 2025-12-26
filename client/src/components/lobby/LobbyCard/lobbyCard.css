@@ -1,9 +1,9 @@
 .lobby-card {
-  background: #ffffff;
+  background: var(--color-surface);
   border-radius: 16px;
   padding: 20px 22px;
-  border: 1px solid #e3e3e3;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
 
   display: flex;
   flex-direction: column;
@@ -25,7 +25,7 @@
 .lobby-card__title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #1e1e1e;
+  color: var(--color-text);
 }
 
 .lobby-card__lock {
@@ -35,9 +35,9 @@
   width: 22px;
   height: 22px;
   border-radius: 8px;
-  background: #f2f4f7;
-  color: #6b7280;
-  border: 1px solid #e5e7eb;
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
 }
 
 .lobby-card__players {
@@ -53,7 +53,7 @@
 
 .lobby-card__count {
   font-size: 0.85rem;
-  color: #6b6b6b;
+  color: var(--color-text-muted);
 }
 
 .lobby-card__actions {
@@ -66,8 +66,8 @@
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  border: 1px solid #d5d5d5;
-  background: #f5f5f5;
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface-muted);
   cursor: pointer;
 
   display: flex;
@@ -76,5 +76,5 @@
 }
 
 .lobby-card__actions :global(.lobby-card__link:hover) {
-  background: #ededed;
+  background: var(--color-surface-alt);
 }

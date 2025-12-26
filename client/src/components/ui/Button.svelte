@@ -9,8 +9,8 @@
 
 <style>
   .ui-button {
-    background: #8b0016;
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-text-inverse);
     border: none;
     border-radius: 12px;
     padding: 10px 18px;
