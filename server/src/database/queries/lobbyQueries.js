@@ -23,6 +23,7 @@ export const lobbyQueries = {
     FROM lobby_players lp
     JOIN users u ON u.id = lp.user_id
     WHERE lp.lobby_id = ?
+    ORDER BY u.id ASC
   `,
 
     getAllLobbies: `
@@ -57,5 +58,11 @@ export const lobbyQueries = {
     UPDATE lobbies
     SET name = ?, min_players = ?, max_players = ?, password = ?
     WHERE id = ? AND owner_id = ?
+  `,
+
+    updateLobbyOwner: `
+    UPDATE lobbies
+    SET owner_id = ?
+    WHERE id = ?
   `
 };

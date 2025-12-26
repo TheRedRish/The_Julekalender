@@ -130,6 +130,9 @@ export async function joinLobby(id, user, password = null) {
 }
 
 export async function leaveLobby(id, userId) {
+    const lobby = await getLobby(id);
+    const ownerIsLeaving = lobby?.owner_id === userId;
+
     await db.run(
         lobbyQueries.deleteLobbyPlayer,
         [id, userId]
@@ -149,7 +152,20 @@ export async function leaveLobby(id, userId) {
         return null;
     }
 
-    return getLobby(id);
+    let updatedLobby = await getLobby(id);
+
+    if (ownerIsLeaving && updatedLobby) {
+        const nextOwnerId = updatedLobby.players[0]?.id;
+        if (nextOwnerId) {
+            await db.run(
+                lobbyQueries.updateLobbyOwner,
+                [nextOwnerId, id]
+            );
+            updatedLobby = await getLobby(id);
+        }
+    }
+
+    return updatedLobby;
 }
 
 export async function updateLobbySettings(

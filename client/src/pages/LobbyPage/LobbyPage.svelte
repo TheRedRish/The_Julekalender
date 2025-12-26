@@ -118,6 +118,7 @@
 
   function handleLeave() {
     leaveLobby(lobbyId);
+    currentLobby.set(null);
     navigate("/");
   }
 
