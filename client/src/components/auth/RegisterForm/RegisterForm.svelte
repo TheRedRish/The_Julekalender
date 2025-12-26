@@ -17,7 +17,7 @@
     try {
       await registerUser(email, username, password);
       success = "User registered successfully!";
-      navigate("/");
+      navigate("/lobbies");
     } catch (err) {
       error = err.message || "Registration failed.";
     }

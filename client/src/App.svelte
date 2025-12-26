@@ -17,7 +17,7 @@
   <LoadingPage />
 {:else}
   <Router>
-    <Header title="Nissemissionen" subtitle="Christmas Game Lobby" />
+    <Header title="The Julekalender" subtitle="Christmas Game Lobby" />
     {#each routes as route}
       <Route path={route.path} let:params>
         <RouteGuard

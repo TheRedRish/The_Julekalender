@@ -119,7 +119,7 @@
   function handleLeave() {
     leaveLobby(lobbyId);
     currentLobby.set(null);
-    navigate("/");
+    navigate("/lobbies");
   }
 
   async function handleCopyLink() {
@@ -185,7 +185,7 @@
     <div class="lobby-page__empty">
       <h2>Lobby not found</h2>
       <p>Try returning to the lobby list to join another game.</p>
-      <button class="lobby-page__back" onclick={() => navigate("/")}>
+      <button class="lobby-page__back" onclick={() => navigate("/lobbies")}>
         Back to lobby list
       </button>
     </div>

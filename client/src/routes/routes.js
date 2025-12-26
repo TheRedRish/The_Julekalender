@@ -2,6 +2,7 @@
 import ForgotPasswordForm from "../components/auth/ForgotPasswordForm/ForgotPasswordForm.svelte";
 import LoginForm from "../components/auth/LoginForm/LoginForm.svelte";
 import RegisterForm from "../components/auth/RegisterForm/RegisterForm.svelte";
+import FrontPage from "../pages/FrontPage/FrontPage.svelte";
 import LobbyOverview from "../pages/LobbyOverview/LobbyOverview.svelte";
 import LobbyPage from "../pages/LobbyPage/LobbyPage.svelte";
 import ProfilePage from "../pages/ProfilePage/ProfilePage.svelte";
@@ -9,6 +10,10 @@ import ProfilePage from "../pages/ProfilePage/ProfilePage.svelte";
 export const routes = [
     {
         path: "/",
+        Component: FrontPage
+    },
+    {
+        path: "/lobbies",
         Component: LobbyOverview
     },
     {

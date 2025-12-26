@@ -3,11 +3,8 @@
   import LobbyList from "../../components/lobby/LobbyCardList.svelte";
   import Button from "../../components/ui/Button.svelte";
   import Modal from "../../components/ui/Modal/Modal.svelte";
-  import PleaseLoginContent from "../../components/PleaseLoginContent/PleaseLoginContent.svelte";
-  import { userStore } from "../../stores/userStore";
 
   let showCreateLobbyModal = $state(false);
-  let showLoginModal = $derived($userStore === null);
 </script>
 
 <section class="lobby-overview page">
@@ -24,14 +21,6 @@
     onClose={() => (showCreateLobbyModal = false)}
   >
     <CreateLobbyCard />
-  </Modal>
-
-  <Modal
-    open={showLoginModal}
-    onClose={() => (showLoginModal = false)}
-    closable={false}
-  >
-    <PleaseLoginContent />
   </Modal>
 
   <h2 class="lobby-overview__title">Available Lobbies</h2>

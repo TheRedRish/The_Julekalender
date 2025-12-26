@@ -15,7 +15,7 @@
     try {
       await loginUser(email, password);
       success = "Login successful!";
-      navigate("/");
+      navigate("/lobbies");
     } catch (err) {
       error = err.message || "Login failed.";
     }
