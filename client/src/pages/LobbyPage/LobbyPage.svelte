@@ -160,7 +160,6 @@
             <h3 class="lobby-page__leader-title">Manage your lobby</h3>
           </div>
           <div>
-            <span class="lobby-page__badge">You are the leader</span>
             <Button
               text="Close"
               onClick={handleCancelEdit}

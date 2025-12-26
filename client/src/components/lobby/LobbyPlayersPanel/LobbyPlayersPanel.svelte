@@ -26,16 +26,24 @@
 
   <div class="lobby-players__grid">
     {#each players as player}
-      <div class="lobby-players__card">
+      <div
+        class="lobby-players__card"
+        class:lobby-players__card--self={player.id === currentUserId}
+      >
         <Avatar label={getInitials(player.username)} />
         <div class="lobby-players__info">
           <span class="lobby-players__name">{player.username}</span>
-          {#if player.id === currentUserId}
-            <span class="lobby-players__tag">You</span>
-          {:else if player.id === leaderId}
-            <span class="lobby-players__tag lobby-players__tag--leader">
-              Leader
-            </span>
+          {#if player.id === currentUserId || player.id === leaderId}
+            <div class="lobby-players__tags">
+              {#if player.id === currentUserId}
+                <span class="lobby-players__tag lobby-players__tag--self">You</span>
+              {/if}
+              {#if player.id === leaderId}
+                <span class="lobby-players__tag lobby-players__tag--leader">
+                  Leader
+                </span>
+              {/if}
+            </div>
           {/if}
         </div>
         {#if canKick && player.id !== leaderId}

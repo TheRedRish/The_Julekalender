@@ -69,15 +69,6 @@
   font-weight: 700;
 }
 
-.lobby-page__badge {
-  background: #fff0f3;
-  color: #7c0f24;
-  padding: 8px 10px;
-  border-radius: 999px;
-  border: 1px solid #f0c9d2;
-  font-weight: 700;
-}
-
 .lobby-page__controls {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

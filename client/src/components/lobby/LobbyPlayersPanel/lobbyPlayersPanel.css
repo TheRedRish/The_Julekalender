@@ -40,6 +40,12 @@
   position: relative;
 }
 
+.lobby-players__card--self {
+  border-color: #c8daf7;
+  box-shadow: 0 0 0 2px #e8f1ff;
+  background: #f8fbff;
+}
+
 .lobby-players__card--empty {
   border-style: dashed;
   color: #777;
@@ -55,6 +61,12 @@
   font-weight: 600;
 }
 
+.lobby-players__tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
 .lobby-players__tag {
   display: inline-block;
   padding: 2px 8px;
@@ -68,6 +80,12 @@
   background: #fff0f3;
   color: #7c0f24;
   border: 1px solid #f0c9d2;
+}
+
+.lobby-players__tag--self {
+  background: #e8f1ff;
+  color: #1f4f96;
+  border: 1px solid #c8daf7;
 }
 
 .lobby-players__kick {
