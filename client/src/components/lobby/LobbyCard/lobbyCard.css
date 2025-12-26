@@ -16,10 +16,28 @@
   align-items: center;
 }
 
+.lobby-card__title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .lobby-card__title {
   font-size: 1.25rem;
   font-weight: 600;
   color: #1e1e1e;
+}
+
+.lobby-card__lock {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 8px;
+  background: #f2f4f7;
+  color: #6b7280;
+  border: 1px solid #e5e7eb;
 }
 
 .lobby-card__players {

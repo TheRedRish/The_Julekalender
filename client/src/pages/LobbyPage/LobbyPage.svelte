@@ -14,6 +14,8 @@
   import { copyLobbyLink } from "../../services/lobbyService";
   import { toastError } from "../../util/toast";
   import Button from "../../components/ui/Button.svelte";
+  import Modal from "../../components/ui/Modal/Modal.svelte";
+  import JoinLobbyPassword from "../../components/lobby/JoinLobbyPassword/JoinLobbyPassword.svelte";
 
   const { params = {} } = $props();
   const lobbyId = $derived(params?.id);
@@ -47,6 +49,8 @@
   let editMaxPlayers = $state("");
   let editPassword = $state("");
   let isEditing = $state(false);
+  let showPasswordModal = $state(false);
+  let joinError = $state("");
 
   $effect(() => {
     if (!isLeader) {
@@ -62,8 +66,54 @@
     editPassword = lobby.password ?? "";
   });
 
-  function handleJoin() {
-    joinLobby(lobbyId);
+  $effect(() => {
+    if (isMember) {
+      showPasswordModal = false;
+      joinError = "";
+    }
+  });
+
+  function openPasswordModal() {
+    joinError = "";
+    showPasswordModal = true;
+  }
+
+  function closePasswordModal() {
+    showPasswordModal = false;
+    joinError = "";
+  }
+
+  async function handleJoin(passwordValue = null) {
+    if (passwordValue && typeof passwordValue === "object" && "preventDefault" in passwordValue) {
+      passwordValue.preventDefault?.();
+      passwordValue = null;
+    }
+
+    if (lobby?.password && !isMember && !isLeader && passwordValue === null) {
+      openPasswordModal();
+      return;
+    }
+
+    try {
+      await joinLobby(lobbyId, passwordValue);
+      closePasswordModal();
+    } catch (error) {
+      const message = error?.message || "Failed to join lobby.";
+      if (lobby?.password) {
+        joinError = message;
+        showPasswordModal = true;
+      } else {
+        toastError(message);
+      }
+    }
+  }
+
+  function handleSubmitPassword(value) {
+    if (!value) {
+      joinError = "Please enter the lobby password.";
+      return;
+    }
+    handleJoin(value);
   }
 
   function handleLeave() {
@@ -209,6 +259,15 @@
     </div>
   </section>
 {/if}
+
+<Modal open={showPasswordModal} onClose={closePasswordModal}>
+  <JoinLobbyPassword
+    lobbyName={lobby?.name}
+    error={joinError}
+    onSubmit={handleSubmitPassword}
+    onCancel={closePasswordModal}
+  />
+</Modal>
 
 <style>
   @import "./lobbyPage.css";

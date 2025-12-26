@@ -1,31 +1,21 @@
-import { getSocket } from "./socket.js";
+import { emit, emitWithAck } from "./socketUtil.js";
 
 export function createLobby(data) {
-    const socket = getSocket();
-    if (!socket) return;
-    socket.emit("lobby:create", data);
+    emit("lobby:create", data);
 }
 
-export function joinLobby(lobbyId) {
-    const socket = getSocket();
-    if (!socket) return;
-    socket.emit("lobby:join", lobbyId);
+export function joinLobby(lobbyId, password = null) {
+    return emitWithAck("lobby:join", { lobbyId, password }).then((res) => res.lobby);
 }
 
 export function leaveLobby(lobbyId) {
-    const socket = getSocket();
-    if (!socket) return;
-    socket.emit("lobby:leave", lobbyId);
+    emit("lobby:leave", lobbyId);
 }
 
 export function updateLobbySettings(lobbyId, settings) {
-    const socket = getSocket();
-    if (!socket) return;
-    socket.emit("lobby:update-settings", { lobbyId, ...settings });
+    emit("lobby:update-settings", { lobbyId, ...settings });
 }
 
 export function kickPlayer(lobbyId, playerId) {
-    const socket = getSocket();
-    if (!socket) return;
-    socket.emit("lobby:kick", { lobbyId, playerId });
+    emit("lobby:kick", { lobbyId, playerId });
 }

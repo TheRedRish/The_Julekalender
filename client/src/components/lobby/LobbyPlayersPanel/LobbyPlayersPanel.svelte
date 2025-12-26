@@ -58,7 +58,7 @@
       </div>
     {/each}
 
-    {#each Array(openSlots) as _, index}
+    {#each {length: openSlots}, index}
       <div class="lobby-players__card lobby-players__card--empty">
         <Avatar label="?" empty />
         <div class="lobby-players__info">

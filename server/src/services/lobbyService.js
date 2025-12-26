@@ -32,7 +32,7 @@ export async function createLobby(
 ) {
     const id = randomString(6);
     const lobbyName = name || randomThreeWordName();
-    const createdAt = Date.now();
+
 
     await db.run(
         lobbyQueries.insertLobby,
@@ -43,8 +43,7 @@ export async function createLobby(
             "Waiting",
             minPlayers,
             maxPlayers,
-            password,
-            createdAt
+            password
         ]
     );
 
@@ -92,15 +91,33 @@ export async function getAllLobbies() {
     return result;
 }
 
-export async function joinLobby(id, user) {
+export async function joinLobby(id, user, password = null) {
+    if (!user?.id) {
+        return { lobby: null, error: "unauthorized" };
+    }
+
     const lobby = await getLobby(id);
-    if (!lobby) return null;
+    if (!lobby) return { lobby: null, error: "not_found" };
+
+    const isAlreadyMember = lobby.players.some((player) => player.id === user.id);
+    if (isAlreadyMember) {
+        return { lobby, error: null };
+    }
 
     if (
         lobby.max_players &&
         lobby.players.length >= lobby.max_players
     ) {
-        return null;
+        return { lobby: null, error: "full" };
+    }
+
+    if (lobby.password && lobby.owner_id !== user.id) {
+        if (!password) {
+            return { lobby: null, error: "password_required" };
+        }
+        if (password !== lobby.password) {
+            return { lobby: null, error: "password_invalid" };
+        }
     }
 
     await db.run(
@@ -108,7 +125,8 @@ export async function joinLobby(id, user) {
         [id, user.id]
     );
 
-    return getLobby(id);
+    const updatedLobby = await getLobby(id);
+    return { lobby: updatedLobby, error: null };
 }
 
 export async function leaveLobby(id, userId) {
@@ -142,36 +160,9 @@ export async function updateLobbySettings(
     const lobby = await getLobby(lobbyId);
     if (!lobby || lobby.owner_id !== ownerId) return null;
 
-    const nextName = (name ?? lobby.name)?.toString().trim() || lobby.name;
-
-    let nextMin = minPlayers ?? lobby.min_players;
-    nextMin = nextMin === "" ? lobby.min_players : Number(nextMin);
-    if (!Number.isFinite(nextMin) || nextMin < 1) {
-        return null;
-    }
-
-    const currentPlayers = lobby.players?.length ?? 0;
-
-    let nextMax = maxPlayers;
-    if (nextMax === "" || nextMax === undefined) {
-        nextMax = null;
-    } else {
-        nextMax = Number(nextMax);
-        if (!Number.isFinite(nextMax) || nextMax < currentPlayers || nextMax < nextMin) {
-            return null;
-        }
-    }
-
-    if (nextMax !== null && nextMin > nextMax) {
-        return null;
-    }
-
-    const nextPassword =
-        password === "" || password === undefined ? null : String(password);
-
     await db.run(
         lobbyQueries.updateLobbyByOwner,
-        [nextName, nextMin, nextMax, nextPassword, lobbyId, ownerId]
+        [name, minPlayers, maxPlayers, password, lobbyId, ownerId]
     );
 
     return getLobby(lobbyId);

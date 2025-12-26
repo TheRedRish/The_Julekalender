@@ -2,9 +2,9 @@ export const lobbyQueries = {
     insertLobby: `
     INSERT INTO lobbies (
       id, owner_id, name, status,
-      min_players, max_players, password, created_at
+      min_players, max_players, password
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
   `,
 
     insertLobbyPlayer: `

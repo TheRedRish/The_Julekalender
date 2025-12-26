@@ -16,7 +16,31 @@
 
 <div class="lobby-card">
   <div class="lobby-card__header">
-    <h3 class="lobby-card__title">{lobby.name}</h3>
+    <div class="lobby-card__title-row">
+      <h3 class="lobby-card__title">{lobby.name}</h3>
+      {#if lobby.password}
+        <span class="lobby-card__lock" aria-label="Private lobby" title="Private lobby">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M7 10V8a5 5 0 0 1 10 0v2"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <rect
+              x="5"
+              y="10"
+              width="14"
+              height="11"
+              rx="2"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+          </svg>
+        </span>
+      {/if}
+    </div>
     <Badge text={lobby.status} />
   </div>
 

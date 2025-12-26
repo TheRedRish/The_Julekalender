@@ -5,6 +5,9 @@ const deleteMode = process.argv.includes('--delete');
 if (deleteMode) {
     db.exec(`DROP TABLE IF EXISTS exercises;`);
     db.exec(`DROP TABLE IF EXISTS users;`);
+    db.exec(`DROP TABLE IF EXISTS login_events;`);
+    db.exec(`DROP TABLE IF EXISTS lobbies;`);
+    db.exec(`DROP TABLE IF EXISTS lobby_players;`);
 }
 
 db.exec(` 
@@ -32,7 +35,7 @@ db.exec(`
         min_players INTEGER NOT NULL,
         max_players INTEGER,
         password TEXT,
-        created_at INTEGER NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (owner_id) REFERENCES users(id)
     );
 

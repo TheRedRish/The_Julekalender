@@ -14,6 +14,23 @@ import {
 const disconnectTimers = new Map();
 const DISCONNECT_GRACE_MS = 5000;
 
+function joinErrorMessage(code) {
+    switch (code) {
+        case "unauthorized":
+            return "You must be logged in to join this lobby.";
+        case "not_found":
+            return "Lobby not found.";
+        case "full":
+            return "This lobby is full.";
+        case "password_required":
+            return "This lobby is locked. Enter the password to join.";
+        case "password_invalid":
+            return "Incorrect password for this lobby.";
+        default:
+            return "Could not join the lobby.";
+    }
+}
+
 export function registerLobbySocket(io, socket) {
     const userId = socket.request.session?.user.id;
 
@@ -47,9 +64,21 @@ export function registerLobbySocket(io, socket) {
         io.emit("lobby:list", lobbies);
     });
 
-    socket.on("lobby:join", async (lobbyId) => {
-        const lobby = await joinLobby(lobbyId, socket.request.session?.user);
-        if (!lobby) return;
+    socket.on("lobby:join", async (data, callback) => {
+        const lobbyId = typeof data === "string" ? data : data?.lobbyId;
+        const password = typeof data === "string" ? null : data?.password ?? null;
+        const user = socket.request.session?.user;
+
+        if (!lobbyId) {
+            callback?.({ ok: false, message: "Lobby ID is required." });
+            return;
+        }
+
+        const { lobby, error } = await joinLobby(lobbyId, user, password);
+        if (!lobby) {
+            callback?.({ ok: false, message: joinErrorMessage(error) });
+            return;
+        }
 
         socket.join(lobbyId);
 
@@ -57,6 +86,8 @@ export function registerLobbySocket(io, socket) {
 
         const lobbies = await getAllLobbies();
         io.emit("lobby:list", lobbies);
+
+        callback?.({ ok: true, lobby });
     });
 
     socket.on("lobby:leave", async (lobbyId) => {
