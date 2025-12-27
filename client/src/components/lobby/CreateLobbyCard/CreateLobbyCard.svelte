@@ -50,9 +50,10 @@
   </p>
 
   <div class="create-lobby__field">
-    <label class="create-lobby__label">Game</label>
+    <label class="create-lobby__label" for="create-lobby-game">Game</label>
     <select
       class="create-lobby__input"
+      id="create-lobby-game"
       bind:value={selectedGameId}
     >
       {#each games as game}
@@ -78,10 +79,11 @@
   </div>
 
   <div class="create-lobby__field">
-    <label class="create-lobby__label">Lobby Name</label>
+    <label class="create-lobby__label" for="create-lobby-name">Lobby Name</label>
     <input
       class="create-lobby__input"
       type="text"
+      id="create-lobby-name"
       placeholder="Enter a festive name..."
       bind:value={lobbyName}
     />
@@ -89,32 +91,35 @@
   </div>
 
   <div class="create-lobby__field">
-    <label class="create-lobby__label">Minimum Players</label>
+    <label class="create-lobby__label" for="create-lobby-min">Minimum Players</label>
     <input
       class="create-lobby__input"
       type="number"
       min="1"
+      id="create-lobby-min"
       bind:value={minPlayers}
     />
   </div>
 
   <div class="create-lobby__field">
-    <label class="create-lobby__label">Maximum Players</label>
+    <label class="create-lobby__label" for="create-lobby-max">Maximum Players</label>
     <input
       class="create-lobby__input"
       type="number"
       min="1"
       placeholder="No limit"
+      id="create-lobby-max"
       bind:value={maxPlayers}
     />
   </div>
 
   <div class="create-lobby__field">
-    <label class="create-lobby__label">Password (optional)</label>
+    <label class="create-lobby__label" for="create-lobby-password">Password (optional)</label>
     <input
       class="create-lobby__input"
       type="password"
       placeholder="Leave empty for public lobby"
+      id="create-lobby-password"
       bind:value={password}
     />
   </div>

@@ -36,11 +36,6 @@
   color: var(--color-text-muted);
 }
 
-.create-lobby__input-group {
-  display: flex;
-  gap: 8px;
-}
-
 .create-lobby__input {
   flex: 1;
   padding: 12px 14px;
