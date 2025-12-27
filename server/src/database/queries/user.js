@@ -1,4 +1,4 @@
-import db from '../../connection.js';
+import db from '../connection.js';
 
 export function getUserByEmail(email) {
     return db.get('SELECT * FROM users WHERE email = ?', [email]);
