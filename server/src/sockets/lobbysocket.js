@@ -65,19 +65,17 @@ export function registerLobbySocket(io, socket) {
         io.emit("lobby:list", lobbies);
     });
 
-    socket.on("lobby:join", async (data, callback) => {
-        const lobbyId = typeof data === "string" ? data : data.lobbyId;
-        const password = typeof data === "string" ? null : data.password;
+    socket.on("lobby:join", async ({ lobbyId, password }, callback) => {
         const user = socket.request.session.user;
 
         if (!lobbyId) {
-            callback?.({ ok: false, message: "Lobby ID is required." });
+            callback({ ok: false, message: "Lobby ID is required." });
             return;
         }
 
         const { lobby, error } = await joinLobby(lobbyId, user, password);
         if (!lobby) {
-            callback?.({ ok: false, message: joinErrorMessage(error) });
+            callback({ ok: false, message: joinErrorMessage(error) });
             return;
         }
 
@@ -88,7 +86,7 @@ export function registerLobbySocket(io, socket) {
         const lobbies = await getAllLobbies();
         io.emit("lobby:list", lobbies);
 
-        callback?.({ ok: true, lobby });
+        callback({ ok: true, lobby });
     });
 
     socket.on("lobby:leave", async (lobbyId) => {

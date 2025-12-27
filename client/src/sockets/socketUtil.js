@@ -14,13 +14,10 @@ export function emitWithAck(event, payload) {
         return Promise.reject(new Error("Socket not connected."));
     }
 
-    return new Promise((resolve, reject) => {
-        socket.emit(event, payload, (response) => {
-            if (!response.ok) {
-                reject(new Error(response.message || "Request failed."));
-                return;
-            }
-            resolve(response);
-        });
+    return socket.emitWithAck(event, payload).then((response) => {
+        if (response && response.ok === false) {
+            throw new Error(response.message || "Request failed.");
+        }
+        return response;
     });
 }
