@@ -48,8 +48,6 @@
 
   let editName = $state("");
   let editGameId = $state("");
-  let editMinPlayers = $state("");
-  let editMaxPlayers = $state("");
   let editPassword = $state("");
   let isEditing = $state(false);
   let showPasswordModal = $state(false);
@@ -71,8 +69,6 @@
     if (!lobby || isEditing) return;
     editName = lobby.name;
     editGameId = lobby.game_id;
-    editMinPlayers = lobby.min_players;
-    editMaxPlayers = lobby.max_players;
     editPassword = lobby.password;
   });
 
@@ -134,8 +130,6 @@
   function handleSaveSettings() {
     updateLobbySettings(lobbyId, {
       name: editName.trim(),
-      minPlayers: Number(editMinPlayers),
-      maxPlayers: Number(editMaxPlayers),
       password: editPassword,
       gameId: editGameId,
     });
@@ -151,8 +145,6 @@
     if (!isLeader) return;
     editName = lobby.name;
     editGameId = lobby.game_id;
-    editMinPlayers = lobby.min_players;
-    editMaxPlayers = lobby.max_players;
     editPassword = lobby.password;
     isEditing = true;
   }
@@ -160,8 +152,6 @@
   function handleCancelEdit() {
     editName = lobby.name;
     editGameId = lobby.game_id;
-    editMinPlayers = lobby.min_players;
-    editMaxPlayers = lobby.max_players;
     editPassword = lobby.password;
     isEditing = false;
   }
@@ -226,14 +216,6 @@
           <label class="lobby-page__field">
             <span>Lobby name</span>
             <input type="text" bind:value={editName} />
-          </label>
-          <label class="lobby-page__field">
-            <span>Min players</span>
-            <input type="number" min="1" bind:value={editMinPlayers} />
-          </label>
-          <label class="lobby-page__field">
-            <span>Max players (blank = no limit)</span>
-            <input type="number" min="1" bind:value={editMaxPlayers} />
           </label>
           <label class="lobby-page__field">
             <span>Password (blank = none)</span>

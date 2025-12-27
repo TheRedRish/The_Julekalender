@@ -7,8 +7,6 @@
 
   let lobbyName = $state("");
   let selectedGameId = $state("");
-  let minPlayers = $state("");
-  let maxPlayers = $state("");
   let password = $state("");
 
   const socket = getSocket();
@@ -22,16 +20,12 @@
     if (!selectedGameId && loadedGames.length > 0) {
       const first = loadedGames[0];
       selectedGameId = first.id;
-      minPlayers = first.min_players;
-      maxPlayers = first.max_players;
     }
   });
 
   function submitCreateLobby() {
     createLobby({
       name: lobbyName || null,
-      minPlayers: Number(minPlayers),
-      maxPlayers: Number(maxPlayers),
       password: password || null,
       gameId: selectedGameId,
     });
@@ -88,29 +82,6 @@
       bind:value={lobbyName}
     />
     <small class="create-lobby__hint">Leave empty for a random name</small>
-  </div>
-
-  <div class="create-lobby__field">
-    <label class="create-lobby__label" for="create-lobby-min">Minimum Players</label>
-    <input
-      class="create-lobby__input"
-      type="number"
-      min="1"
-      id="create-lobby-min"
-      bind:value={minPlayers}
-    />
-  </div>
-
-  <div class="create-lobby__field">
-    <label class="create-lobby__label" for="create-lobby-max">Maximum Players</label>
-    <input
-      class="create-lobby__input"
-      type="number"
-      min="1"
-      placeholder="No limit"
-      id="create-lobby-max"
-      bind:value={maxPlayers}
-    />
   </div>
 
   <div class="create-lobby__field">
