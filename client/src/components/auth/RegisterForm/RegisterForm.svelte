@@ -2,10 +2,10 @@
   import { registerUser } from "../../../services/authService.js";
   import { navigate } from "svelte-routing";
 
-  let email = "";
-  let username = "";
-  let password = "";
-  let password2 = "";
+  let email = "test1@tester.com";
+  let username = "Tester 1";
+  let password = "123456";
+  let password2 = "123456";
   let error = "";
   let success = "";
 
