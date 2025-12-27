@@ -1,5 +1,6 @@
 import db from "./connection.js";
 import { gameQueries } from "./queries/gameQueries.js";
+import { lobbyQueries } from "./queries/lobbyQueries.js";
 import { seedDefaultGames, getDefaultGameId } from "./seedGames.js";
 
 const deleteMode = process.argv.includes("--delete");
@@ -14,7 +15,7 @@ if (deleteMode) {
     await db.exec(`DROP TABLE IF EXISTS games;`);
 }
 
-db.exec(` 
+await db.exec(` 
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         email TEXT UNIQUE NOT NULL,
@@ -33,35 +34,7 @@ db.exec(`
 
     ${gameQueries.createTable}
 
-    CREATE TABLE IF NOT EXISTS lobbies (
-        id TEXT PRIMARY KEY,
-        owner_id INTEGER NOT NULL,
-        name TEXT NOT NULL,
-        game_id TEXT NOT NULL DEFAULT '${defaultGameId}',
-        status TEXT NOT NULL,
-        min_players INTEGER NOT NULL,
-        max_players INTEGER,
-        password TEXT,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (owner_id) REFERENCES users(id),
-        FOREIGN KEY (game_id) REFERENCES games(id)
-    );
-
-    CREATE TABLE lobby_players (
-        lobby_id TEXT NOT NULL,
-        user_id INTEGER NOT NULL,
-        PRIMARY KEY (lobby_id, user_id),
-        FOREIGN KEY (lobby_id) REFERENCES lobbies(id) ON DELETE CASCADE,
-        FOREIGN KEY (user_id) REFERENCES users(id)
-    );
-
-    CREATE INDEX IF NOT EXISTS idx_lobby_players_lobby
-        ON lobby_players (lobby_id);
-
-    CREATE INDEX IF NOT EXISTS idx_lobby_players_user
-        ON lobby_players (user_id);
+    ${lobbyQueries.createSchema(defaultGameId)}
 `);
 
-if (deleteMode) {
-    await seedDefaultGames();
-}
+await seedDefaultGames();

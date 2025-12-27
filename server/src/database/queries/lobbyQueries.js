@@ -1,4 +1,34 @@
 export const lobbyQueries = {
+    createSchema: (defaultGameId) => `
+    CREATE TABLE lobbies (
+      id TEXT PRIMARY KEY,
+      owner_id INTEGER NOT NULL,
+      name TEXT NOT NULL,
+      game_id TEXT NOT NULL DEFAULT '${defaultGameId}',
+      status TEXT NOT NULL,
+      min_players INTEGER NOT NULL,
+      max_players INTEGER,
+      password TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (owner_id) REFERENCES users(id),
+      FOREIGN KEY (game_id) REFERENCES games(id)
+    );
+
+    CREATE TABLE lobby_players (
+      lobby_id TEXT NOT NULL,
+      user_id INTEGER NOT NULL,
+      PRIMARY KEY (lobby_id, user_id),
+      FOREIGN KEY (lobby_id) REFERENCES lobbies(id) ON DELETE CASCADE,
+      FOREIGN KEY (user_id) REFERENCES users(id)
+    );
+
+    CREATE INDEX idx_lobby_players_lobby
+      ON lobby_players (lobby_id);
+
+    CREATE INDEX idx_lobby_players_user
+      ON lobby_players (user_id);
+  `,
+
     insertLobby: `
     INSERT INTO lobbies (
       id, owner_id, name, game_id, status,
