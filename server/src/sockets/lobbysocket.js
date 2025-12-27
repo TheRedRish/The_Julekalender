@@ -46,14 +46,15 @@ export function registerLobbySocket(io, socket) {
     })();
 
     socket.on("lobby:create", async (data) => {
-        const { name, minPlayers, maxPlayers, password } = data;
+        const { name, minPlayers, maxPlayers, password, gameId } = data;
 
         const lobby = await createLobby(
             socket.request.session?.user,
             name,
             minPlayers,
             maxPlayers,
-            password
+            password,
+            gameId
         );
 
         socket.join(lobby.id);
@@ -101,11 +102,11 @@ export function registerLobbySocket(io, socket) {
         io.emit("lobby:list", lobbies);
     });
 
-    socket.on("lobby:update-settings", async ({ lobbyId, name, minPlayers, maxPlayers, password }) => {
+    socket.on("lobby:update-settings", async ({ lobbyId, name, minPlayers, maxPlayers, password, gameId }) => {
         const lobby = await updateLobbySettings(
             lobbyId,
             socket.request.session?.user.id,
-            { name, minPlayers, maxPlayers, password }
+            { name, minPlayers, maxPlayers, password, gameId }
         );
 
         if (!lobby) return;

@@ -3,6 +3,7 @@ import express from "express";
 import session from "express-session";
 import cors from "cors";
 import authRouter from "./routers/authRouter.js";
+import gameRouter from "./routers/gameRouter.js";
 
 const app = express();
 
@@ -24,6 +25,7 @@ const sessionMiddleware = session({
 app.use(sessionMiddleware);
 
 app.use(authRouter);
+app.use(gameRouter);
 
 import http from "http";
 import { Server } from "socket.io";

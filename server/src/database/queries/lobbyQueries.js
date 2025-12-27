@@ -1,10 +1,10 @@
 export const lobbyQueries = {
     insertLobby: `
     INSERT INTO lobbies (
-      id, owner_id, name, status,
+      id, owner_id, name, game_id, status,
       min_players, max_players, password
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `,
 
     insertLobbyPlayer: `
@@ -56,7 +56,7 @@ export const lobbyQueries = {
 
     updateLobbyByOwner: `
     UPDATE lobbies
-    SET name = ?, min_players = ?, max_players = ?, password = ?
+    SET name = ?, game_id = ?, min_players = ?, max_players = ?, password = ?
     WHERE id = ? AND owner_id = ?
   `,
 

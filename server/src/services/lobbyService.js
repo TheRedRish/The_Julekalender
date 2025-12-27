@@ -1,6 +1,7 @@
 import db from "../database/connection.js";
 import { lobbyQueries } from "../database/queries/lobbyQueries.js";
 import { randomString, randomThreeWordName } from "../util/stringUtil.js";
+import { getGameById } from "./gameService.js";
 
 function computeLobbyStatus(lobby) {
     const playerCount = lobby.players?.length ?? 0;
@@ -23,16 +24,22 @@ async function ensureLobbyStatus(lobby) {
     return { ...lobby, status: nextStatus };
 }
 
+async function attachGameMetadata(lobby) {
+    if (!lobby) return null;
+    const game = await getGameById(lobby.game_id);
+    return { ...lobby, game };
+}
+
 export async function createLobby(
     owner,
     name,
     minPlayers = 1,
     maxPlayers = null,
-    password = null
+    password = null,
+    gameId = null
 ) {
     const id = randomString(6);
     const lobbyName = name || randomThreeWordName();
-
 
     await db.run(
         lobbyQueries.insertLobby,
@@ -40,6 +47,7 @@ export async function createLobby(
             id,
             owner.id,
             lobbyName,
+            gameId,
             "Waiting",
             minPlayers,
             maxPlayers,
@@ -68,7 +76,8 @@ export async function getLobby(id) {
         [id]
     );
 
-    return ensureLobbyStatus({ ...lobby, players });
+    const lobbyWithStatus = await ensureLobbyStatus({ ...lobby, players });
+    return attachGameMetadata(lobbyWithStatus);
 }
 
 export async function getAllLobbies() {
@@ -85,7 +94,8 @@ export async function getAllLobbies() {
         );
 
         const lobbyWithStatus = await ensureLobbyStatus({ ...lobby, players });
-        result.push(lobbyWithStatus);
+        const withGame = await attachGameMetadata(lobbyWithStatus);
+        result.push(withGame);
     }
 
     return result;
@@ -171,14 +181,14 @@ export async function leaveLobby(id, userId) {
 export async function updateLobbySettings(
     lobbyId,
     ownerId,
-    { name, minPlayers, maxPlayers, password }
+    { name, minPlayers, maxPlayers, password, gameId }
 ) {
     const lobby = await getLobby(lobbyId);
     if (!lobby || lobby.owner_id !== ownerId) return null;
 
     await db.run(
         lobbyQueries.updateLobbyByOwner,
-        [name, minPlayers, maxPlayers, password, lobbyId, ownerId]
+        [name, gameId, minPlayers, maxPlayers, password, lobbyId, ownerId]
     );
 
     return getLobby(lobbyId);
