@@ -28,7 +28,7 @@ export async function seedDefaultGames() {
     for (const game of defaultGames) {
         await db.run(
             gameQueries.insertOrIgnore,
-            [game.id, game.name, game.description, game.min_players, game.max_players, game.display_order ?? 0]
+            [game.id, game.name, game.description, game.min_players, game.max_players, game.display_order]
         );
     }
 }

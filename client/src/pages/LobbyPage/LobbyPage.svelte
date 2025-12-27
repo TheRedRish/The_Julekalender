@@ -55,9 +55,7 @@
   let showPasswordModal = $state(false);
   let joinError = $state("");
   const games = $derived($gamesStore);
-  const editGame = $derived(
-    games.find((game) => game.id === editGameId) ?? null
-  );
+  const editGame = $derived(games.find((game) => game.id === editGameId));
 
   onMount(() => {
     loadGames();
@@ -71,11 +69,11 @@
 
   $effect(() => {
     if (!lobby || isEditing) return;
-    editName = lobby.name ?? "";
-    editGameId = lobby.game_id ?? "";
-    editMinPlayers = lobby.min_players ?? "";
-    editMaxPlayers = lobby.max_players ?? "";
-    editPassword = lobby.password ?? "";
+    editName = lobby.name;
+    editGameId = lobby.game_id;
+    editMinPlayers = lobby.min_players;
+    editMaxPlayers = lobby.max_players;
+    editPassword = lobby.password;
   });
 
   $effect(() => {
@@ -139,7 +137,7 @@
       minPlayers: Number(editMinPlayers),
       maxPlayers: Number(editMaxPlayers),
       password: editPassword,
-      gameId: editGameId
+      gameId: editGameId,
     });
     isEditing = false;
   }
@@ -151,20 +149,20 @@
 
   function handleStartEdit() {
     if (!isLeader) return;
-    editName = lobby.name ?? "";
-    editGameId = lobby.game_id ?? "";
-    editMinPlayers = lobby.min_players ?? "";
-    editMaxPlayers = lobby.max_players ?? "";
-    editPassword = lobby.password ?? "";
+    editName = lobby.name;
+    editGameId = lobby.game_id;
+    editMinPlayers = lobby.min_players;
+    editMaxPlayers = lobby.max_players;
+    editPassword = lobby.password;
     isEditing = true;
   }
 
   function handleCancelEdit() {
-    editName = lobby.name ?? "";
-    editGameId = lobby.game_id ?? "";
-    editMinPlayers = lobby.min_players ?? "";
-    editMaxPlayers = lobby.max_players ?? "";
-    editPassword = lobby.password ?? "";
+    editName = lobby.name;
+    editGameId = lobby.game_id;
+    editMinPlayers = lobby.min_players;
+    editMaxPlayers = lobby.max_players;
+    editPassword = lobby.password;
     isEditing = false;
   }
 </script>
@@ -217,8 +215,8 @@
               {/each}
             </select>
             <small class="lobby-page__hint">
-              Min {editGame.min_players ?? ""}
-              {#if editGame.max_players !== null && editGame.max_players !== undefined}
+              Min {editGame.min_players}
+              {#if editGame.max_players}
                 - Max {editGame.max_players}
               {:else}
                 - No max

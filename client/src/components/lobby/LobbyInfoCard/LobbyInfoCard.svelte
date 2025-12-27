@@ -4,7 +4,7 @@
   const maxPlayersText = $derived(
     lobby.max_players ? lobby.max_players : "No limit"
   );
-  const minPlayersText = $derived(lobby.min_players ?? 1);
+  const minPlayersText = $derived(lobby.min_players);
   const visibilityText = $derived(
     lobby.password ? "Private lobby" : "Public lobby"
   );
@@ -22,13 +22,13 @@
     <div class="lobby-info__item">
       <span class="lobby-info__label">Lobby ID</span>
       <span class="lobby-info__value lobby-info__value--mono">
-        {lobby.id ?? "Unknown"}
+        {lobby.id}
       </span>
     </div>
 
     <div class="lobby-info__item">
       <span class="lobby-info__label">Status</span>
-      <span class="lobby-info__value">{lobby.status ?? "Unknown"}</span>
+      <span class="lobby-info__value">{lobby.status}</span>
     </div>
 
     <div class="lobby-info__item">

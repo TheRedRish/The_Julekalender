@@ -67,7 +67,7 @@ export function registerLobbySocket(io, socket) {
 
     socket.on("lobby:join", async (data, callback) => {
         const lobbyId = typeof data === "string" ? data : data.lobbyId;
-        const password = typeof data === "string" ? null : data.password ?? null;
+        const password = typeof data === "string" ? null : data.password;
         const user = socket.request.session.user;
 
         if (!lobbyId) {

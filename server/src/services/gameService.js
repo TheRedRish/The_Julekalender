@@ -12,5 +12,5 @@ export async function getGameById(gameId) {
 
 export async function getDefaultGame() {
     const games = await getAllGames();
-    return games[0] ?? null;
+    return games[0];
 }

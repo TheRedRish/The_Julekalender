@@ -4,7 +4,7 @@ import { randomString, randomThreeWordName } from "../util/stringUtil.js";
 import { getGameById } from "./gameService.js";
 
 function computeLobbyStatus(lobby) {
-    const playerCount = lobby.players.length ?? 0;
+    const playerCount = lobby.players.length;
     if (lobby.max_players && playerCount >= lobby.max_players) {
         return "Full";
     }
