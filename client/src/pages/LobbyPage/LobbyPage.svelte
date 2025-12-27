@@ -169,6 +169,13 @@
   </section>
 {:else}
   <section class="lobby-page page">
+    <div class="lobby-page__back-row">
+      <Button
+        text="Back to lobbies"
+        icon="←"
+        onClick={() => navigate("/lobbies")}
+      />
+    </div>
     <LobbyActionsBar
       {lobby}
       {isMember}

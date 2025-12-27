@@ -5,6 +5,11 @@
   gap: 18px;
 }
 
+.lobby-page__back-row {
+  display: flex;
+  justify-content: flex-start;
+}
+
 .lobby-page__grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
