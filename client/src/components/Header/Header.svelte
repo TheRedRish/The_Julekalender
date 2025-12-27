@@ -27,7 +27,7 @@
   }
 
   async function handleLogout(event) {
-    event?.preventDefault();
+    event.preventDefault();
     try {
       isMenuOpen = false;
       await logoutUser();

@@ -2,15 +2,15 @@
   const { lobby } = $props();
 
   const maxPlayersText = $derived(
-    lobby?.max_players ? lobby.max_players : "No limit"
+    lobby.max_players ? lobby.max_players : "No limit"
   );
-  const minPlayersText = $derived(lobby?.min_players ?? 1);
+  const minPlayersText = $derived(lobby.min_players ?? 1);
   const visibilityText = $derived(
-    lobby?.password ? "Private lobby" : "Public lobby"
+    lobby.password ? "Private lobby" : "Public lobby"
   );
   const spotsRemaining = $derived(
-    lobby?.max_players
-      ? Math.max(lobby.max_players - (lobby.players?.length || 0), 0)
+    lobby.max_players
+      ? Math.max(lobby.max_players - (lobby.players.length || 0), 0)
       : null
   );
 </script>
@@ -22,13 +22,18 @@
     <div class="lobby-info__item">
       <span class="lobby-info__label">Lobby ID</span>
       <span class="lobby-info__value lobby-info__value--mono">
-        {lobby?.id ?? "Unknown"}
+        {lobby.id ?? "Unknown"}
       </span>
     </div>
 
     <div class="lobby-info__item">
       <span class="lobby-info__label">Status</span>
-      <span class="lobby-info__value">{lobby?.status ?? "Unknown"}</span>
+      <span class="lobby-info__value">{lobby.status ?? "Unknown"}</span>
+    </div>
+
+    <div class="lobby-info__item">
+      <span class="lobby-info__label">Game</span>
+      <span class="lobby-info__value">{lobby.game.name}</span>
     </div>
 
     <div class="lobby-info__item">

@@ -11,7 +11,7 @@
   }
 
   async function handlePasswordReset() {
-    if (!$userStore?.email) {
+    if (!$userStore.email) {
       setStatus("error", "We could not find an email on your account.");
       return;
     }

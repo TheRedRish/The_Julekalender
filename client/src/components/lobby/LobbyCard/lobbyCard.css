@@ -46,6 +46,12 @@
   gap: 6px;
 }
 
+.lobby-card__game {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
 .lobby-card__avatars {
   display: flex;
   gap: 8px;

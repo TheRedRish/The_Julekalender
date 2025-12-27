@@ -58,6 +58,34 @@
   border-color: var(--color-border);
 }
 
+.create-lobby__game-meta {
+  background: var(--color-surface-muted);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.create-lobby__game-name {
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.create-lobby__game-description {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.create-lobby__game-hint {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
 .create-lobby__hint {
   font-size: 0.75rem;
   color: var(--color-text-muted);

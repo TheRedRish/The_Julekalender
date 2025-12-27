@@ -43,7 +43,7 @@ io.engine.use(sessionMiddleware);
 
 io.use((socket, next) => {
   try {
-    const user = socket.request.session?.user;
+    const user = socket.request.session.user;
 
     if (!user) return next(new Error("Unauthorized"));
 

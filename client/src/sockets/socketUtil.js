@@ -16,8 +16,8 @@ export function emitWithAck(event, payload) {
 
     return new Promise((resolve, reject) => {
         socket.emit(event, payload, (response) => {
-            if (!response?.ok) {
-                reject(new Error(response?.message || "Request failed."));
+            if (!response.ok) {
+                reject(new Error(response.message || "Request failed."));
                 return;
             }
             resolve(response);

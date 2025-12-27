@@ -12,7 +12,6 @@
     onEdit = null,
     isLeader = false
   } = $props();
-
   
 </script>
 
@@ -20,13 +19,13 @@
   <div class="lobby-actions__details">
     <p class="lobby-actions__eyebrow">Lobby</p>
     <div class="lobby-actions__title-row">
-      <h1 class="lobby-actions__title">{lobby?.name ?? "Lobby"}</h1>
-      {#if lobby?.status}
+      <h1 class="lobby-actions__title">{lobby.name}</h1>
+      {#if lobby.status}
         <Badge text={lobby.status} />
       {/if}
     </div>
     <p class="lobby-actions__subtitle">
-      Share the link or join to meet other players.
+      Game: {lobby.game.name}. Share the link or join to meet other players.
     </p>
   </div>
 

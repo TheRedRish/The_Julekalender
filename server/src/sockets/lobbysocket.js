@@ -32,7 +32,7 @@ function joinErrorMessage(code) {
 }
 
 export function registerLobbySocket(io, socket) {
-    const userId = socket.request.session?.user.id;
+    const userId = socket.request.session.user.id;
 
     const pendingDisconnect = disconnectTimers.get(userId);
     if (pendingDisconnect) {
@@ -49,7 +49,7 @@ export function registerLobbySocket(io, socket) {
         const { name, minPlayers, maxPlayers, password, gameId } = data;
 
         const lobby = await createLobby(
-            socket.request.session?.user,
+            socket.request.session.user,
             name,
             minPlayers,
             maxPlayers,
@@ -66,9 +66,9 @@ export function registerLobbySocket(io, socket) {
     });
 
     socket.on("lobby:join", async (data, callback) => {
-        const lobbyId = typeof data === "string" ? data : data?.lobbyId;
-        const password = typeof data === "string" ? null : data?.password ?? null;
-        const user = socket.request.session?.user;
+        const lobbyId = typeof data === "string" ? data : data.lobbyId;
+        const password = typeof data === "string" ? null : data.password ?? null;
+        const user = socket.request.session.user;
 
         if (!lobbyId) {
             callback?.({ ok: false, message: "Lobby ID is required." });
@@ -92,7 +92,7 @@ export function registerLobbySocket(io, socket) {
     });
 
     socket.on("lobby:leave", async (lobbyId) => {
-        const lobby = await leaveLobby(lobbyId, socket.request.session?.user.id);
+        const lobby = await leaveLobby(lobbyId, socket.request.session.user.id);
 
         socket.leave(lobbyId);
 
@@ -105,7 +105,7 @@ export function registerLobbySocket(io, socket) {
     socket.on("lobby:update-settings", async ({ lobbyId, name, minPlayers, maxPlayers, password, gameId }) => {
         const lobby = await updateLobbySettings(
             lobbyId,
-            socket.request.session?.user.id,
+            socket.request.session.user.id,
             { name, minPlayers, maxPlayers, password, gameId }
         );
 
@@ -120,7 +120,7 @@ export function registerLobbySocket(io, socket) {
     socket.on("lobby:kick", async ({ lobbyId, playerId }) => {
         const lobby = await kickPlayer(
             lobbyId,
-            socket.request.session?.user.id,
+            socket.request.session.user.id,
             playerId
         );
 
@@ -137,7 +137,7 @@ export function registerLobbySocket(io, socket) {
 
             // If any socket for this user is still connected, skip cleanup.
             const hasActiveSocket = Array.from(io.sockets.sockets.values())
-                .some((s) => s.user?.id === userId);
+                .some((s) => s.user.id === userId);
             if (hasActiveSocket) {
                 return;
             }

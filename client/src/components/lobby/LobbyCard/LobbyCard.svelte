@@ -7,6 +7,12 @@
   import { copyLobbyLink } from "../../../services/lobbyService";
 
   const { lobby } = $props();
+  const maxPlayers = $derived(lobby.max_players);
+  const totalSlots = $derived(maxPlayers || Math.max(lobby.players.length, 3));
+  const openSlots = $derived(Math.max(totalSlots - lobby.players.length, 0));
+  const playerCountText = $derived(
+    maxPlayers ? `${lobby.players.length}/${maxPlayers} players` : `${lobby.players.length} players`
+  );
 
   function viewLobby() {
     navigate(`/lobby/${lobby.id}`);
@@ -45,19 +51,18 @@
   </div>
 
   <div class="lobby-card__players">
+    <p class="lobby-card__game">{lobby.game.name}</p>
     <div class="lobby-card__avatars">
       {#each lobby.players as player}
         <Avatar label={getInitials(player.username)} />
       {/each}
 
-      {#each { length: 3 - lobby.players.length }}
+      {#each { length: openSlots }}
         <Avatar label="?" empty />
       {/each}
     </div>
 
-    <span class="lobby-card__count">
-      {lobby.players.length}/3 players
-    </span>
+    <span class="lobby-card__count">{playerCountText}</span>
   </div>
 
   <div class="lobby-card__actions">

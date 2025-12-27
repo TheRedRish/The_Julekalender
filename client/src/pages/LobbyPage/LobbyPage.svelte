@@ -1,10 +1,12 @@
 <script>
+  import { onMount } from "svelte";
   import { navigate } from "svelte-routing";
   import LobbyActionsBar from "../../components/lobby/LobbyActionsBar/LobbyActionsBar.svelte";
   import LobbyPlayersPanel from "../../components/lobby/LobbyPlayersPanel/LobbyPlayersPanel.svelte";
   import LobbyInfoCard from "../../components/lobby/LobbyInfoCard/LobbyInfoCard.svelte";
   import { lobbyStore, currentLobby } from "../../stores/lobbyStore.js";
   import { userStore } from "../../stores/userStore.js";
+  import { gamesStore, loadGames } from "../../stores/gameStore.js";
   import {
     joinLobby,
     leaveLobby,
@@ -18,7 +20,7 @@
   import JoinLobbyPassword from "../../components/lobby/JoinLobbyPassword/JoinLobbyPassword.svelte";
 
   const { params = {} } = $props();
-  const lobbyId = $derived(params?.id);
+  const lobbyId = $derived(params.id);
 
   const lobbyFromList = $derived(
     $lobbyStore.find((item) => item.id === lobbyId)
@@ -33,11 +35,11 @@
   const isMember = $derived(
     lobby &&
       $userStore &&
-      lobby.players?.some((player) => player.id === $userStore.id)
+      lobby.players.some((player) => player.id === $userStore.id)
   );
 
   const isFull = $derived(
-    lobby?.max_players && lobby.players?.length >= lobby.max_players
+    lobby.max_players && lobby.players.length >= lobby.max_players
   );
 
   const isLeader = $derived(
@@ -45,12 +47,21 @@
   );
 
   let editName = $state("");
+  let editGameId = $state("");
   let editMinPlayers = $state("");
   let editMaxPlayers = $state("");
   let editPassword = $state("");
   let isEditing = $state(false);
   let showPasswordModal = $state(false);
   let joinError = $state("");
+  const games = $derived($gamesStore);
+  const editGame = $derived(
+    games.find((game) => game.id === editGameId) ?? null
+  );
+
+  onMount(() => {
+    loadGames();
+  });
 
   $effect(() => {
     if (!isLeader) {
@@ -61,6 +72,7 @@
   $effect(() => {
     if (!lobby || isEditing) return;
     editName = lobby.name ?? "";
+    editGameId = lobby.game_id ?? "";
     editMinPlayers = lobby.min_players ?? "";
     editMaxPlayers = lobby.max_players ?? "";
     editPassword = lobby.password ?? "";
@@ -84,12 +96,7 @@
   }
 
   async function handleJoin(passwordValue = null) {
-    if (passwordValue && typeof passwordValue === "object" && "preventDefault" in passwordValue) {
-      passwordValue.preventDefault?.();
-      passwordValue = null;
-    }
-
-    if (lobby?.password && !isMember && !isLeader && passwordValue === null) {
+    if (lobby.password && !isMember && !isLeader && passwordValue === null) {
       openPasswordModal();
       return;
     }
@@ -98,8 +105,8 @@
       await joinLobby(lobbyId, passwordValue);
       closePasswordModal();
     } catch (error) {
-      const message = error?.message || "Failed to join lobby.";
-      if (lobby?.password) {
+      const message = error.message || "Failed to join lobby.";
+      if (lobby.password) {
         joinError = message;
         showPasswordModal = true;
       } else {
@@ -127,32 +134,12 @@
   }
 
   function handleSaveSettings() {
-    if (editName.trim() === "") {
-      toastError("Please enter a name for the lobby.");
-      return;
-    }
-
-    const minValue =
-      editMinPlayers === "" ? lobby?.min_players ?? 1 : Number(editMinPlayers);
-    if (!Number.isFinite(minValue) || minValue < 1) {
-      toastError("Minimum players must be at least 1.");
-      return;
-    }
-
-    const maxValue =
-      editMaxPlayers === "" ? null : Number(editMaxPlayers);
-    if (maxValue !== null) {
-      if (!Number.isFinite(maxValue) || maxValue < minValue) {
-        toastError("Maximum players must be a number not below the minimum.");
-        return;
-      }
-    }
-
     updateLobbySettings(lobbyId, {
       name: editName.trim(),
-      minPlayers: minValue,
-      maxPlayers: maxValue,
-      password: editPassword ?? ""
+      minPlayers: Number(editMinPlayers),
+      maxPlayers: Number(editMaxPlayers),
+      password: editPassword,
+      gameId: editGameId
     });
     isEditing = false;
   }
@@ -164,18 +151,20 @@
 
   function handleStartEdit() {
     if (!isLeader) return;
-    editName = lobby?.name ?? "";
-    editMinPlayers = lobby?.min_players ?? "";
-    editMaxPlayers = lobby?.max_players ?? "";
-    editPassword = lobby?.password ?? "";
+    editName = lobby.name ?? "";
+    editGameId = lobby.game_id ?? "";
+    editMinPlayers = lobby.min_players ?? "";
+    editMaxPlayers = lobby.max_players ?? "";
+    editPassword = lobby.password ?? "";
     isEditing = true;
   }
 
   function handleCancelEdit() {
-    editName = lobby?.name ?? "";
-    editMinPlayers = lobby?.min_players ?? "";
-    editMaxPlayers = lobby?.max_players ?? "";
-    editPassword = lobby?.password ?? "";
+    editName = lobby.name ?? "";
+    editGameId = lobby.game_id ?? "";
+    editMinPlayers = lobby.min_players ?? "";
+    editMaxPlayers = lobby.max_players ?? "";
+    editPassword = lobby.password ?? "";
     isEditing = false;
   }
 </script>
@@ -221,6 +210,22 @@
 
         <div class="lobby-page__controls">
           <label class="lobby-page__field">
+            <span>Game</span>
+            <select bind:value={editGameId}>
+              {#each games as game}
+                <option value={game.id}>{game.name}</option>
+              {/each}
+            </select>
+            <small class="lobby-page__hint">
+              Min {editGame.min_players ?? ""}
+              {#if editGame.max_players !== null && editGame.max_players !== undefined}
+                - Max {editGame.max_players}
+              {:else}
+                - No max
+              {/if}
+            </small>
+          </label>
+          <label class="lobby-page__field">
             <span>Lobby name</span>
             <input type="text" bind:value={editName} />
           </label>
@@ -250,7 +255,7 @@
       <LobbyPlayersPanel
         players={lobby.players}
         maxPlayers={lobby.max_players}
-        currentUserId={$userStore?.id}
+        currentUserId={$userStore.id}
         canKick={isLeader}
         leaderId={lobby.owner_id}
         onKick={handleKick}
@@ -263,7 +268,7 @@
 
 <Modal open={showPasswordModal} onClose={closePasswordModal}>
   <JoinLobbyPassword
-    lobbyName={lobby?.name}
+    lobbyName={lobby.name}
     error={joinError}
     onSubmit={handleSubmitPassword}
     onCancel={closePasswordModal}

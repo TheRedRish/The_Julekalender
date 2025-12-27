@@ -4,7 +4,7 @@ import { randomString, randomThreeWordName } from "../util/stringUtil.js";
 import { getGameById } from "./gameService.js";
 
 function computeLobbyStatus(lobby) {
-    const playerCount = lobby.players?.length ?? 0;
+    const playerCount = lobby.players.length ?? 0;
     if (lobby.max_players && playerCount >= lobby.max_players) {
         return "Full";
     }
@@ -102,7 +102,7 @@ export async function getAllLobbies() {
 }
 
 export async function joinLobby(id, user, password = null) {
-    if (!user?.id) {
+    if (!user.id) {
         return { lobby: null, error: "unauthorized" };
     }
 
@@ -141,7 +141,7 @@ export async function joinLobby(id, user, password = null) {
 
 export async function leaveLobby(id, userId) {
     const lobby = await getLobby(id);
-    const ownerIsLeaving = lobby?.owner_id === userId;
+    const ownerIsLeaving = lobby.owner_id === userId;
 
     await db.run(
         lobbyQueries.deleteLobbyPlayer,
@@ -165,7 +165,7 @@ export async function leaveLobby(id, userId) {
     let updatedLobby = await getLobby(id);
 
     if (ownerIsLeaving && updatedLobby) {
-        const nextOwnerId = updatedLobby.players[0]?.id;
+        const nextOwnerId = updatedLobby.players[0].id;
         if (nextOwnerId) {
             await db.run(
                 lobbyQueries.updateLobbyOwner,

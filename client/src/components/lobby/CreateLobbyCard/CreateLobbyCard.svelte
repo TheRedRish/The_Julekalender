@@ -1,21 +1,39 @@
 <script>
   import { navigate } from "svelte-routing";
+  import { onMount } from "svelte";
   import { getSocket } from "../../../sockets/socket.js";
   import { createLobby } from "../../../sockets/lobbySocket.js";
+  import { gamesStore, loadGames } from "../../../stores/gameStore.js";
 
-  let lobbyName = "";
-  let minPlayers = 1;
-  let maxPlayers = "";
-  let password = "";
+  let lobbyName = $state("");
+  let selectedGameId = $state("");
+  let minPlayers = $state("");
+  let maxPlayers = $state("");
+  let password = $state("");
 
   const socket = getSocket();
+  const games = $derived($gamesStore);
+  const selectedGame = $derived(
+    games.find((game) => game.id === selectedGameId)
+  );
+
+  onMount(async () => {
+    const loadedGames = await loadGames();
+    if (!selectedGameId && loadedGames.length > 0) {
+      const first = loadedGames[0];
+      selectedGameId = first.id;
+      minPlayers = first.min_players;
+      maxPlayers = first.max_players;
+    }
+  });
 
   function submitCreateLobby() {
     createLobby({
       name: lobbyName || null,
       minPlayers: Number(minPlayers),
-      maxPlayers: maxPlayers ? Number(maxPlayers) : null,
+      maxPlayers: Number(maxPlayers),
       password: password || null,
+      gameId: selectedGameId,
     });
   }
 
@@ -32,11 +50,39 @@
   </p>
 
   <div class="create-lobby__field">
+    <label class="create-lobby__label">Game</label>
+    <select
+      class="create-lobby__input"
+      bind:value={selectedGameId}
+    >
+      {#each games as game}
+        <option value={game.id}>{game.name}</option>
+      {/each}
+    </select>
+    {#if selectedGame}
+      <div class="create-lobby__game-meta">
+        <p class="create-lobby__game-name">{selectedGame.name}</p>
+        <p class="create-lobby__game-description">
+          {selectedGame.description}
+        </p>
+        <p class="create-lobby__game-hint">
+          Suggested players: {selectedGame.min_players}
+          {#if selectedGame.max_players}
+            - {selectedGame.max_players}
+          {:else}
+            - No max
+          {/if}
+        </p>
+      </div>
+    {/if}
+  </div>
+
+  <div class="create-lobby__field">
     <label class="create-lobby__label">Lobby Name</label>
     <input
       class="create-lobby__input"
       type="text"
-      placeholder="Enter a festive name…"
+      placeholder="Enter a festive name..."
       bind:value={lobbyName}
     />
     <small class="create-lobby__hint">Leave empty for a random name</small>
