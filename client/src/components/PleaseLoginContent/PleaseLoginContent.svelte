@@ -16,7 +16,7 @@
   <h2 class="please-login__title">Please log in</h2>
 
   <p class="please-login__text">
-    You need to be logged in to create or join a lobby.
+    You need to be logged in to view this content.
   </p>
 
   <div class="please-login__actions">

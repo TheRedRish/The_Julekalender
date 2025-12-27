@@ -169,13 +169,13 @@
   flex-wrap: wrap;
 }
 
-.frontpage__link {
+:global(.frontpage__link) {
   color: var(--color-primary);
   font-weight: 700;
   text-decoration: none;
 }
 
-.frontpage__link:hover {
+:global(.frontpage__link:hover) {
   text-decoration: underline;
 }
 

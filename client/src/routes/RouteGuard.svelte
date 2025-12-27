@@ -2,6 +2,7 @@
   import { navigate } from "svelte-routing";
   import PleaseLoginContent from "../components/PleaseLoginContent/PleaseLoginContent.svelte";
   import { userStore } from "../stores/userStore.js";
+  import Modal from "../components/ui/Modal/Modal.svelte";
 
   const {
     component: Component,
@@ -11,39 +12,12 @@
   } = $props();
 
   const isAuthed = $derived(!!$userStore);
-
-  // Redirect when a protected route is visited without auth
-  $effect(() => {
-    if (requiresAuth && !isAuthed) {
-      navigate(redirectTo);
-    }
-  });
 </script>
 
 {#if !requiresAuth || isAuthed}
   <Component {params} />
 {:else}
-  <section class="route-guard page">
-    <div class="route-guard__card">
+  <Modal open={true} onClose={null} closable={false}>
       <PleaseLoginContent loginPath={redirectTo} />
-    </div>
-  </section>
+  </Modal>
 {/if}
-
-<style>
-  .route-guard {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 40px 20px;
-  }
-
-  .route-guard__card {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 14px;
-    padding: 22px;
-    box-shadow: var(--shadow-xs);
-    width: min(560px, 100%);
-  }
-</style>

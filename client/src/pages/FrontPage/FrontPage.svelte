@@ -27,11 +27,11 @@
     "Start the game when everyone is ready.",
   ];
 
-  function handlePrimaryCta() {
+  function handlePrimaryButton() {
     navigate($userStore ? "/lobbies" : "/login");
   }
 
-  function handleSecondaryCta() {
+  function handleSecondaryButton() {
     navigate($userStore ? "/profile" : "/register");
   }
 </script>
@@ -50,12 +50,13 @@
     <div class="frontpage__actions">
       <Button
         text={$userStore ? "Open lobbies" : "Login to play"}
-        onClick={handlePrimaryCta}
+        onClick={handlePrimaryButton}
       />
       <button
         class="frontpage__ghost"
         type="button"
-        onclick={handleSecondaryCta}
+        onclick={handleSecondaryButton
+    }
       >
         {$userStore ? "View profile" : "Create an account"}
       </button>

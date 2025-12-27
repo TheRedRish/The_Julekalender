@@ -1,9 +1,9 @@
 <script>
-  const { open, onClose, closable = true } = $props();
+  const { open, onClose, closable = true, children } = $props();
 
   function onBackdropClick(event) {
+    if (!closable) return;
     if (event.target === event.currentTarget) {
-      if (!closable) return;
       onClose();
     }
   }
@@ -23,7 +23,7 @@
 {#if open}
   <div class="modal-overlay" role="presentation" onclick={onBackdropClick}>
     <div class="modal" role="dialog" aria-modal="true">
-      <slot />
+      {@render children?.()}
     </div>
   </div>
 {/if}
