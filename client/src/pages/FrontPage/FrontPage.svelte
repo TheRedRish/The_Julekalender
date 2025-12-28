@@ -106,7 +106,7 @@
             </p>
             <Button
               text="Create a lobby"
-              onClick={() => navigate("/lobbies")}
+              onClick={() => navigate("/lobbies?create=true")}
             />
           </div>
         </div>

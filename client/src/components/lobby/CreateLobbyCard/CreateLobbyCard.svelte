@@ -31,7 +31,7 @@
     });
   }
 
-  socket.once("lobby:created", (lobby) => {
+  socket?.once("lobby:created", (lobby) => {
     navigate(`/lobby/${lobby.id}`);
   });
 </script>

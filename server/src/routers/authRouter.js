@@ -3,8 +3,8 @@ import { sendWelcomeEmail, sendPasswordResetEmail } from '../util/mailer.js';
 import { authGuard } from '../util/authGuard.js';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-import { getUserByEmail, getUserByUsername, getUserById, createUser, updateUserPassword } from '../database/queries/user/user.js';
-import { recordLoginEvent } from '../database/queries/login/login.js';
+import { getUserByEmail, getUserByUsername, getUserById, createUser, updateUserPassword } from '../database/queries/user.js';
+import { recordLoginEvent } from '../database/queries/login.js';
 
 const router = Router();
 
