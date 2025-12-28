@@ -1,7 +1,8 @@
 <script>
+  import { navigate } from "svelte-routing";
   import Button from "../../ui/Button.svelte";
 
-  const { lobby } = $props();
+  const { lobby, onGameStart = () => {} } = $props();
 
   const maxPlayersText = $derived(
     lobby.max_players ? lobby.max_players : "No limit"
@@ -22,7 +23,7 @@
     </div>
 
     <div class="lobby-start__actions">
-      <Button text="Start game" onClick={() => {}} />
+      <Button text="Start game" onClick={onGameStart} />
     </div>
   </div>
 

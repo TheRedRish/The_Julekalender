@@ -6,8 +6,9 @@ import FrontPage from "../pages/FrontPage/FrontPage.svelte";
 import LobbyOverview from "../pages/LobbyOverview/LobbyOverview.svelte";
 import LobbyPage from "../pages/LobbyPage/LobbyPage.svelte";
 import ProfilePage from "../pages/ProfilePage/ProfilePage.svelte";
+import { gameRoutes } from "../games/index.js";
 
-export const routes = [
+const baseRoutes = [
     {
         path: "/",
         Component: FrontPage
@@ -40,3 +41,5 @@ export const routes = [
         requiresAuth: true
     }
 ];
+
+export const routes = [...baseRoutes, ...gameRoutes];

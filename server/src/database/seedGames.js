@@ -3,7 +3,7 @@ import { gameQueries } from "./queries/gameQueries.js";
 
 export const defaultGames = [
     {
-        id: "the-julekalende",
+        id: "the-julekalender",
         name: "The Julekalender",
         description: "Play as Fritz, Hansi, and Gynther and save Gammel Nok just in time. It’s hard to be a nisseman – especially when everything has to be done by the book.",
         min_players: 1,

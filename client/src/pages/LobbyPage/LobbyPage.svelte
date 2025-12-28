@@ -18,6 +18,7 @@
   import Button from "../../components/ui/Button.svelte";
   import Modal from "../../components/ui/Modal/Modal.svelte";
   import JoinLobbyPassword from "../../components/lobby/JoinLobbyPassword/JoinLobbyPassword.svelte";
+  import { getBasePathByGameId } from "../../games";
 
   const { params = {} } = $props();
   const lobbyId = $derived(params.id);
@@ -155,6 +156,11 @@
     editPassword = lobby.password;
     isEditing = false;
   }
+
+  function handleGameStart () {
+    const gameBasePath = getBasePathByGameId(lobby.game.id);
+    navigate(`${gameBasePath}/${lobby.id}`);
+  }
 </script>
 
 {#if !lobby}
@@ -248,7 +254,7 @@
         onKick={handleKick}
       />
 
-      <LobbyInfoCard {lobby} />
+      <LobbyInfoCard {lobby} onGameStart={handleGameStart} />
     </div>
   </section>
 {/if}

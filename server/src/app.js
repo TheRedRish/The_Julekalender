@@ -4,6 +4,7 @@ import session from "express-session";
 import cors from "cors";
 import authRouter from "./routers/authRouter.js";
 import gameRouter from "./routers/gameRouter.js";
+import { registerGameRouters } from "./games/index.js";
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(sessionMiddleware);
 
 app.use(authRouter);
 app.use(gameRouter);
+registerGameRouters(app);
 
 import http from "http";
 import { Server } from "socket.io";

@@ -1,5 +1,4 @@
 <script>
-  import { navigate } from "svelte-routing";
   import PleaseLoginContent from "../components/PleaseLoginContent/PleaseLoginContent.svelte";
   import { userStore } from "../stores/userStore.js";
   import Modal from "../components/ui/Modal/Modal.svelte";
@@ -16,6 +15,7 @@
 
 {#if !requiresAuth || isAuthed}
   <Component {params} />
+
 {:else}
   <Modal open={true} onClose={null} closable={false}>
       <PleaseLoginContent loginPath={redirectTo} />
