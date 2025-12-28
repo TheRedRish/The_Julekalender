@@ -5,7 +5,7 @@
   import Button from "../../components/ui/Button.svelte";
   import Modal from "../../components/ui/Modal/Modal.svelte";
   import { userStore } from "../../stores/userStore.js";
-  import { getQueryParam } from "../../util/query";
+  import { clearUrlQuery, getQueryParam } from "../../util/query";
 
   let showCreateLobbyModal = $state(getQueryParam("create") || false);
 
@@ -23,7 +23,7 @@
 
   <Modal
     open={showCreateLobbyModal}
-    onClose={() => (showCreateLobbyModal = false)}
+    onClose={() => {(showCreateLobbyModal = false); clearUrlQuery()}}
   >
     {#if isAuthed}
       <CreateLobbyCard />
