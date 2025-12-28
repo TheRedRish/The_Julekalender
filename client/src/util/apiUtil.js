@@ -15,7 +15,7 @@ export async function fetchJson(path, options = {}, getResponse = false) {
     }
 
     if (!response.ok) {
-        throw new Error(response.statusText || 'Request failed');
+        throw new Error(await response.json().then(data => data.error) || response.statusText || 'Request failed');
     }
 
     const data = await response.json();
