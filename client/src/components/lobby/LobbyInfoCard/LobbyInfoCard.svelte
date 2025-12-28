@@ -1,4 +1,6 @@
 <script>
+  import Button from "../../ui/Button.svelte";
+
   const { lobby } = $props();
 
   const maxPlayersText = $derived(
@@ -8,15 +10,21 @@
   const visibilityText = $derived(
     lobby.password ? "Private lobby" : "Public lobby"
   );
-  const spotsRemaining = $derived(
-    lobby.max_players
-      ? Math.max(lobby.max_players - (lobby.players.length || 0), 0)
-      : null
-  );
 </script>
 
 <div class="lobby-info">
   <h2 class="lobby-info__title">Lobby details</h2>
+
+  <div class="lobby-start">
+    <div class="lobby-start__content">
+      <p class="lobby-start__eyebrow">Start selected game</p>
+      <h3 class="lobby-start__headline">Launch when everyone is ready</h3>
+    </div>
+
+    <div class="lobby-start__actions">
+      <Button text="Start game" onClick={() => {}} />
+    </div>
+  </div>
 
   <div class="lobby-info__grid">
     <div class="lobby-info__item">
@@ -49,13 +57,6 @@
     <div class="lobby-info__item">
       <span class="lobby-info__label">Visibility</span>
       <span class="lobby-info__value">{visibilityText}</span>
-    </div>
-
-    <div class="lobby-info__item">
-      <span class="lobby-info__label">Spots remaining</span>
-      <span class="lobby-info__value">
-        {spotsRemaining === null ? "Unlimited" : spotsRemaining}
-      </span>
     </div>
   </div>
 </div>
