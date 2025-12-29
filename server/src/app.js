@@ -32,6 +32,7 @@ registerGameRouters(app);
 import http from "http";
 import { Server } from "socket.io";
 import { registerLobbySocket } from "./sockets/lobbysocket.js";
+import { authGuardSocket } from "./util/authGuard.js";
 
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -43,17 +44,7 @@ const io = new Server(server, {
 
 io.engine.use(sessionMiddleware);
 
-io.use((socket, next) => {
-  try {
-    const user = socket.request.session.user;
-
-    if (!user) return next(new Error("Unauthorized"));
-
-    next();
-  } catch (err) {
-    next(err);
-  }
-});
+io.use(authGuardSocket);
 
 io.on("connection", (socket) => {
   registerLobbySocket(io, socket);
