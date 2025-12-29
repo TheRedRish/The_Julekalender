@@ -1,6 +1,7 @@
+import snowballShowdownModule from "./SnowballShowdown/index.js";
 import theJulekalenderModule from "./TheJulekalender/index.js";
 
-export const gameModules = [theJulekalenderModule];
+export const gameModules = [theJulekalenderModule, snowballShowdownModule];
 
 export function registerGameRouters(app) {
   for (const module of gameModules) {

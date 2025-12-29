@@ -31,7 +31,8 @@
 
   <div class="lobby-actions__buttons">
     <Button
-      text="Copy link"
+      text=""
+      icon="🔗"
       onClick={onCopyLink}
       class="lobby-actions__button lobby-actions__button--ghost"
     />

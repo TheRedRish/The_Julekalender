@@ -1,7 +1,9 @@
+import SnowballShowdown from "./SnowballShowdown/index.js";
 import TheJulekalender from "./TheJulekalender/index.js";
 
 export const gameModules = [
-  TheJulekalender
+  TheJulekalender,
+  SnowballShowdown
 ];
 
 export const gameRoutes = gameModules.flatMap((game) => {

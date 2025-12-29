@@ -1,5 +1,4 @@
 <script>
-  import { navigate } from "svelte-routing";
   import Button from "../../ui/Button.svelte";
   import { userStore } from "../../../stores/userStore.js";
 

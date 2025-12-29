@@ -1,5 +1,3 @@
-import { theJulekalenderQueries } from "./queries.js";
-
 export async function getGameStatus() {
   return {
     id: "the-julekalender",

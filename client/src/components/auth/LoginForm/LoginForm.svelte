@@ -3,7 +3,7 @@
   import { Link, navigate } from "svelte-routing";
 
   let email = "test1@tester.com";
-  let password = "123456";
+  let password = "password1";
   let error = "";
   let success = "";
 

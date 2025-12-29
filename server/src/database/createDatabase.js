@@ -2,6 +2,7 @@ import db from "./connection.js";
 import { gameQueries } from "./queries/gameQueries.js";
 import { lobbyQueries } from "./queries/lobbyQueries.js";
 import { seedDefaultGames, getDefaultGameId } from "./seedGames.js";
+import { seedDefaultUsers } from "./seedUsers.js";
 
 const deleteMode = process.argv.includes("--delete");
 const defaultGameId = getDefaultGameId();
@@ -37,4 +38,7 @@ await db.exec(`
     ${lobbyQueries.createSchema(defaultGameId)}
 `);
 
-await seedDefaultGames();
+if (deleteMode) {
+    await seedDefaultGames();
+    await seedDefaultUsers();
+}
