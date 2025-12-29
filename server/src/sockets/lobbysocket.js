@@ -100,11 +100,11 @@ export function registerLobbySocket(io, socket) {
         io.emit("lobby:list", lobbies);
     });
 
-    socket.on("lobby:update-settings", async ({ lobbyId, name, minPlayers, maxPlayers, password, gameId }) => {
+    socket.on("lobby:update-settings", async ({ lobbyId, name, password, gameId }) => {
         const lobby = await updateLobbySettings(
             lobbyId,
             socket.request.session.user.id,
-            { name, minPlayers, maxPlayers, password, gameId }
+            { name, password, gameId }
         );
 
         if (!lobby) return;

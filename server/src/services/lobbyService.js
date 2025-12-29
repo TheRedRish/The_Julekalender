@@ -181,10 +181,14 @@ export async function leaveLobby(id, userId) {
 export async function updateLobbySettings(
     lobbyId,
     ownerId,
-    { name, minPlayers, maxPlayers, password, gameId }
+    { name, password, gameId }
 ) {
     const lobby = await getLobby(lobbyId);
     if (!lobby || lobby.owner_id !== ownerId) return null;
+
+    const game = await getGameById(gameId);
+    const minPlayers = game.min_players;
+    const maxPlayers = game.max_players;
 
     await db.run(
         lobbyQueries.updateLobbyByOwner,

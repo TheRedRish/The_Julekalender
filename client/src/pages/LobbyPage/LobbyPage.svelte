@@ -151,9 +151,6 @@
   }
 
   function handleCancelEdit() {
-    editName = lobby.name;
-    editGameId = lobby.game_id;
-    editPassword = lobby.password;
     isEditing = false;
   }
 

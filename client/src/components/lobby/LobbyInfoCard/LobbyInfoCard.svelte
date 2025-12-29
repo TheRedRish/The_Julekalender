@@ -1,8 +1,13 @@
 <script>
   import { navigate } from "svelte-routing";
   import Button from "../../ui/Button.svelte";
+  import { userStore } from "../../../stores/userStore.js";
 
   const { lobby, onGameStart = () => {} } = $props();
+
+  const minPlayersReached = $derived(
+    lobby.players.length >= lobby.min_players
+  )
 
   const maxPlayersText = $derived(
     lobby.max_players ? lobby.max_players : "No limit"
@@ -15,17 +20,18 @@
 
 <div class="lobby-info">
   <h2 class="lobby-info__title">Lobby details</h2>
+  {#if lobby.owner_id === $userStore.id}
+    <div class="lobby-start">
+      <div class="lobby-start__content">
+        <p class="lobby-start__eyebrow">Start selected game</p>
+        <h3 class="lobby-start__headline">{!minPlayersReached ? "Not enough players joined" : "Launch when everyone is ready"}</h3>
+      </div>
 
-  <div class="lobby-start">
-    <div class="lobby-start__content">
-      <p class="lobby-start__eyebrow">Start selected game</p>
-      <h3 class="lobby-start__headline">Launch when everyone is ready</h3>
+      <div class="lobby-start__actions">
+        <Button text="Start game" onClick={onGameStart} disabled={!minPlayersReached}/>
+      </div>
     </div>
-
-    <div class="lobby-start__actions">
-      <Button text="Start game" onClick={onGameStart} />
-    </div>
-  </div>
+  {/if}
 
   <div class="lobby-info__grid">
     <div class="lobby-info__item">

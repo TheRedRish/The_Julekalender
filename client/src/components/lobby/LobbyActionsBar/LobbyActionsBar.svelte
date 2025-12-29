@@ -47,7 +47,7 @@
     {#if isMember}
       <Button
         text="Leave lobby"
-        icon="👋"
+        icon="◀"
         onClick={onLeave}
         class="lobby-actions__button"
       />
