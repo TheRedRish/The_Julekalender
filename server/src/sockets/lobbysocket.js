@@ -135,7 +135,7 @@ export function registerLobbySocket(io, socket) {
 
             // If any socket for this user is still connected, skip cleanup.
             const hasActiveSocket = Array.from(io.sockets.sockets.values())
-                .some((s) => s.user.id === userId);
+                .some((s) => s.user?.id === userId);
             if (hasActiveSocket) {
                 return;
             }

@@ -55,8 +55,9 @@
     {:else}
       <Button
         text={isFull ? "Lobby is full" : "Join lobby"}
-        onClick={isFull ? undefined : onJoin}
+        onClick={isFull ? undefined : () => {onJoin()}}
         class="lobby-actions__button"
+        disabled={isFull}
       />
     {/if}
   </div>
