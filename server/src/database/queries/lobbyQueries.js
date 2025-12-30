@@ -6,8 +6,6 @@ export const lobbyQueries = {
       name TEXT NOT NULL,
       game_id TEXT NOT NULL DEFAULT '${defaultGameId}',
       status TEXT NOT NULL,
-      min_players INTEGER NOT NULL,
-      max_players INTEGER,
       password TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (owner_id) REFERENCES users(id),
@@ -32,9 +30,9 @@ export const lobbyQueries = {
     insertLobby: `
     INSERT INTO lobbies (
       id, owner_id, name, game_id, status,
-      min_players, max_players, password
+      password
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?)
   `,
 
     insertLobbyPlayer: `
@@ -86,7 +84,7 @@ export const lobbyQueries = {
 
     updateLobbyByOwner: `
     UPDATE lobbies
-    SET name = ?, game_id = ?, min_players = ?, max_players = ?, password = ?
+    SET name = ?, game_id = ?, password = ?
     WHERE id = ? AND owner_id = ?
   `,
 

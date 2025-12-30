@@ -5,13 +5,13 @@
   const { lobby, onGameStart = () => {} } = $props();
 
   const minPlayersReached = $derived(
-    lobby.players.length >= lobby.min_players
+    lobby.players.length >= (lobby.game?.min_players ?? 0)
   )
 
   const maxPlayersText = $derived(
-    lobby.max_players ? lobby.max_players : "No limit"
+    lobby.game?.max_players ? lobby.game.max_players : "No limit"
   );
-  const minPlayersText = $derived(lobby.min_players);
+  const minPlayersText = $derived(lobby.game?.min_players ?? "Unknown");
   const visibilityText = $derived(
     lobby.password ? "Private lobby" : "Public lobby"
   );

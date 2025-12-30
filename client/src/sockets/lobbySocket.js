@@ -19,3 +19,7 @@ export function updateLobbySettings(lobbyId, settings) {
 export function kickPlayer(lobbyId, playerId) {
     emit("lobby:kick", { lobbyId, playerId });
 }
+
+export function startLobby(lobbyId) {
+    emit("lobby:start", { lobbyId });
+}

@@ -4,8 +4,13 @@ import { randomString, randomThreeWordName } from "../util/stringUtil.js";
 import { getGameById } from "./gameService.js";
 
 function computeLobbyStatus(lobby) {
+    if (lobby.status === "In Game") {
+        return "In Game";
+    }
+
     const playerCount = lobby.players.length;
-    if (lobby.max_players && playerCount >= lobby.max_players) {
+    const maxPlayers = lobby.game?.max_players ?? lobby.max_players;
+    if (maxPlayers && playerCount >= maxPlayers) {
         return "Full";
     }
 
@@ -33,8 +38,6 @@ async function attachGameMetadata(lobby) {
 export async function createLobby(
     owner,
     name,
-    minPlayers = 1,
-    maxPlayers = null,
     password = null,
     gameId = null
 ) {
@@ -49,8 +52,6 @@ export async function createLobby(
             lobbyName,
             gameId,
             "Waiting",
-            minPlayers,
-            maxPlayers,
             password
         ]
     );
@@ -76,8 +77,8 @@ export async function getLobby(id) {
         [id]
     );
 
-    const lobbyWithStatus = await ensureLobbyStatus({ ...lobby, players });
-    return attachGameMetadata(lobbyWithStatus);
+    const withGame = await attachGameMetadata({ ...lobby, players });
+    return ensureLobbyStatus(withGame);
 }
 
 export async function getAllLobbies() {
@@ -93,9 +94,9 @@ export async function getAllLobbies() {
             [lobby.id]
         );
 
-        const lobbyWithStatus = await ensureLobbyStatus({ ...lobby, players });
-        const withGame = await attachGameMetadata(lobbyWithStatus);
-        result.push(withGame);
+        const withGame = await attachGameMetadata({ ...lobby, players });
+        const lobbyWithStatus = await ensureLobbyStatus(withGame);
+        result.push(lobbyWithStatus);
     }
 
     return result;
@@ -114,10 +115,8 @@ export async function joinLobby(id, user, password = null) {
         return { lobby, error: null };
     }
 
-    if (
-        lobby.max_players &&
-        lobby.players.length >= lobby.max_players
-    ) {
+    const maxPlayers = lobby.game?.max_players ?? lobby.max_players;
+    if (maxPlayers && lobby.players.length >= maxPlayers) {
         return { lobby: null, error: "full" };
     }
 
@@ -187,12 +186,11 @@ export async function updateLobbySettings(
     if (!lobby || lobby.owner_id !== ownerId) return null;
 
     const game = await getGameById(gameId);
-    const minPlayers = game.min_players;
-    const maxPlayers = game.max_players;
+    if (!game) return null;
 
     await db.run(
         lobbyQueries.updateLobbyByOwner,
-        [name, gameId, minPlayers, maxPlayers, password, lobbyId, ownerId]
+        [name, gameId, password, lobbyId, ownerId]
     );
 
     return getLobby(lobbyId);
@@ -204,4 +202,13 @@ export async function kickPlayer(lobbyId, ownerId, targetUserId) {
     if (targetUserId === ownerId) return lobby;
 
     return leaveLobby(lobbyId, targetUserId);
+}
+
+export async function startLobby(lobbyId, ownerId) {
+    const lobby = await getLobby(lobbyId);
+    if (!lobby || lobby.owner_id !== ownerId) return null;
+
+    await db.run(lobbyQueries.updateLobbyStatus, ["In Game", lobbyId]);
+
+    return getLobby(lobbyId);
 }

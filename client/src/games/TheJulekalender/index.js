@@ -7,6 +7,7 @@ export default {
     path: "/:id",
     Component: TheJulekalender,
     requiresAuth: true,
+    requiresLobbyMember: true,
     params: true
   }]
 };

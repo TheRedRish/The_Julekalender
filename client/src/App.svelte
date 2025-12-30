@@ -24,6 +24,7 @@
           component={route.Component}
           params={params}
           requiresAuth={route.requiresAuth}
+          requiresLobbyMember={route.requiresLobbyMember}
         />
       </Route>
     {/each}

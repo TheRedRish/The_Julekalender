@@ -7,6 +7,7 @@ export default {
     path: "/:id",
     Component: SnowballShowdown,
     requiresAuth: true,
+    requiresLobbyMember: true,
     params: true
   }]
 };

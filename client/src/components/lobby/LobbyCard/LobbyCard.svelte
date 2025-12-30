@@ -7,7 +7,7 @@
   import { copyLobbyLink } from "../../../services/lobbyService";
 
   const { lobby } = $props();
-  const maxPlayers = $derived(lobby.max_players);
+  const maxPlayers = $derived(lobby.game?.max_players || null);
   const totalSlots = $derived(maxPlayers || Math.max(lobby.players.length, 3));
   const openSlots = $derived(Math.max(totalSlots - lobby.players.length, 0));
   const playerCountText = $derived(

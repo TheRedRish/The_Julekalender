@@ -7,20 +7,10 @@
   } = $props();
 
   let password = $state("");
-  let localError = $state("");
 
-  $effect(() => {
-    localError = "";
-  });
-
-  const visibleError = $derived(localError || error);
+  const visibleError = $derived(error);
 
   function handleSubmit() {
-    if (!password) {
-      localError = "Please enter the lobby password.";
-      return;
-    }
-    localError = "";
     onSubmit(password);
   }
 </script>

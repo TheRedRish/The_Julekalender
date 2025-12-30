@@ -12,13 +12,13 @@
     leaveLobby,
     updateLobbySettings,
     kickPlayer,
+    startLobby,
   } from "../../sockets/lobbySocket.js";
   import { copyLobbyLink } from "../../services/lobbyService";
   import { toastError } from "../../util/toast";
   import Button from "../../components/ui/Button.svelte";
   import Modal from "../../components/ui/Modal/Modal.svelte";
   import JoinLobbyPassword from "../../components/lobby/JoinLobbyPassword/JoinLobbyPassword.svelte";
-  import { getBasePathByGameId } from "../../games";
 
   const { params = {} } = $props();
   const lobbyId = $derived(params.id);
@@ -39,8 +39,10 @@
       lobby.players.some((player) => player.id === $userStore.id)
   );
 
+  const maxPlayers = $derived(lobby?.game?.max_players || null);
+
   const isFull = $derived(
-    lobby.max_players && lobby.players.length >= lobby.max_players
+    maxPlayers && lobby.players.length >= maxPlayers
   );
 
   const isLeader = $derived(
@@ -111,10 +113,6 @@
   }
 
   function handleSubmitPassword(value) {
-    if (!value) {
-      joinError = "Please enter the lobby password.";
-      return;
-    }
     handleJoin(value);
   }
 
@@ -155,8 +153,7 @@
   }
 
   function handleGameStart () {
-    const gameBasePath = getBasePathByGameId(lobby.game.id);
-    navigate(`${gameBasePath}/${lobby.id}`);
+    startLobby(lobby.id);
   }
 </script>
 
@@ -244,7 +241,7 @@
     <div class="lobby-page__grid">
       <LobbyPlayersPanel
         players={lobby.players}
-        maxPlayers={lobby.max_players}
+        maxPlayers={maxPlayers}
         currentUserId={$userStore.id}
         canKick={isLeader}
         leaderId={lobby.owner_id}

@@ -1,11 +1,11 @@
 import {
     createLobby,
-    getLobby,
     getAllLobbies,
     joinLobby,
     leaveLobby,
     updateLobbySettings,
-    kickPlayer
+    kickPlayer,
+    startLobby
 } from "../services/lobbyService.js";
 
 // Track pending disconnect cleanups per user so we can tell a quick reload
@@ -42,17 +42,21 @@ export function registerLobbySocket(io, socket) {
 
     (async () => {
         const lobbies = await getAllLobbies();
+        for (const lobby of lobbies) {
+            const isMember = lobby.players.some((player) => player.id === userId);
+            if (isMember) {
+                socket.join(lobby.id);
+            }
+        }
         socket.emit("lobby:list", lobbies);
     })();
 
     socket.on("lobby:create", async (data) => {
-        const { name, minPlayers, maxPlayers, password, gameId } = data;
+        const { name, password, gameId } = data;
 
         const lobby = await createLobby(
             socket.request.session.user,
             name,
-            minPlayers,
-            maxPlayers,
             password,
             gameId
         );
@@ -126,6 +130,25 @@ export function registerLobbySocket(io, socket) {
 
         const lobbies = await getAllLobbies();
         io.to(lobbyId).emit("lobby:update", lobby);
+        io.emit("lobby:list", lobbies);
+    });
+
+    socket.on("lobby:start", async ({ lobbyId }) => {
+        const lobby = await startLobby(
+            lobbyId,
+            socket.request.session.user.id
+        );
+
+        if (!lobby) return;
+
+        io.to(lobbyId).emit("lobby:started", {
+            lobbyId,
+            gameId: lobby.game_id
+        });
+
+        io.to(lobbyId).emit("lobby:update", lobby);
+
+        const lobbies = await getAllLobbies();
         io.emit("lobby:list", lobbies);
     });
 
