@@ -13,6 +13,31 @@
     isLeader = false
   } = $props();
   
+  let joinLobbyButtonText = $state("Join");
+  let isJoinLobbyButtonDisabled = $state(false);
+
+  $effect(() => {
+    console.log("State before update:", {
+      joinLobbyButtonText,
+      isJoinLobbyButtonEnabled: isJoinLobbyButtonDisabled
+    });
+
+    if (lobby.status === "In Game") {
+      joinLobbyButtonText = "In Game";
+      isJoinLobbyButtonDisabled = true;
+    } else if (isFull) {
+      joinLobbyButtonText = "Full";
+      isJoinLobbyButtonDisabled = true;
+    } else {
+      joinLobbyButtonText = "Join Lobby";
+      isJoinLobbyButtonDisabled = false;
+    }
+
+    console.log("State after update:", {
+      joinLobbyButtonText,
+      isJoinLobbyButtonEnabled: isJoinLobbyButtonDisabled
+    });
+  })
 </script>
 
 <div class="lobby-actions">
@@ -54,10 +79,10 @@
       />
     {:else}
       <Button
-        text={isFull ? "Lobby is full" : "Join lobby"}
+        text={joinLobbyButtonText}
         onClick={isFull ? undefined : () => {onJoin()}}
         class="lobby-actions__button"
-        disabled={isFull}
+        disabled={isJoinLobbyButtonDisabled}
       />
     {/if}
   </div>

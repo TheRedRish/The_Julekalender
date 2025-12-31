@@ -110,6 +110,10 @@ export async function joinLobby(id, user, password = null) {
     const lobby = await getLobby(id);
     if (!lobby) return { lobby: null, error: "not_found" };
 
+    if (lobby.status === "In Game") {
+        return { lobby: null, error: "in_game" };
+    }
+
     const isAlreadyMember = lobby.players.some((player) => player.id === user.id);
     if (isAlreadyMember) {
         return { lobby, error: null };

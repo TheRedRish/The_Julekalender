@@ -93,6 +93,9 @@
   }
 
   async function handleJoin(passwordValue = null) {
+    if (lobby.status === "In game") {
+      return;
+    }
     if (lobby.password && !isMember && !isLeader && passwordValue === null) {
       openPasswordModal();
       return;

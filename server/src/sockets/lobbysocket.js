@@ -20,8 +20,10 @@ function joinErrorMessage(code) {
             return "You must be logged in to join this lobby.";
         case "not_found":
             return "Lobby not found.";
+        case "in_game":
+            return "This lobby is in game.";
         case "full":
-            return "This lobby is full.";
+            return "Game for the lobby has already started";
         case "password_required":
             return "This lobby is locked. Enter the password to join.";
         case "password_invalid":
