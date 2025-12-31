@@ -38,7 +38,8 @@ const baseRoutes = [
         path: "/lobby/:id",
         Component: LobbyPage,
         withParams: true,
-        requiresAuth: true
+        requiresAuth: true,
+        requiresLobbyMember: false // Here to stop TS from complaining
     }
 ];
 
