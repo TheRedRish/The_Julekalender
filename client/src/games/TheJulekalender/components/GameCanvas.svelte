@@ -5,28 +5,23 @@
   let container;
   let app;
 
-  onMount(async () => {
+  onMount(() => {
     app = new Application();
 
-    await app.init({
-      resizeTo: container,
-      background: "#0b1628",
-      antialias: true
-    });
-
-    container?.appendChild(app.canvas);
-
-    return () => {
-      app?.destroy(true);
-    };
+    app
+      .init({
+        resizeTo: container,
+        background: "white",
+        antialias: true,
+      })
+      .then(() => {
+        container?.appendChild(app.canvas);
+      });
   });
-
 </script>
 
 <div class="canvas-shell">
-  <div class="canvas-host" bind:this={container}>
-    <p class="placeholder">PixiJS canvas mounts here</p>
-  </div>
+  <div class="canvas-host" bind:this={container}></div>
 </div>
 
 <style>
