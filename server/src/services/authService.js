@@ -34,7 +34,7 @@ export async function registerUser({ email, username, password }, sendEmail = tr
     recordLoginEvent(user.id, 'signup');
 
     if (sendEmail) {
-        sendWelcomeEmail(email);
+        await sendWelcomeEmail(email);
     }
 
     return {
@@ -94,7 +94,7 @@ export async function resetPassword({ email }) {
 
     await updateUserPassword(email, passwordHash);
     recordLoginEvent(user.id, 'password_reset');
-    sendPasswordResetEmail(email, newPassword);
+    await sendPasswordResetEmail(email, newPassword);
 
     return { message: 'Password reset email sent' };
 }
