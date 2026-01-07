@@ -36,7 +36,7 @@
   </div>
 
   <div class="lobby-players__grid">
-    {#each players as player}
+    {#each players as player (player.id)}
       <div
         class="lobby-players__card"
         class:lobby-players__card--self={player.id === currentUserId}
@@ -46,7 +46,7 @@
           <span class="lobby-players__name">{player.username}</span>
           {#if getPlayerTags(player).length > 0}
             <div class="lobby-players__tags">
-              {#each getPlayerTags(player) as tag}
+              {#each getPlayerTags(player) as tag (tag.label)}
                 <span class={`lobby-players__tag ${tag.className}`}>
                   {tag.label}
                 </span>
@@ -66,7 +66,7 @@
       </div>
     {/each}
 
-    {#each {length: openSlots}, index}
+    {#each Array.from({ length: openSlots }) as _, index (index)}
       <div class="lobby-players__card lobby-players__card--empty">
         <Avatar label="?" empty />
         <div class="lobby-players__info">

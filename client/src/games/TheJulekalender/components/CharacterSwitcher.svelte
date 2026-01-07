@@ -7,7 +7,7 @@
 </script>
 
 <div class="switcher">
-  {#each characters as name}
+  {#each characters as name (name)}
     <button
       class:is-active={isActive(name)}
       type="button"

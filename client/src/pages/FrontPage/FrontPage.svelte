@@ -73,7 +73,7 @@
     <div class="frontpage__panel frontpage__panel--accent">
       <h2>Why players like it</h2>
       <div class="frontpage__features">
-        {#each features as feature}
+        {#each features as feature (feature.title)}
           <article class="frontpage__feature">
             <h3>{feature.title}</h3>
             <p>{feature.description}</p>
@@ -88,7 +88,7 @@
           <p class="frontpage__eyebrow">How it works</p>
           <h2>Rally your lobby in three steps</h2>
           <ul>
-            {#each steps as step}
+            {#each steps as step (step)}
               <li>{step}</li>
             {/each}
           </ul>

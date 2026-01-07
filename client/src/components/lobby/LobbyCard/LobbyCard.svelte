@@ -53,7 +53,7 @@
   <div class="lobby-card__players">
     <p class="lobby-card__game">{lobby.game.name}</p>
     <div class="lobby-card__avatars">
-      {#each lobby.players as player}
+      {#each lobby.players as player (player.id)}
         <Avatar label={getInitials(player.username)} />
       {/each}
 

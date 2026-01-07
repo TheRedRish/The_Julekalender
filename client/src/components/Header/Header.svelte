@@ -30,7 +30,7 @@
       isMenuOpen = false;
       await logoutUser();
       navigate("/");
-    } catch (err) {
+    } catch {
       toastError("Logout failed. Please try again.");
     }
   }

@@ -1,13 +1,10 @@
 <script>
-  import { onMount } from "svelte";
   import { lobbyStore } from "../../stores/lobbyStore.js";
   import LobbyCard from "./LobbyCard/LobbyCard.svelte";
-  import { getSocket } from "../../sockets/socket.js";
-  import { navigate } from "svelte-routing";
 </script>
 
 <div class="lobby-list">
-  {#each $lobbyStore as lobby}
+  {#each $lobbyStore as lobby (lobby.id)}
     <LobbyCard {lobby} />
   {/each}
 </div>

@@ -34,7 +34,7 @@ export async function logoutUser() {
   try {
     await fetchJson('/api/auth/logout', { method: 'POST' });
     handleUserLogout();
-  } catch (error) {
+  } catch {
     // TODO handle error
   }
 }
@@ -54,7 +54,7 @@ export async function checkSession() {
     } else {
       handleUserLogout();
     }
-  } catch (error) {
+  } catch {
     handleUserLogout();
   } finally {
     const endTime = Date.now();

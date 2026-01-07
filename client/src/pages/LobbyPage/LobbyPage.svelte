@@ -210,7 +210,7 @@
           <label class="lobby-page__field">
             <span>Game</span>
             <select bind:value={editGameId}>
-              {#each games as game}
+              {#each games as game (game.id)}
                 <option value={game.id}>{game.name}</option>
               {/each}
             </select>

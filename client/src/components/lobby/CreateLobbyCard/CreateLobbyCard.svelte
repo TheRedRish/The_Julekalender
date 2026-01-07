@@ -50,7 +50,7 @@
       id="create-lobby-game"
       bind:value={selectedGameId}
     >
-      {#each games as game}
+      {#each games as game (game.id)}
         <option value={game.id}>{game.name}</option>
       {/each}
     </select>

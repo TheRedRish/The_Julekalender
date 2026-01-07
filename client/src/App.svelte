@@ -18,7 +18,7 @@
 {:else}
   <Router>
     <Header />
-    {#each routes as route}
+    {#each routes as route (route.path)}
       <Route path={route.path} let:params>
         <RouteGuard
           component={route.Component}

@@ -3,25 +3,25 @@
   import { onMount } from "svelte";
 
   let container;
+  let canvas;
   let app;
 
-  onMount(() => {
+  onMount(async () => {
     app = new Application();
 
-    app
-      .init({
-        resizeTo: container,
-        background: "white",
-        antialias: true,
-      })
-      .then(() => {
-        container?.appendChild(app.canvas);
-      });
+    await app.init({
+      canvas,
+      resizeTo: container,
+      background: "white",
+      antialias: true,
+    });
   });
 </script>
 
 <div class="canvas-shell">
-  <div class="canvas-host" bind:this={container}></div>
+  <div class="canvas-host" bind:this={container}>
+    <canvas bind:this={canvas}></canvas>
+  </div>
 </div>
 
 <style>
