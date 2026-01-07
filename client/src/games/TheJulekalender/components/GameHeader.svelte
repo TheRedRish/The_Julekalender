@@ -1,5 +1,6 @@
 <script>
-  const { phase = "Phase: Placeholder", goal = "Goal: Placeholder" } = $props();
+  const phase = "Waiting in lobby";
+  const goal = "Get ready for the next round";
 </script>
 
 <div class="game-header-bar">

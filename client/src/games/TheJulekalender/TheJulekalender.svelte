@@ -10,11 +10,6 @@
 
   let activeCharacter = "Fritz";
 
-  const status = {
-    phase: "Waiting in lobby",
-    goal: "Get ready for the next round"
-  };
-
   const handleCharacterSelect = (name) => {
     activeCharacter = name;
   };
@@ -22,7 +17,7 @@
 
 <GameLayout>
   {#snippet header()}
-    <GameHeader phase={status.phase} goal={status.goal} />
+    <GameHeader />
   {/snippet}
 
   {#snippet canvas()}

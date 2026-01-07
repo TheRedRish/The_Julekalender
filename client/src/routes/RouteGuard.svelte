@@ -11,7 +11,6 @@
     params,
     requiresAuth = false,
     requiresLobbyMember = false,
-    redirectTo = "/login",
   } = $props();
 
   const isAuthed = $derived(!!$userStore);
@@ -43,7 +42,7 @@
 
 {:else}
   <Modal open={true} onClose={null} closable={false}>
-      <PleaseLoginContent loginPath={redirectTo} />
+      <PleaseLoginContent />
   </Modal>
 {/if}
 

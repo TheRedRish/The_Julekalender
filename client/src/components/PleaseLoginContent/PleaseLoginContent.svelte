@@ -1,7 +1,8 @@
 <script>
   import { navigate } from "svelte-routing";
-
-  const { loginPath = "/login", registerPath = "/register" } = $props();
+  
+  const loginPath = "/login";
+  const registerPath = "/register";
 
   function goToLogin() {
     navigate(loginPath);

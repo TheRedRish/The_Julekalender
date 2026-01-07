@@ -8,12 +8,10 @@
 
   let isMenuOpen = $state(false);
 
-  const {
-    title,
-    subtitle,
-    logoLink = "/",
-    profileLink = "/profile",
-  } = $props();
+  const title = "The Julekalender";
+  const subtitle = "Christmas Game Lobby";
+  const logoLink = "/";
+  const profileLink = "/profile";
 
   function toggleMenu() {
     isMenuOpen = !isMenuOpen;
