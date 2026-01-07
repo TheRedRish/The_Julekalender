@@ -41,9 +41,7 @@
 
   const maxPlayers = $derived(lobby?.game?.max_players || null);
 
-  const isFull = $derived(
-    maxPlayers && lobby.players.length >= maxPlayers
-  );
+  const isFull = $derived(maxPlayers && lobby.players.length >= maxPlayers);
 
   const isLeader = $derived(
     lobby && $userStore && lobby.owner_id === $userStore.id
@@ -155,7 +153,7 @@
     isEditing = false;
   }
 
-  function handleGameStart () {
+  function handleGameStart() {
     startLobby(lobby.id);
   }
 </script>
@@ -257,12 +255,12 @@
 {/if}
 
 <Modal open={showPasswordModal} onClose={closePasswordModal}>
-  <JoinLobbyPassword
-    lobbyName={lobby.name}
-    error={joinError}
-    onSubmit={handleSubmitPassword}
-    onCancel={closePasswordModal}
-  />
+    <JoinLobbyPassword
+      lobbyName={lobby.name}
+      error={joinError}
+      onSubmit={handleSubmitPassword}
+      onCancel={closePasswordModal}
+    />
 </Modal>
 
 <style>

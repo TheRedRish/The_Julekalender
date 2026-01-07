@@ -1,7 +1,7 @@
 <script>
   import CreateLobbyCard from "../../components/lobby/CreateLobbyCard/CreateLobbyCard.svelte";
   import LobbyList from "../../components/lobby/LobbyCardList.svelte";
-  import PleaseLoginContent from "../../components/PleaseLoginContent/PleaseLoginContent.svelte";
+  import PleaseLoginContent from "../../components/auth/PleaseLoginContent/PleaseLoginContent.svelte";
   import Button from "../../components/ui/Button.svelte";
   import Modal from "../../components/ui/Modal/Modal.svelte";
   import { userStore } from "../../stores/userStore.js";
@@ -26,9 +26,9 @@
     onClose={() => {(showCreateLobbyModal = false); clearUrlQuery()}}
   >
     {#if isAuthed}
-      <CreateLobbyCard />
+        <CreateLobbyCard />
     {:else}
-      <PleaseLoginContent />
+        <PleaseLoginContent />
     {/if}
   </Modal>
 
