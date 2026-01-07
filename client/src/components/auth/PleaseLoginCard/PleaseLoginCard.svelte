@@ -1,6 +1,6 @@
 <script>
   import { navigate } from "svelte-routing";
-  
+
   const loginPath = "/login";
   const registerPath = "/register";
 
@@ -36,5 +36,5 @@
 </div>
 
 <style>
-  @import "./pleaseLoginContent.css";
+  @import "./pleaseLoginCard.css";
 </style>

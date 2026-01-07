@@ -1,6 +1,5 @@
 <script>
-  import PleaseLoginContent from "../components/auth/PleaseLoginContent/PleaseLoginContent.svelte";
-  import Button from "../components/ui/Button.svelte";
+  import PleaseLoginCard from "../components/auth/PleaseLoginCard/PleaseLoginCard.svelte";
   import { userStore } from "../stores/userStore.js";
   import { lobbyStore, currentLobby } from "../stores/lobbyStore.js";
   import Modal from "../components/ui/Modal/Modal.svelte";
@@ -36,6 +35,6 @@
   {/if}
 {:else}
   <Modal open={true} onClose={null} closable={false}>
-    <PleaseLoginContent />
+    <PleaseLoginCard />
   </Modal>
 {/if}
