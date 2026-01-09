@@ -31,6 +31,14 @@ app.use(authRouter);
 app.use(gameRouter);
 registerGameRouters(app);
 
+app.all("/{*splat}", (req, res) => {
+  res.status(404).json({
+    error: "Not found",
+    method: req.method,
+    path: req.originalUrl,
+  });
+});
+
 import http from "http";
 import { Server } from "socket.io";
 import { registerLobbySocket } from "./sockets/lobbysocket.js";

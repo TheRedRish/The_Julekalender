@@ -40,11 +40,6 @@
   overflow: hidden;
 }
 
-.header__logo-icon {
-  width: 18px;
-  height: 18px;
-}
-
 .header__branding :global(.header__logo-image) {
   width: 100%;
   height: 100%;
