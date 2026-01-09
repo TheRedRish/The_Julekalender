@@ -8,11 +8,14 @@
   z-index: 10;
 
   background: var(--overlay-scrim);
-  backdrop-filter: blur(2px);
 
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+body.modal-open .page > :not(.modal-overlay) {
+  filter: blur(2px);
 }
 
 /* =========================

@@ -18,6 +18,7 @@
   }
 </script>
 
+<svelte:body class:modal-open={open} />
 <svelte:window onkeydown={onWindowKeydown} />
 
 {#if open}
