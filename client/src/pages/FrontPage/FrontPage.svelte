@@ -55,8 +55,7 @@
       <button
         class="frontpage__ghost"
         type="button"
-        onclick={handleSecondaryButton
-    }
+        onclick={handleSecondaryButton}
       >
         {$userStore ? "View profile" : "Create an account"}
       </button>

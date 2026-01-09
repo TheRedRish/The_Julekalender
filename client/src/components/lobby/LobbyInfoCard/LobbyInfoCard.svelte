@@ -6,7 +6,7 @@
 
   const minPlayersReached = $derived(
     lobby.players.length >= (lobby.game?.min_players ?? 0)
-  )
+  );
 
   const maxPlayersText = $derived(
     lobby.game?.max_players ? lobby.game.max_players : "No limit"

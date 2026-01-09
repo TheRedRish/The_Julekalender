@@ -1,5 +1,5 @@
 <script>
-  let { text } = $props();
+  const { text } = $props();
 </script>
 
 <span class="ui-badge">{text}</span>

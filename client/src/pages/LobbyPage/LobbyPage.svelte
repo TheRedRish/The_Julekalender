@@ -242,7 +242,7 @@
     <div class="lobby-page__grid">
       <LobbyPlayersPanel
         players={lobby.players}
-        maxPlayers={maxPlayers}
+        {maxPlayers}
         currentUserId={$userStore.id}
         canKick={isLeader}
         leaderId={lobby.owner_id}
@@ -255,12 +255,12 @@
 {/if}
 
 <Modal open={showPasswordModal} onClose={closePasswordModal}>
-    <JoinLobbyPassword
-      lobbyName={lobby.name}
-      error={joinError}
-      onSubmit={handleSubmitPassword}
-      onCancel={closePasswordModal}
-    />
+  <JoinLobbyPassword
+    lobbyName={lobby.name}
+    error={joinError}
+    onSubmit={handleSubmitPassword}
+    onCancel={closePasswordModal}
+  />
 </Modal>
 
 <style>

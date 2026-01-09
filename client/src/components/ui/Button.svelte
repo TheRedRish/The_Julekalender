@@ -1,5 +1,5 @@
 <script>
-  let { text, icon = undefined, onClick, disabled = false, ...restProps } = $props();
+  const { text, icon = undefined, onClick, disabled = false, ...restProps } = $props();
 </script>
 
 <button class="ui-button {restProps.class || ''}" onclick={onClick} {disabled}>

@@ -10,25 +10,27 @@
   let showCreateLobbyModal = $state(getQueryParam("create") || false);
 
   const isAuthed = $derived(!!$userStore);
+
+  function openCreateLobbyModal() {
+    showCreateLobbyModal = true;
+  }
+
+  function closeCreateLobbyModal() {
+    showCreateLobbyModal = false;
+    clearUrlQuery();
+  }
 </script>
 
 <section class="lobby-overview page">
   <div class="lobby-overview__cta">
-    <Button
-      text="Create New Lobby"
-      icon="+"
-      onClick={() => (showCreateLobbyModal = true)}
-    />
+    <Button text="Create New Lobby" icon="+" onClick={openCreateLobbyModal} />
   </div>
 
-  <Modal
-    open={showCreateLobbyModal}
-    onClose={() => {(showCreateLobbyModal = false); clearUrlQuery()}}
-  >
+  <Modal open={showCreateLobbyModal} onClose={closeCreateLobbyModal}>
     {#if isAuthed}
-        <CreateLobbyCard />
+      <CreateLobbyCard />
     {:else}
-        <PleaseLoginCard />
+      <PleaseLoginCard />
     {/if}
   </Modal>
 

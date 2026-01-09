@@ -1,5 +1,5 @@
 <script>
-  let { label, empty = false } = $props();
+  const { label, empty = false } = $props();
 </script>
 
 <div class="ui-avatar {empty ? 'ui-avatar--empty' : ''}">

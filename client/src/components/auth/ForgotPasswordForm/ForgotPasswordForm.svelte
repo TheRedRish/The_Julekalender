@@ -2,9 +2,9 @@
   import { requestPasswordReset } from "../../../services/authService.js";
   import { Link } from "svelte-routing";
 
-  let email = "";
-  let error = "";
-  let success = "";
+  let email = $state("");
+  let error = $state("");
+  let success = $state("");
 
   async function handleSubmit(event) {
     event.preventDefault();

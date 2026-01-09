@@ -11,7 +11,7 @@
     <button
       class:is-active={isActive(name)}
       type="button"
-      on:click={() => onSelect(name)}
+      onclick={() => onSelect(name)}
     >
       {name}
     </button>

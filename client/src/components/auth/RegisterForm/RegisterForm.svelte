@@ -2,12 +2,12 @@
   import { registerUser } from "../../../services/authService.js";
   import { Link, navigate } from "svelte-routing";
 
-  let email = "test1@tester.com";
-  let username = "Tester 1";
-  let password = "123456";
-  let password2 = "123456";
-  let error = "";
-  let success = "";
+  let email = $state("test1@tester.com");
+  let username = $state("Tester 1");
+  let password = $state("123456");
+  let password2 = $state("123456");
+  let error = $state("");
+  let success = $state("");
 
   async function handleSubmit(event) {
     event.preventDefault();
