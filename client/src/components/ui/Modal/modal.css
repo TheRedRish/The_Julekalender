@@ -14,10 +14,6 @@
   justify-content: center;
 }
 
-body.modal-open .page > :not(.modal-overlay) {
-  filter: blur(2px);
-}
-
 /* =========================
    MODAL CONTAINER
 ========================= */
