@@ -1,5 +1,5 @@
 export const gameQueries = {
-    createTable: `
+  createTable: `
         CREATE TABLE IF NOT EXISTS games (
             id TEXT PRIMARY KEY,
             name TEXT NOT NULL,
@@ -10,16 +10,16 @@ export const gameQueries = {
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         );
     `,
-    insertOrIgnore: `
+  insertOrIgnore: `
         INSERT OR IGNORE INTO games (id, name, description, min_players, max_players, display_order)
         VALUES (?, ?, ?, ?, ?, ?);
     `,
-    getAllGames: `
+  getAllGames: `
         SELECT id, name, description, min_players, max_players, display_order
         FROM games
         ORDER BY display_order ASC, name ASC;
     `,
-    getGameById: `
+  getGameById: `
         SELECT id, name, description, min_players, max_players, display_order
         FROM games
         WHERE id = ?;

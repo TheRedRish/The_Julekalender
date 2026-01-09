@@ -1,33 +1,33 @@
 <script>
-    const { open, onClose, closable = true, children } = $props();
+  const { open, onClose, closable = true, children } = $props();
 
-    function onBackdropClick(event) {
-        if (!closable) return;
-        if (event.target === event.currentTarget) {
-            onClose();
-        }
+  function onBackdropClick(event) {
+    if (!closable) return;
+    if (event.target === event.currentTarget) {
+      onClose();
     }
+  }
 
-    function onWindowKeydown(event) {
-        if (!open) return;
-        if (!closable) return;
+  function onWindowKeydown(event) {
+    if (!open) return;
+    if (!closable) return;
 
-        if (event.key === "Escape") {
-            onClose();
-        }
+    if (event.key === "Escape") {
+      onClose();
     }
+  }
 </script>
 
 <svelte:window onkeydown={onWindowKeydown} />
 
 {#if open}
-    <div class="modal-overlay" role="presentation" onclick={onBackdropClick}>
-        <div class="modal" role="dialog" aria-modal="true">
-            {@render children?.()}
-        </div>
+  <div class="modal-overlay" role="presentation" onclick={onBackdropClick}>
+    <div class="modal" role="dialog" aria-modal="true">
+      {@render children?.()}
     </div>
+  </div>
 {/if}
 
 <style>
-    @import "./modal.css";
+  @import "./modal.css";
 </style>
