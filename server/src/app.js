@@ -11,18 +11,18 @@ const app = express();
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
 
 app.use(
-    cors({
-        origin: FRONTEND_ORIGIN,
-        credentials: true,
-    })
+  cors({
+    origin: FRONTEND_ORIGIN,
+    credentials: true,
+  })
 );
 
 app.use(express.json());
 
 const sessionMiddleware = session({
-    secret: process.env.SESSION_SECRET || "default-secret",
-    resave: false,
-    saveUninitialized: false,
+  secret: process.env.SESSION_SECRET || "default-secret",
+  resave: false,
+  saveUninitialized: false,
 });
 
 app.use(sessionMiddleware);
@@ -38,10 +38,10 @@ import { authGuardSocket } from "./util/authGuard.js";
 
 const server = http.createServer(app);
 const io = new Server(server, {
-    cors: {
-        origin: FRONTEND_ORIGIN,
-        credentials: true,
-    },
+  cors: {
+    origin: FRONTEND_ORIGIN,
+    credentials: true,
+  },
 });
 
 io.engine.use(sessionMiddleware);
@@ -49,7 +49,7 @@ io.engine.use(sessionMiddleware);
 io.use(authGuardSocket);
 
 io.on("connection", (socket) => {
-    registerLobbySocket(io, socket);
+  registerLobbySocket(io, socket);
 });
 
 const PORT = process.env.PORT || 8080;

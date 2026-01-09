@@ -8,12 +8,12 @@ const deleteMode = process.argv.includes("--delete");
 const defaultGameId = getDefaultGameId();
 
 if (deleteMode) {
-    await db.exec(`DROP TABLE IF EXISTS exercises;`);
-    await db.exec(`DROP TABLE IF EXISTS users;`);
-    await db.exec(`DROP TABLE IF EXISTS login_events;`);
-    await db.exec(`DROP TABLE IF EXISTS lobbies;`);
-    await db.exec(`DROP TABLE IF EXISTS lobby_players;`);
-    await db.exec(`DROP TABLE IF EXISTS games;`);
+  await db.exec(`DROP TABLE IF EXISTS exercises;`);
+  await db.exec(`DROP TABLE IF EXISTS users;`);
+  await db.exec(`DROP TABLE IF EXISTS login_events;`);
+  await db.exec(`DROP TABLE IF EXISTS lobbies;`);
+  await db.exec(`DROP TABLE IF EXISTS lobby_players;`);
+  await db.exec(`DROP TABLE IF EXISTS games;`);
 }
 
 await db.exec(` 
@@ -39,6 +39,6 @@ await db.exec(`
 `);
 
 if (deleteMode) {
-    await seedDefaultGames();
-    await seedDefaultUsers();
+  await seedDefaultGames();
+  await seedDefaultUsers();
 }
