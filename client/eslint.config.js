@@ -1,29 +1,14 @@
-import { fileURLToPath } from "node:url";
-import { includeIgnoreFile } from "@eslint/compat";
 import js from "@eslint/js";
-import svelte from "eslint-plugin-svelte";
 import globals from "globals";
-import svelteConfig from "./svelte.config.js";
+import css from "@eslint/css";
+import { defineConfig } from "eslint/config";
 
-const gitignorePath = fileURLToPath(new URL("./.gitignore", import.meta.url));
-
-/** @type {import('eslint').Linter.Config[]} */ export default [
-  includeIgnoreFile(gitignorePath),
-  js.configs.recommended,
-  ...svelte.configs.recommended,
-
+export default defineConfig([
   {
-    languageOptions: { globals: { ...globals.browser, ...globals.node } },
+    files: ["**/*.{js,mjs,cjs}"],
+    plugins: { js },
+    extends: ["js/recommended"],
+    languageOptions: { globals: globals.browser },
   },
-
-  {
-    files: ["**/*.svelte", "**/*.svelte.js"],
-    languageOptions: { parserOptions: { svelteConfig } },
-  },
-  {
-    rules: {
-      "no-unused-vars": "warn",
-      "no-undef": "warn",
-    },
-  },
-];
+  { files: ["**/*.css"], plugins: { css }, language: "css/css", extends: ["css/recommended"] },
+]);
