@@ -5,7 +5,7 @@ let socketInstance = null;
 export function connectSocket() {
     if (!socketInstance) {
         socketInstance = io("http://localhost:8080", {
-            withCredentials: true
+            withCredentials: true,
         });
     } else if (!socketInstance.connected && !socketInstance.connecting) {
         socketInstance.connect();

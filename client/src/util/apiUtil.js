@@ -1,13 +1,13 @@
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8080";
 
 export async function fetchJson(path, options = {}, getResponse = false) {
     const response = await fetch(`${API_BASE}${path}`, {
-        credentials: 'include',
+        credentials: "include",
         headers: {
-            'Content-Type': 'application/json',
-            ...(options.headers || {})
+            "Content-Type": "application/json",
+            ...(options.headers || {}),
         },
-        ...options
+        ...options,
     });
 
     if (getResponse) {
@@ -15,7 +15,11 @@ export async function fetchJson(path, options = {}, getResponse = false) {
     }
 
     if (!response.ok) {
-        throw new Error(await response.json().then(data => data.error) || response.statusText || 'Request failed');
+        throw new Error(
+            (await response.json().then((data) => data.error)) ||
+                response.statusText ||
+                "Request failed"
+        );
     }
 
     const data = await response.json();

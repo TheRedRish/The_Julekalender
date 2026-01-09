@@ -11,36 +11,36 @@ import { gameRoutes } from "../games/index.js";
 const baseRoutes = [
     {
         path: "/",
-        Component: FrontPage
+        Component: FrontPage,
     },
     {
         path: "/lobbies",
-        Component: LobbyOverview
+        Component: LobbyOverview,
     },
     {
         path: "/login",
-        Component: LoginForm
+        Component: LoginForm,
     },
     {
         path: "/register",
-        Component: RegisterForm
+        Component: RegisterForm,
     },
     {
         path: "/forgot-password",
-        Component: ForgotPasswordForm
+        Component: ForgotPasswordForm,
     },
     {
         path: "/profile",
         Component: ProfilePage,
-        requiresAuth: true
+        requiresAuth: true,
     },
     {
         path: "/lobby/:id",
         Component: LobbyPage,
         withParams: true,
         requiresAuth: true,
-        requiresLobbyMember: false // Here to stop TS from complaining
-    }
+        requiresLobbyMember: false, // Here to stop TS from complaining
+    },
 ];
 
 export const routes = [...baseRoutes, ...gameRoutes];

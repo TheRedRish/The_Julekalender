@@ -5,7 +5,7 @@ const defaultOptions = {
     newestOnTop: true,
     progressBar: true,
     positionClass: "toast-top-right",
-    timeOut: 3000
+    timeOut: 3000,
 };
 
 function show(type, message, title) {
