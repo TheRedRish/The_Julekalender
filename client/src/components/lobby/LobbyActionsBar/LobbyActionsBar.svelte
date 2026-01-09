@@ -13,7 +13,7 @@
     isLeader = false,
   } = $props();
 
-  const isInGame = $derived(lobby.status === "In game");
+  const isInGame = $derived(lobby.status === "In Game");
   const isJoinLobbyButtonDisabled = $derived(isInGame || isFull);
   const joinLobbyButtonText = $derived(isInGame ? "In game" : isFull ? "Full" : "Join lobby");
 </script>
