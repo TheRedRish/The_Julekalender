@@ -11,7 +11,7 @@
   let sound = null;
 
   const blurTimers = [];
-  const blurTimeSecs = 10;
+  const blurTimeSecs = 5;
   const blurAmount = $derived(Math.min(blurStacks * 1.5, 12));
 
   let currentImageKey = $state("base");
