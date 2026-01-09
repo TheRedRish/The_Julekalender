@@ -215,35 +215,5 @@
 </div>
 
 <style>
-  .scene {
-    height: calc(100vh - 56px);
-  }
-
-  .scene svg {
-    height: 100%;
-    width: auto;
-    display: block;
-    margin: 0 auto;
-    transition: filter 180ms ease;
-  }
-
-  .hotspot {
-    fill: rgba(255, 255, 255, 0);
-    stroke: none;
-    pointer-events: all;
-    cursor: pointer;
-  }
-
-  .hotspot:focus,
-  .hotspot:focus-visible {
-    outline: none;
-  }
-
-  .hotspot--inactive {
-    pointer-events: none;
-  }
-
-  .hotspot--disabled {
-    cursor: not-allowed;
-  }
+  @import "./Cave.css";
 </style>

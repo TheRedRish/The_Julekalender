@@ -1,5 +1,5 @@
 <script>
-  import GameCanvas from "./components/GameCanvas.svelte";
+  import Cave from "./components/Cave/Cave.svelte";
 </script>
 
-<GameCanvas />
+<Cave />
