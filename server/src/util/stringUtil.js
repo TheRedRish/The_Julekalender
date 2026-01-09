@@ -1,6 +1,5 @@
 export function randomString(length) {
-    const chars =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     let result = "";
 
@@ -22,7 +21,7 @@ export function randomThreeWordName() {
         "Cozy",
         "Silent",
         "Wild",
-        "Clever"
+        "Clever",
     ];
 
     const nouns = [
@@ -35,19 +34,10 @@ export function randomThreeWordName() {
         "Goose",
         "Snow",
         "Machine",
-        "Lamp"
+        "Lamp",
     ];
 
-    const extras = [
-        "Club",
-        "Crew",
-        "Squad",
-        "Gang",
-        "Team",
-        "Party",
-        "Group",
-        "Mission"
-    ];
+    const extras = ["Club", "Crew", "Squad", "Gang", "Team", "Party", "Group", "Mission"];
 
     function pick(arr) {
         return arr[Math.floor(Math.random() * arr.length)];

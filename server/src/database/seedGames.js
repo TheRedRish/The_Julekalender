@@ -8,9 +8,13 @@ export function getDefaultGameId() {
 
 export async function seedDefaultGames() {
     for (const game of gameModules) {
-        await db.run(
-            gameQueries.insertOrIgnore,
-            [game.id, game.name, game.description, game.min_players, game.max_players, game.display_order]
-        );
+        await db.run(gameQueries.insertOrIgnore, [
+            game.id,
+            game.name,
+            game.description,
+            game.min_players,
+            game.max_players,
+            game.display_order,
+        ]);
     }
 }

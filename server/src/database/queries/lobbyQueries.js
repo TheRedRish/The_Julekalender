@@ -92,5 +92,5 @@ export const lobbyQueries = {
     UPDATE lobbies
     SET owner_id = ?
     WHERE id = ?
-  `
+  `,
 };

@@ -8,7 +8,7 @@ export const snowballShowdownModule = {
     min_players: 2,
     max_players: 6,
     display_order: 2,
-    router
+    router,
 };
 
 export default snowballShowdownModule;

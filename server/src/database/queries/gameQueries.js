@@ -23,5 +23,5 @@ export const gameQueries = {
         SELECT id, name, description, min_players, max_players, display_order
         FROM games
         WHERE id = ?;
-    `
+    `,
 };
