@@ -40,20 +40,7 @@
   <div class="header__container">
     <div class="header__branding">
       <Link to={logoLink} class="header__logo">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="header__logo-icon"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 2l3 5h-2l4 6h-3l5 7H5l5-7H7l4-6H9l3-5z"
-          />
-        </svg>
+        <img src="/TheJulekalenderIcon.png" alt="Julekalender logo" class="header__logo-image" />
       </Link>
 
       <div class="header__title-group">

@@ -11,6 +11,7 @@
     params,
     requiresAuth = false,
     requiresLobbyMember = false,
+    isGame = false,
   } = $props();
 
   const isAuthed = $derived(!!$userStore);
@@ -21,12 +22,13 @@
       : $lobbyStore.find((lobby) => lobby.id === lobbyId)
   );
   const isLobbyMember = $derived(
-    lobbyFromStore.players.some((player) => player.id === $userStore.id)
+    lobbyFromStore?.players?.some((player) => player.id === $userStore.id)
   );
+  const gameHasStarted = $derived(lobbyFromStore?.status === "In game");
 </script>
 
 {#if !requiresAuth || isAuthed}
-  {#if !requiresLobbyMember || isLobbyMember}
+  {#if (!requiresLobbyMember || isLobbyMember) && (!isGame || gameHasStarted)}
     <Component {params} />
   {:else}
     <Modal open={true} onClose={() => navigate("/lobbies")}>

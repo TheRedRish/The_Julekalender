@@ -5,6 +5,7 @@
 .header {
   z-index: 1000;
   width: 100%;
+  max-height: 56px;
   background: var(--color-surface-muted);
   border-bottom: 1px solid var(--color-border);
 }
@@ -31,18 +32,24 @@
 .header__branding :global(.header__logo) {
   width: 36px;
   height: 36px;
-  background: var(--color-primary);
-  color: var(--color-text-inverse);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  overflow: hidden;
 }
 
 .header__logo-icon {
   width: 18px;
   height: 18px;
+}
+
+.header__branding :global(.header__logo-image) {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .header__title-group {

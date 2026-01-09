@@ -25,6 +25,7 @@
           {params}
           requiresAuth={route.requiresAuth}
           requiresLobbyMember={route.requiresLobbyMember}
+          isGame={route.isGame ?? false}
         />
       </Route>
     {/each}
