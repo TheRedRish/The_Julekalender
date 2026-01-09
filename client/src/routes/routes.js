@@ -9,38 +9,38 @@ import ProfilePage from "../pages/ProfilePage/ProfilePage.svelte";
 import { gameRoutes } from "../games/index.js";
 
 const baseRoutes = [
-  {
-    path: "/",
-    Component: FrontPage,
-  },
-  {
-    path: "/lobbies",
-    Component: LobbyOverview,
-  },
-  {
-    path: "/login",
-    Component: LoginForm,
-  },
-  {
-    path: "/register",
-    Component: RegisterForm,
-  },
-  {
-    path: "/forgot-password",
-    Component: ForgotPasswordForm,
-  },
-  {
-    path: "/profile",
-    Component: ProfilePage,
-    requiresAuth: true,
-  },
-  {
-    path: "/lobby/:id",
-    Component: LobbyPage,
-    withParams: true,
-    requiresAuth: true,
-    requiresLobbyMember: false, // Here to stop TS from complaining
-  },
+    {
+        path: "/",
+        Component: FrontPage,
+    },
+    {
+        path: "/lobbies",
+        Component: LobbyOverview,
+    },
+    {
+        path: "/login",
+        Component: LoginForm,
+    },
+    {
+        path: "/register",
+        Component: RegisterForm,
+    },
+    {
+        path: "/forgot-password",
+        Component: ForgotPasswordForm,
+    },
+    {
+        path: "/profile",
+        Component: ProfilePage,
+        requiresAuth: true,
+    },
+    {
+        path: "/lobby/:id",
+        Component: LobbyPage,
+        withParams: true,
+        requiresAuth: true,
+        requiresLobbyMember: false, // Here to stop TS from complaining
+    },
 ];
 
 export const routes = [...baseRoutes, ...gameRoutes];

@@ -1,5 +1,5 @@
 export const lobbyQueries = {
-  createSchema: (defaultGameId) => `
+    createSchema: (defaultGameId) => `
     CREATE TABLE lobbies (
       id TEXT PRIMARY KEY,
       owner_id INTEGER NOT NULL,
@@ -27,7 +27,7 @@ export const lobbyQueries = {
       ON lobby_players (user_id);
   `,
 
-  insertLobby: `
+    insertLobby: `
     INSERT INTO lobbies (
       id, owner_id, name, game_id, status,
       password
@@ -35,18 +35,18 @@ export const lobbyQueries = {
     VALUES (?, ?, ?, ?, ?, ?)
   `,
 
-  insertLobbyPlayer: `
+    insertLobbyPlayer: `
     INSERT OR IGNORE INTO lobby_players (lobby_id, user_id)
     VALUES (?, ?)
   `,
 
-  getLobbyById: `
+    getLobbyById: `
     SELECT *
     FROM lobbies
     WHERE id = ?
   `,
 
-  getLobbyPlayers: `
+    getLobbyPlayers: `
     SELECT u.id, u.username
     FROM lobby_players lp
     JOIN users u ON u.id = lp.user_id
@@ -54,41 +54,41 @@ export const lobbyQueries = {
     ORDER BY u.id ASC
   `,
 
-  getAllLobbies: `
+    getAllLobbies: `
     SELECT *
     FROM lobbies
     ORDER BY created_at DESC
   `,
 
-  deleteLobbyPlayer: `
+    deleteLobbyPlayer: `
     DELETE FROM lobby_players
     WHERE lobby_id = ? AND user_id = ?
   `,
 
-  countLobbyPlayers: `
+    countLobbyPlayers: `
     SELECT COUNT(*) AS count
     FROM lobby_players
     WHERE lobby_id = ?
   `,
 
-  deleteLobby: `
+    deleteLobby: `
     DELETE FROM lobbies
     WHERE id = ?
   `,
 
-  updateLobbyStatus: `
+    updateLobbyStatus: `
     UPDATE lobbies
     SET status = ?
     WHERE id = ?
   `,
 
-  updateLobbyByOwner: `
+    updateLobbyByOwner: `
     UPDATE lobbies
     SET name = ?, game_id = ?, password = ?
     WHERE id = ? AND owner_id = ?
   `,
 
-  updateLobbyOwner: `
+    updateLobbyOwner: `
     UPDATE lobbies
     SET owner_id = ?
     WHERE id = ?
