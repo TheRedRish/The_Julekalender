@@ -2,9 +2,15 @@ import dotenv from "dotenv/config";
 import express from "express";
 import session from "express-session";
 import cors from "cors";
+import helmet from "helmet";
 import authRouter from "./routers/authRouter.js";
 import gameRouter from "./routers/gameRouter.js";
+import http from "http";
 import { registerGameRouters } from "./games/index.js";
+import { Server } from "socket.io";
+import { registerLobbySocket } from "./sockets/lobbysocket.js";
+import { authGuardSocket } from "./util/authGuard.js";
+import { rateLimit } from "express-rate-limit";
 
 const app = express();
 
@@ -27,6 +33,27 @@ const sessionMiddleware = session({
 
 app.use(sessionMiddleware);
 
+app.use(helmet());
+
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+  standardHeaders: "draft-8", // draft-6: `RateLimit-*` headers; draft-7 & draft-8: combined `RateLimit` header
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+  ipv6Subnet: 60, // Set to 60 or 64 to be less aggressive, or 52 or 48 to be more aggressive
+});
+
+app.use(generalLimiter);
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 10,
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+});
+
+app.use("/api/auth", authLimiter);
+
 app.use(authRouter);
 app.use(gameRouter);
 registerGameRouters(app);
@@ -38,11 +65,6 @@ app.all("/{*splat}", (req, res) => {
     path: req.originalUrl,
   });
 });
-
-import http from "http";
-import { Server } from "socket.io";
-import { registerLobbySocket } from "./sockets/lobbysocket.js";
-import { authGuardSocket } from "./util/authGuard.js";
 
 const server = http.createServer(app);
 const io = new Server(server, {

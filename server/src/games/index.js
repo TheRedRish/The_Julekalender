@@ -8,6 +8,6 @@ export function registerGameRouters(app) {
     if (!module.router || !module.basePath) {
       continue;
     }
-    app.use(module.basePath, module.router);
+    app.use("/api/games" + module.basePath, module.router);
   }
 }
