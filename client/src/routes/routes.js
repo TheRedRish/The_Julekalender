@@ -17,6 +17,7 @@ const baseRoutes = [
   {
     path: "/lobbies",
     Component: LobbyOverview,
+    requiresAuth: true,
   },
   {
     path: "/login",

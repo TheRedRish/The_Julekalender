@@ -1,6 +1,6 @@
 <script>
   import { navigate } from "svelte-routing";
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import { getSocket } from "../../../sockets/socket.js";
   import { createLobby } from "../../../sockets/lobbySocket.js";
   import { gamesStore, loadGames } from "../../../stores/gameStore.js";
@@ -14,9 +14,11 @@
   const selectedGame = $derived(games.find((game) => game.id === selectedGameId));
 
   onMount(async () => {
-    const loadedGames = await loadGames();
-    if (!selectedGameId && loadedGames.length > 0) {
-      const first = loadedGames[0];
+    if (games.length === 0){
+      await loadGames();
+    }
+    if (!selectedGameId && $gamesStore.length > 0) {
+      const first = $gamesStore[0];
       selectedGameId = first.id;
     }
   });
@@ -32,6 +34,10 @@
   socket?.once("lobby:created", (lobby) => {
     navigate(`/lobby/${lobby.id}`);
   });
+
+  onDestroy(() => {
+    socket?.off("lobby:created");
+  })
 </script>
 
 <div class="create-lobby">

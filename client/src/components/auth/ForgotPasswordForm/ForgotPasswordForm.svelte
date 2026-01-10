@@ -12,7 +12,7 @@
     success = "";
 
     try {
-      await requestPasswordReset(email);
+      await requestPasswordReset(email.toLowerCase());
       success = "Password reset email sent!";
     } catch (err) {
       error = err.message || "Could not process request.";
