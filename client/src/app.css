@@ -37,6 +37,17 @@
   --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.25);
+
+  --shadow-xs-colorless: 0 1px 2px;
+  --shadow-sm-colorless: 0 2px 6px;
+  --shadow-md-colorless: 0 12px 30px;
+  --shadow-lg-colorless: 0 20px 40px;
+
+  /* Status */
+  --color-success: #0f7a3a;
+  --color-warning: #b66a00;
+  --color-danger: #b21f2d;
+  --color-info: #234b8b;
 }
 
 /* Reset */
@@ -68,4 +79,73 @@ body {
 .page {
   flex: 1;
   position: relative;
+}
+
+/* Toastr overrides */
+#toast-container > div {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm-colorless) var(--color-surface);
+}
+
+#toast-container .toast-title {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+#toast-container .toast-message {
+  line-height: 1.45;
+}
+
+#toast-container .toast-close-button {
+  color: var(--color-text-muted);
+  text-shadow: none;
+  opacity: 1;
+}
+
+#toast-container .toast-close-button:hover,
+#toast-container .toast-close-button:focus {
+  color: var(--color-text);
+}
+
+#toast-container .toast-success {
+    box-shadow: var(--shadow-sm-colorless) rgba(15, 122, 58, 0.35);
+  border-color: rgba(15, 122, 58, 0.35);
+}
+
+#toast-container .toast-success:hover {
+  box-shadow: var(--shadow-md-colorless) rgba(15, 122, 58, 0.35);
+  border-color: rgba(15, 122, 58, 0.35);
+}
+
+#toast-container .toast-info {
+  box-shadow: var(--shadow-sm-colorless) rgba(35, 75, 139, 0.35);
+  border-color: rgba(35, 75, 139, 0.35);
+}
+
+#toast-container .toast-info:hover {
+  box-shadow: var(--shadow-md-colorless) rgba(35, 75, 139, 0.35);
+  border-color: rgba(35, 75, 139, 0.35);
+}
+
+#toast-container .toast-warning {
+  box-shadow: var(--shadow-sm-colorless) rgba(182, 106, 0, 0.35);
+  border-color: rgba(182, 106, 0, 0.35);
+}
+
+#toast-container .toast-warning:hover {
+  box-shadow: var(--shadow-md-colorless) rgba(182, 106, 0, 0.35);
+  border-color: rgba(182, 106, 0, 0.35);
+}
+
+#toast-container .toast-error {
+  box-shadow: var(--shadow-sm-colorless) rgba(178, 31, 45, 0.35);
+  border-color: rgba(178, 31, 45, 0.35);
+}
+
+#toast-container .toast-error:hover {
+  box-shadow: var(--shadow-md-colorless) rgba(178, 31, 45, 0.35);
+  border-color: rgba(178, 31, 45, 0.35);
 }
