@@ -3,11 +3,9 @@ import toastr from "toastr";
 const defaultOptions = {
   closeButton: true,
   newestOnTop: true,
-  // progressBar: true,
-  positionClass: "toast-top-right",
-  // timeOut: 30000,
-  timeOut: 0,
-  extendedTimeOut: 0,
+  progressBar: true,
+  positionClass: "toast-bottom-right",
+  timeOut: 3000,
 };
 
 function show(type, message, title) {
