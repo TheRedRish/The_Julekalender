@@ -44,7 +44,7 @@ const baseRoutes = [
     requiresLobbyMember: false, // Here to stop TS from complaining
   },
   {
-    path: "*",
+    path: "/*",
     Component: NotFoundPage,
   },
 ];

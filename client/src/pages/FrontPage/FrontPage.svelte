@@ -9,7 +9,7 @@
       description: "Spin up a game room in seconds and share a short link with friends.",
     },
     {
-      title: "Private by default",
+      title: "Privacy focused",
       description: "Lock lobbies with a password so only invited players can join.",
     },
     {

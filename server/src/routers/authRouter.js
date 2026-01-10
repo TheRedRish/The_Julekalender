@@ -41,7 +41,6 @@ router.post("/api/auth/logout", (req, res) => {
 });
 
 router.get("/api/auth/session", authGuardRouter, async (req, res) => {
-  //TODO Do you still need this?
   try {
     const user = await getUserById(req.session.user.id);
     res.send({ user });

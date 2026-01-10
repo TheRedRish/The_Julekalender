@@ -3,8 +3,6 @@ import { userStore } from "../stores/userStore.js";
 import { authLoadingStore } from "../stores/loadingStore.js";
 import { connectSocket, disconnectSocket } from "../sockets/socket.js";
 
-// TODO HANDLE ERRORS
-
 export async function registerUser(email, username, password) {
   const user = await fetchJson("/api/auth/register", {
     method: "POST",
@@ -31,12 +29,8 @@ export async function requestPasswordReset(email) {
 }
 
 export async function logoutUser() {
-  try {
-    await fetchJson("/api/auth/logout", { method: "POST" });
-    handleUserLogout();
-  } catch {
-    // TODO handle error
-  }
+  await fetchJson("/api/auth/logout", { method: "POST" });
+  handleUserLogout();
 }
 
 export async function checkSession() {
