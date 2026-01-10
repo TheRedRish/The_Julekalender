@@ -2,18 +2,23 @@
   import Button from "../../ui/Button.svelte";
   import { userStore } from "../../../stores/userStore.js";
 
-  const { lobby, onGameStart = () => {} } = $props();
+  const { lobby, onGameStart = () => {}, onReconnect = () => {} } = $props();
 
   const minPlayersReached = $derived(lobby.players.length >= (lobby.game?.min_players ?? 0));
 
-  const maxPlayersText = $derived(lobby.game?.max_players ? lobby.game.max_players : "No limit");
+  const maxPlayersText = $derived(lobby.game?.max_players ?? "No limit");
   const minPlayersText = $derived(lobby.game?.min_players ?? "Unknown");
   const visibilityText = $derived(lobby.password ? "Private lobby" : "Public lobby");
+
+  const isLeader = $derived($userStore && lobby.owner_id === $userStore.id);
+  const isMember = $derived(
+    $userStore && lobby.players.some((player) => player.id === $userStore.id)
+  );
 </script>
 
 <div class="lobby-info">
   <h2 class="lobby-info__title">Lobby details</h2>
-  {#if lobby.owner_id === $userStore.id}
+  {#if isMember}
     <div class="lobby-start">
       <div class="lobby-start__content">
         <p class="lobby-start__eyebrow">Start selected game</p>
@@ -23,7 +28,13 @@
       </div>
 
       <div class="lobby-start__actions">
-        <Button text="Start game" onClick={onGameStart} disabled={!minPlayersReached} />
+        {#if lobby.status === "In Game"}
+          <Button text="Reconnect to game" onClick={onReconnect} />
+        {:else if isLeader}
+          <Button text="Start game" onClick={onGameStart} disabled={!minPlayersReached} />
+        {:else}
+          <p class="lobby-start__note">Only the lobby owner can start the game.</p>
+        {/if}
       </div>
     </div>
   {/if}

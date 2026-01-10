@@ -1,10 +1,12 @@
 import { io } from "socket.io-client";
 
+const SOCKET_BASE = import.meta.env.VITE_SOCKET_BASE || "http://localhost:8080";
+
 let socketInstance = null;
 
 export function connectSocket() {
   if (!socketInstance) {
-    socketInstance = io("http://localhost:8080", {
+    socketInstance = io(SOCKET_BASE, {
       withCredentials: true,
     });
   } else if (!socketInstance.connected && !socketInstance.connecting) {

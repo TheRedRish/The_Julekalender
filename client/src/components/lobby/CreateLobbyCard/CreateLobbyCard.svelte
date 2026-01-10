@@ -14,7 +14,7 @@
   const selectedGame = $derived(games.find((game) => game.id === selectedGameId));
 
   onMount(async () => {
-    if (games.length === 0){
+    if (games.length === 0) {
       await loadGames();
     }
     if (!selectedGameId && $gamesStore.length > 0) {
@@ -37,7 +37,7 @@
 
   onDestroy(() => {
     socket?.off("lobby:created");
-  })
+  });
 </script>
 
 <div class="create-lobby">

@@ -7,6 +7,7 @@
   import { lobbyStore, currentLobby } from "../../stores/lobbyStore.js";
   import { userStore } from "../../stores/userStore.js";
   import { gamesStore, loadGames } from "../../stores/gameStore.js";
+  import { getBasePathByGameId } from "../../games/index.js";
   import {
     joinLobby,
     leaveLobby,
@@ -148,6 +149,11 @@
   function handleGameStart() {
     startLobby(lobby.id);
   }
+
+  function handleReconnect() {
+    const basePath = getBasePathByGameId(lobby.game_id);
+    navigate(`${basePath}/${lobby.id}`);
+  }
 </script>
 
 {#if !lobby}
@@ -231,7 +237,7 @@
         onKick={handleKick}
       />
 
-      <LobbyInfoCard {lobby} onGameStart={handleGameStart} />
+      <LobbyInfoCard {lobby} onGameStart={handleGameStart} onReconnect={handleReconnect} />
     </div>
   </section>
 {/if}
