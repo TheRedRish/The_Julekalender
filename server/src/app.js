@@ -43,7 +43,13 @@ const generalLimiter = rateLimit({
   ipv6Subnet: 60, // Set to 60 or 64 to be less aggressive, or 52 or 48 to be more aggressive
 });
 
-app.use(generalLimiter);
+const generalLimiterExemptPaths = new Set(["/api/auth/session"]);
+app.use((req, res, next) => {
+  if (generalLimiterExemptPaths.has(req.path)) {
+    return next();
+  }
+  return generalLimiter(req, res, next);
+});
 
 app.use(authRouter);
 app.use(gameRouter);
