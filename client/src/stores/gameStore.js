@@ -4,7 +4,12 @@ import { fetchJson } from "../util/apiUtil";
 export const gamesStore = writable([]);
 
 export async function loadGames() {
-  const games = await fetchJson("/api/games");
-  gamesStore.set(games || []);
-  return games || [];
+  try {
+    const games = await fetchJson("/api/games");
+    gamesStore.set(games || []);
+    return games || [];
+  } catch (error) {
+    console.error("Failed to load games.", error);
+    throw error;
+  }
 }

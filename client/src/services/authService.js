@@ -4,33 +4,53 @@ import { authLoadingStore } from "../stores/loadingStore.js";
 import { connectSocket, disconnectSocket } from "../sockets/socket.js";
 
 export async function registerUser(email, username, password) {
-  const user = await fetchJson("/api/auth/register", {
-    method: "POST",
-    body: JSON.stringify({ email, username, password }),
-  });
-  handleUserLogin(user);
-  return user;
+  try {
+    const user = await fetchJson("/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify({ email, username, password }),
+    });
+    handleUserLogin(user);
+    return user;
+  } catch (error) {
+    console.error("Failed to register user.", error);
+    throw error;
+  }
 }
 
 export async function loginUser(email, password) {
-  const user = await fetchJson("/api/auth/login", {
-    method: "POST",
-    body: JSON.stringify({ email, password }),
-  });
-  handleUserLogin(user);
-  return user;
+  try {
+    const user = await fetchJson("/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
+    handleUserLogin(user);
+    return user;
+  } catch (error) {
+    console.error("Failed to log in user.", error);
+    throw error;
+  }
 }
 
 export async function requestPasswordReset(email) {
-  await fetchJson("/api/auth/forgot", {
-    method: "POST",
-    body: JSON.stringify({ email }),
-  });
+  try {
+    await fetchJson("/api/auth/forgot", {
+      method: "POST",
+      body: JSON.stringify({ email }),
+    });
+  } catch (error) {
+    console.error("Failed to request password reset.", error);
+    throw error;
+  }
 }
 
 export async function logoutUser() {
-  await fetchJson("/api/auth/logout", { method: "POST" });
-  handleUserLogout();
+  try {
+    await fetchJson("/api/auth/logout", { method: "POST" });
+    handleUserLogout();
+  } catch (error) {
+    console.error("Failed to log out user.", error);
+    throw error;
+  }
 }
 
 export async function checkSession() {
