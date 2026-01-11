@@ -1,6 +1,7 @@
 <script>
   import { registerUser } from "../../../services/authService.js";
   import { Link, navigate } from "svelte-routing";
+  import { getRedirectQueryParam, getSafeRedirect } from "../../../util/query.js";
 
   let email = $state("test1@tester.com");
   let username = $state("Tester 1");
@@ -8,6 +9,7 @@
   let password2 = $state("123456");
   let error = $state("");
   let success = $state("");
+  const redirectQuery = getRedirectQueryParam();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -17,7 +19,7 @@
     try {
       await registerUser(email, username, password);
       success = "User registered successfully!";
-      navigate("/lobbies");
+      navigate(getSafeRedirect("/lobbies"));
     } catch (err) {
       error = err.message || "Registration failed.";
     }
@@ -86,7 +88,7 @@
       </form>
 
       <div class="auth-form__links">
-        <Link to="/login" class="auth-form__link">Already have an account?</Link>
+        <Link to={`/login${redirectQuery}`} class="auth-form__link">Already have an account?</Link>
         <Link to="/forgot-password" class="auth-form__link">Need a password reset?</Link>
       </div>
     </div>

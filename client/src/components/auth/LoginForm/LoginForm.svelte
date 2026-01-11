@@ -1,11 +1,13 @@
 <script>
   import { loginUser } from "../../../services/authService.js";
   import { Link, navigate } from "svelte-routing";
+  import { getRedirectQueryParam, getSafeRedirect } from "../../../util/query.js";
 
   let email = $state("test1@tester.com");
   let password = $state("password1");
   let error = $state("");
   let success = $state("");
+  const redirectQuery = getRedirectQueryParam();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -15,7 +17,7 @@
     try {
       await loginUser(email, password);
       success = "Login successful!";
-      navigate("/lobbies");
+      navigate(getSafeRedirect("/lobbies"));
     } catch (err) {
       error = err.message || "Login failed.";
     }
@@ -71,7 +73,7 @@
 
       <div class="auth-form__links">
         <Link to="/forgot-password" class="auth-form__link">Forgot password?</Link>
-        <Link to="/register" class="auth-form__link">Create account</Link>
+        <Link to={`/register${redirectQuery}`} class="auth-form__link">Create account</Link>
       </div>
     </div>
   </div>

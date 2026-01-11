@@ -1,15 +1,16 @@
 <script>
   import { navigate } from "svelte-routing";
+  import { buildRedirectQuery } from "../../../util/query.js";
 
   const loginPath = "/login";
   const registerPath = "/register";
 
   function goToLogin() {
-    navigate(loginPath);
+    navigate(`${loginPath}${buildRedirectQuery()}`);
   }
 
   function goToRegister() {
-    navigate(registerPath);
+    navigate(`${registerPath}${buildRedirectQuery()}`);
   }
 </script>
 
