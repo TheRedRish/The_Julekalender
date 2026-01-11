@@ -45,15 +45,6 @@ const generalLimiter = rateLimit({
 
 app.use(generalLimiter);
 
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  limit: 10,
-  standardHeaders: "draft-8",
-  legacyHeaders: false,
-});
-
-app.use("/api/auth", authLimiter);
-
 app.use(authRouter);
 app.use(gameRouter);
 registerGameRouters(app);
